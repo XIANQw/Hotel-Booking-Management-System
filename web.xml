@@ -28,21 +28,31 @@
   </description>
 
   <servlet>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>jar.servlet.Login</servlet-class>
+    <servlet-name>Service</servlet-name>
+    <servlet-class>jar.servlet.Service</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/Login</url-pattern>
+    <servlet-name>Service</servlet-name>
+    <url-pattern>/Service</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>Signup</servlet-name>
-    <servlet-class>jar.servlet.Signup</servlet-class>
+    <servlet-name>Client</servlet-name>
+    <servlet-class>jar.servlet.Client</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Signup</servlet-name>
-    <url-pattern>/Signup</url-pattern>
+    <servlet-name>Client</servlet-name>
+    <url-pattern>/Client</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Gopage</servlet-name>
+    <servlet-class>jar.servlet.Gopage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Gopage</servlet-name>
+    <url-pattern>/Gopage</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>
