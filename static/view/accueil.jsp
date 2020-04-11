@@ -19,7 +19,7 @@
         <%}%>
         <div id="zoneLogin">
             <h3>login</h3>
-            <form action="${pageContext.request.contextPath}/Service?method=Login" method="post">
+            <form action="${pageContext.request.contextPath}/Client?method=Login" method="post">
                 <div class="form-group">
                     <label for="id_username">username: </label>
                     <input type="text" name="username" class="form-control" id="id_username" placeholder="login" autofocus
@@ -39,7 +39,7 @@
         </div>
         <div id="zoneSignUp" style="display:none">
             <h3>sign up</h3>
-            <form action="${pageContext.request.contextPath}/Service?method=Signup" method="post">
+            <form action="${pageContext.request.contextPath}/Client?method=Signup" method="post">
                 <div class="form-group">
                     <label for="id_nom">Username: </label>
                     <input type="text" name="username" class="form-control" id="id_nom" placeholder="nom"

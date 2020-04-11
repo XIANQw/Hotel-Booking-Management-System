@@ -9,4 +9,4 @@ install:
 	cp web.xml $(DIR_SERV)/WEB-INF/
 
 clean:
-	rm $(DIR_SERV_CLASS)/jar/*
+	rm -r $(DIR_SERV_CLASS)/jar/*
