@@ -28,6 +28,15 @@
   </description>
 
   <servlet>
+    <servlet-name>Service</servlet-name>
+    <servlet-class>jar.servlet.Service</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Service</servlet-name>
+    <url-pattern>/Service</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>jar.servlet.Login</servlet-class>
   </servlet>
@@ -44,5 +53,16 @@
     <servlet-name>Signup</servlet-name>
     <url-pattern>/Signup</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>jar.servlet.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+
+
 
 </web-app>

@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!--    index.html-->
     <title>accueil</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,7 +9,6 @@
     <script src="/microproject/static/js/popper.js"></script>
     <script src="/microproject/static/js/bootstrap.min.js"></script>
     <script src='/microproject/static/js/page.js'></script>
-    <title>login</title>
 </head>
 <body>
 <div class="container">
@@ -21,7 +19,7 @@
         <%}%>
         <div id="zoneLogin">
             <h3>login</h3>
-            <form action="http://localhost:8080/microproject/Login" method="post">
+            <form action="${pageContext.request.contextPath}/Service?method=Login" method="post">
                 <div class="form-group">
                     <label for="id_username">username: </label>
                     <input type="text" name="username" class="form-control" id="id_username" placeholder="login" autofocus
@@ -41,7 +39,7 @@
         </div>
         <div id="zoneSignUp" style="display:none">
             <h3>sign up</h3>
-            <form action="http://localhost:8080/microproject/Signup" method="post">
+            <form action="${pageContext.request.contextPath}/Service?method=Signup" method="post">
                 <div class="form-group">
                     <label for="id_nom">Username: </label>
                     <input type="text" name="username" class="form-control" id="id_nom" placeholder="nom"

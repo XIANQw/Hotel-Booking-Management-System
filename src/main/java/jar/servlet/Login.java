@@ -31,7 +31,9 @@ public class Login extends HttpServlet{
             req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
             return ;
         }
-        info="Welcome [" + username + "] !!!"; type = "succes";
+        info="Welcome [" + username + "] !!!"; type = "success";
+        HttpSession session = req.getSession();
+        session.setAttribute("user", user);
         req.setAttribute("users", users);
         req.setAttribute("type", type);
         req.setAttribute("info", info);
