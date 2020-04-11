@@ -38,14 +38,12 @@ public class Service extends HttpServlet {
 		String checkout = req.getParameter("checkout");
 		String numPeople = req.getParameter("nb");
 		String type = req.getParameter("type");
-		String level = req.getParameter("level");
 		String smoker = req.getParameter("smoker");
 		String info = destination + " " +
 			checkin + " " + 
 			checkout + " " +
 			numPeople + " " +
 			type + " " +
-			level + " " +
 			smoker;
 		req.setAttribute("info", info);
 		req.setAttribute("type", "success");

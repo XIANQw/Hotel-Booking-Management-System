@@ -64,24 +64,13 @@
                             <input name="type" id="id_room" value="room" type="radio" checked>Room
                             <input name="type" id="id_house" value="house" type="radio"/>House
                         </div>
-                        <div id="optionRoom">
-                            <div class="form-group">
-                                <label>Level: </label>
-                                <select name="level" id="id_level" class="form-control"
-                                        placeholder="room's level" required>
-                                    <option value="Standard">Standard</option>
-                                    <option value="Premium">Premium</option>
-                                    <option value="President">President</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Smoker: </label>
-                                <select name="smoker" id="id_smoker" class="form-control"
-                                        placeholder="room's type" required>
-                                    <option value="Smoker">Yes</option>
-                                    <option value="No Smoker">No</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label>Smoker: </label>
+                            <select name="smoker" id="id_smoker" class="form-control"
+                                    placeholder="room's type" required>
+                                <option value="Smoker">Yes</option>
+                                <option value="No Smoker">No</option>
+                            </select>
                         </div>
                     </div>
                 </div>

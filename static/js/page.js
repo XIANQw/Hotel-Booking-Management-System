@@ -3,8 +3,8 @@ $(function(){
    $("#ModeSignUp").click(ModeSignUp);
    $('#ModeCreation').click(gotoCreationRessource);
    $('#quitCreation').click(quitCreationRessource);
-   $('#id_room').click(gotoCreationRoom)
-   $('#id_house').click(gotoCreationHouse);
+  //  $('#id_room').click(gotoCreationRoom)
+  //  $('#id_house').click(gotoCreationHouse);
    $('#gotoRes').click(gotoRes);
    $('#gotoUsers').click(gotoUser);
    $('#gotoCreateDemande').click(gotoCreateDemande);
