@@ -20,10 +20,10 @@
                 <div class="navbar-header"><a class="navbar-brand">${user.username}</a></div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li><a href="/Gopage?mainPage">Home</a></li>
-                        <li><a href="/Gopage?profile" class="text-success">Profile</a></li>
-                        <li><a href="/Service?Demandes&id=${user.id}" class="text-success">Commandes</a></li>
-                        <li><a href="/Service?Demandes&id=${user.id}" class="text-success">Your houses</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Gopage?page=profile" class="text-success">Profile</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?Demandes&id=${user.id}" class="text-success">Commandes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?Demandes&id=${user.id}" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Deconnexion</a></li>
                     </ul>
                 </div>

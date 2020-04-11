@@ -1,0 +1,80 @@
+<!--modifyRes.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--modifyRes.html-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/popper.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src='/static/js/page.js'></script>
+    <title>modify ressource{{res.id}}</title>
+</head>
+<body>
+<div class="container">
+    <div id="modifyRessource">
+        <form action="/gestionnaire/modifyRes/" method="post">{% csrf_token %}
+            <input type="text" name="id" value="{{res.id}}" style="display: none"/>
+            <div class="form-group">
+                <label for="id_modify_numero">Numero: </label>
+                <input type="text" name="numero" value="{{res.numero}}" id="id_modify_numero" class="form-control"
+                       placeholder="numero de ressource" required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Prix: </label>
+                <input type="number" name="prix" value="{{res.prix}}" class="form-control" placeholder="prix"
+                       required="required"/>
+            </div>
+            <div class="form-group">
+                <label>Type: </label>
+                <input name="type" id="id_chambre1" value="Chambre" type="radio" checked>Chambre
+                <input name="type" id="id_SDC1" value="SalleDeConference" type="radio"/>Salle de conference
+            </div>
+            <div id="optionCh1">
+                <div class="form-group">
+                    <label for="id_taille">Taille: </label>
+                    <select name="taille" id="id_taille" value="{{type}}" class="form-control"
+                            placeholder="type de ressource" required>
+                        <option value="Simple">Chambre Simple</option>
+                        <option value="Double">Chambre Double</option>
+                        <option value="Famille">Chambre Famille</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Niveau: </label>
+                    <select name="niveau" id="id_niveau" value="{{niveau}}" class="form-control"
+                            placeholder="type de ressource" required>
+                        <option value="Standard">Standard</option>
+                        <option value="Premium">Premium</option>
+                        <option value="President">President</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Fumeurs: </label>
+                    <select name="fumeur" id="id_fumeur" value="{{fumeur}}" class="form-control"
+                            placeholder="type de ressource" required>
+                        <option value="Fumeur">Oui</option>
+                        <option value="Non Fumeur">Non</option>
+                    </select>
+                </div>
+            </div>
+            <div id="optionSDC1" class="form-group" style="display: none">
+                <label for="id_tailleSDC">Taille: </label>
+                <select name="tailleSDC" id="id_tailleSDC" class="form-control" placeholder="type de ressource"
+                        required>
+                    <option value="Moyenne">Moyenne (10 personnes)</option>
+                    <option value="Grande">Grande (20 personnes)</option>
+                    <option value="Petite">Petite (5 personnes)</option>
+                </select>
+            </div>
+            <a type="button" href="/consulterRes/?id={{res.id}}" class="btn btn-primary">Annuler</a>
+            <button type="submit" class="btn btn-primary float-right">Modifier</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
