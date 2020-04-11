@@ -26,7 +26,9 @@ public class Client extends HttpServlet{
 		} else if ("Logout".equals(method)) {
 			logout(req, resp);
 		} else {
-			return ;
+			req.setAttribute("type", "danger");
+			req.setAttribute("info", "undefine " + method);
+			req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
 		} 
     }
 
@@ -82,7 +84,7 @@ public class Client extends HttpServlet{
         user.setUsername(username);
         user.setPassword(password);
         UserDao.saveUser(user);
-        req.getRequestDispatcher("Login").forward(req, resp);
+        req.getRequestDispatcher("Client?method=Login").forward(req, resp);
     }
 
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{

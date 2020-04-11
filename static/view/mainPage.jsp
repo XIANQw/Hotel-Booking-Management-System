@@ -22,9 +22,9 @@
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=profile" class="text-success">Profile</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?Demandes&id=${user.id}" class="text-success">Commandes</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?Demandes&id=${user.id}" class="text-success">Your houses</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Deconnexion</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes&id=${user.id}" class="text-success">Commandes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getRessources&id=${user.id}" class="text-success">Your houses</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,7 +36,7 @@
 
         <div id="createDemande">
             <legend>Get a house or room</legend>
-            <form action="/Service?createDemande/" method="post">
+            <form action="${pageContext.request.contextPath}/Service?method=createSearch" method="post">
                 <div id="inputDemande">
                     <div id="plan1">
                         <div class="form-group">
@@ -46,17 +46,17 @@
                         </div>
                         <div class="form-group">
                             <label>Check in date</label>
-                            <input name="checkin1" type="date" class="form-control" required
+                            <input name="checkin" type="date" class="form-control" required
                                    placeholder="checkin date"/>
                         </div>
                         <div class="form-group">
                             <label>Check out date</label>
-                            <input name="checkout1" type="date" class="form-control" required
+                            <input name="checkout" type="date" class="form-control" required
                                    placeholder="checkout date"/>
                         </div>
                         <div class="form-group">
                             <label>Number of people</label>
-                            <input name="nb1" type="number" class="form-control" required
+                            <input name="nb" type="number" class="form-control" required
                                    placeholder="How many people ?"/>
                         </div>
                         <div class="form-group">
@@ -64,7 +64,7 @@
                             <input name="type" id="id_room" value="room" type="radio" checked>Room
                             <input name="type" id="id_house" value="house" type="radio"/>House
                         </div>
-                        <div id="optionCh1">
+                        <div id="optionRoom">
                             <div class="form-group">
                                 <label>Level: </label>
                                 <select name="level" id="id_level" class="form-control"

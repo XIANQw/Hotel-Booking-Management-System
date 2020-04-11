@@ -2,17 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>ressource</title>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-
-    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/popper.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src='/static/js/page.js'></script>
-    <script src='/static/js/ressource.js'></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/ressource.css">
-    <title>{{res.id}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/microproject/static/css/bootstrap.min.css">
+    <script src="/microproject/static/js/jquery.min.js"></script>
+    <script src="/microproject/static/js/popper.js"></script>
+    <script src="/microproject/static/js/bootstrap.min.js"></script>
+    <script src='/microproject/static/js/page.js'></script>
 </head>
 <body>
 <div class="container">
