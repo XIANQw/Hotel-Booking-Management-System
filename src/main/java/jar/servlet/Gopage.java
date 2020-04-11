@@ -22,7 +22,7 @@ public class Gopage extends HttpServlet{
 		if ("mainPage".equals(page)) {
             mainPage(req, resp);
 		} else if ("profile".equals(page)) {
-			      profile(req, resp);
+			profile(req, resp);
 		} else {
 			return ;
 		}
