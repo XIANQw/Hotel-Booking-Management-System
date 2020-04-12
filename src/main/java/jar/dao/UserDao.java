@@ -38,7 +38,7 @@ public class UserDao {
                 String password = res.getString(3);
                 UserBean tmp = new UserBean();
                 tmp.setId(res.getInt(1));
-                tmp.setUsername(username); 
+                tmp.setUsername(username);
                 tmp.setPassword(password);
                 users.put(username, tmp);
             }

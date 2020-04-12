@@ -15,12 +15,20 @@ public class Service extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req,
+<<<<<<< HEAD
 			HttpServletResponse resp) throws ServletException, IOException { 
+=======
+			HttpServletResponse resp) throws ServletException, IOException {
+>>>>>>> wang
 		String method = req.getParameter("method");
 		if ("createSearch".equals(method)){
 			createSearch(req, resp);
 		}else if ("getCommandes".equals(method)) {
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> wang
 		} else if ("getRessources".equals(method)){
 			getRessource(req, resp);
 		} else if ("createRessource".equals(method)){
@@ -33,7 +41,11 @@ public class Service extends HttpServlet {
 		}
 	}
 
+<<<<<<< HEAD
 	private void createSearch(HttpServletRequest req, 
+=======
+	private void createSearch(HttpServletRequest req,
+>>>>>>> wang
 	HttpServletResponse resp) throws ServletException, IOException{
 		String destination = req.getParameter("destination");
 		String checkin = req.getParameter("checkin");
@@ -42,7 +54,11 @@ public class Service extends HttpServlet {
 		String type = req.getParameter("type");
 		String smoker = req.getParameter("smoker");
 		String info = destination + " " +
+<<<<<<< HEAD
 			checkin + " " + 
+=======
+			checkin + " " +
+>>>>>>> wang
 			checkout + " " +
 			numPeople + " " +
 			type + " " +
@@ -63,7 +79,11 @@ public class Service extends HttpServlet {
 		req.getRequestDispatcher("/static/view/ressources.jsp").forward(req, resp);
 	}
 
+<<<<<<< HEAD
 	private void createRessource(HttpServletRequest req, 
+=======
+	private void createRessource(HttpServletRequest req,
+>>>>>>> wang
 	HttpServletResponse resp) throws ServletException, IOException{
 		HttpSession session = req.getSession(false);
 		if(!Client.sessionValide(req, resp)){;
@@ -81,16 +101,27 @@ public class Service extends HttpServlet {
 		String smoker = req.getParameter("smoker");
 		int owner = ((UserBean)session.getAttribute("user")).getId();
 		RessourceBean ress = new RessourceBean();
+<<<<<<< HEAD
 		ress.setType(type); 
 		ress.setPrice(price); 
 		ress.setNumber(number); 
 		ress.setStreet(street); 
+=======
+		ress.setType(type);
+		ress.setPrice(price);
+		ress.setNumber(number);
+		ress.setStreet(street);
+>>>>>>> wang
 		ress.setPostal(postal);
 		ress.setCity(city);
 		ress.setPersons(persons);
 		ress.setSmoker(smoker);
 		String info = ress.getType() + " " +
+<<<<<<< HEAD
 			ress.getPrice() + " " + 
+=======
+			ress.getPrice() + " " +
+>>>>>>> wang
 			ress.getNumber() + " " +
 			ress.getStreet() + " " +
 			ress.getPostal() + " " +
@@ -104,4 +135,8 @@ public class Service extends HttpServlet {
 		req.getRequestDispatcher("Service?method=getRessources").forward(req, resp);
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> wang

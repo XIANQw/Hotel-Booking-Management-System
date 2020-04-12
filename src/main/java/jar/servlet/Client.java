@@ -29,11 +29,19 @@ public class Client extends HttpServlet{
 			req.setAttribute("type", "danger");
 			req.setAttribute("info", "undefine " + method);
 			req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+<<<<<<< HEAD
 		} 
     }
 
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username").trim();   
+=======
+		}
+    }
+
+    public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username").trim();
+>>>>>>> wang
         String password = req.getParameter("password").trim();
         HashMap<String, UserBean> users = UserDao.getUsers();
         String info, type;
@@ -62,7 +70,11 @@ public class Client extends HttpServlet{
     }
 
     public void signup(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+<<<<<<< HEAD
         String username = req.getParameter("username").trim();   
+=======
+        String username = req.getParameter("username").trim();
+>>>>>>> wang
         String password = req.getParameter("password").trim();
         String info, type;
         if(username==null || username.equals("")){
@@ -106,4 +118,8 @@ public class Client extends HttpServlet{
         return true;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> wang

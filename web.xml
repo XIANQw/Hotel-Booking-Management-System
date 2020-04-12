@@ -43,6 +43,18 @@
   <servlet-mapping>
     <servlet-name>Client</servlet-name>
     <url-pattern>/Client</url-pattern>
+<<<<<<< HEAD
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Gopage</servlet-name>
+    <servlet-class>jar.servlet.Gopage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Gopage</servlet-name>
+    <url-pattern>/Gopage</url-pattern>
+=======
+>>>>>>> wang
   </servlet-mapping>
 
   <servlet>
@@ -53,5 +65,6 @@
     <servlet-name>Gopage</servlet-name>
     <url-pattern>/Gopage</url-pattern>
   </servlet-mapping>
+
 
 </web-app>
