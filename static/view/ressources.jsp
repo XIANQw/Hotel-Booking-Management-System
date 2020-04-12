@@ -1,4 +1,7 @@
 <!--ressources.jsp-->
+<%@page import ="jar.bean.RessourceBean"%>
+<%@page import ="java.util.List"%>
+<%List<RessourceBean> ressources = (List<RessourceBean>)request.getAttribute("ressources");%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,8 +42,8 @@
                 <form action="${pageContext.request.contextPath}/Service?method=createRessource" method="post">
                     <div class="form-group">
                         <label>Type: </label>
-                        <input name="type" id="id_room" value="Room" type="radio" checked>Room
-                        <input name="type" id="id_house" value="House" type="radio"/>House
+                        <input name="type" id="id_room" value="room" type="radio" checked>Room
+                        <input name="type" id="id_house" value="house" type="radio"/>House
                     </div>
                     <div class="form-group">
                         <label for="id_price">Price: </label>
@@ -49,41 +52,36 @@
                     <div class="form-group">
                         <label for="id_number">Adresse: </label>
                         <input type="number" name="number" id="id_number" class="form-control"
-                               placeholder="Street number" required/>
+                                placeholder="Street number" required/>
                         <input type="text" name="street" id="id_street" class="form-control"
-                               placeholder="Street" required/>
+                                placeholder="Street" required/>
                         <input type="number" name="postal" id="id_postal" class="form-control"
-                               placeholder="Postal number" required/>
+                                placeholder="Postal number" required/>
                         <input type="text" name="city" id="id_city" class="form-control"
-                               placeholder="City" required/>
+                                placeholder="City" required/>
                     </div>
-
+                    <div class="form-group">
+                        <label>Smoker: </label>
+                        <input name="smoker" id="id_smoker" value="y" type="radio" checked>Yes
+                        <input name="smoker" id="id_no_smoker" value="n" type="radio"/>No
+                    </div>
                     <div id="optionRoom">
                         <div class="form-group">
                             <label for="id_room_type">room type: </label>
-                            <select name="room_type" id="id_room_type" class="form-control" placeholder="room type"
+                            <select id="id_room_type" name="persons_room" class="form-control" placeholder="room type"
                                     required>
-                                <option value="Simple">Simple</option>
-                                <option value="Double">Double</option>
-                                <option value="Family">Family</option>
+                                <option value="1">Simple</option>
+                                <option value="2">Double</option>
+                                <option value="3">Family</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Smoker: </label>
-                            <input name="smoker" id="id_smoker" value="y" type="radio" checked>Yes
-                            <input name="smoker" id="id_no_smoker" value="n" type="radio"/>No
-                        </div>
-                    </div>
-                    <div id="optionHouse" class="form-group" style="display: none">
-                        <label for="id_type_house">House type: </label>
-                        <select name="type_house" id="id_type_house" class="form-control" placeholder="House type"
-                                required>
-                            <option value="Small">Small (5 persons)</option>
-                            <option value="Medium">Medium (10 persons)</option>
-                            <option value="Big">Big (20 persons)</option>
-                        </select>
                     </div>
 
+                    <div id="optionHouse" class="form-group" style="display: none">
+                        <label for="id_num_room">number of room: </label>
+                        <input type="number" name="persons_house" id="id_num_room" class="form-control" 
+                            placeholder="Number of your room" require="false"/>
+                    </div>
                     <button id="quitCreation" class="btn btn-primary">Cancel</button>
                     <button type="submit" class="btn btn-primary float-right">Create</button>
                 </form>
@@ -99,10 +97,9 @@
                         <th scope="col">id</th>
                         <th scope="col">Type</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Number</th>
-                        <th scope="col">Street</th>
-                        <th scope="col">Postal</th>
-                        <th scope="col">City</th>
+                        <th scope="col">Persons</th>
+                        <th scope="col">Adresse</th>
+                        <th scope="col">Smoker</th>                       
                     </tr>
                     </thead>
                     <tbody>
@@ -115,6 +112,16 @@
                         </td>
                     </tr>
                     {% endfor %} --%>
+                    <%for(RessourceBean ress: ressources) {%>
+                    <tr>
+                        <td><%=ress.getId()%></td>
+                        <td><%=ress.getType()%></td>
+                        <td><%=ress.getPrice()%></td>
+                        <td><%=ress.getPersons()%></td>
+                        <td><%=ress.getAdresse()%></td>
+                        <td><%=ress.getSmoker()%></td>
+                    </tr>
+                    <%}%>
                     <tr>
                         <td></td>
                         <td></td>
@@ -122,8 +129,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><a id="ModeCreation" class="text-success">Add a house</a></td>
-                    </tr>
+                        <td><a id="ModeCreation" class="text-success">Add a house</a></td></tr>
                     </tbody>
                 </table>
             </fieldset>

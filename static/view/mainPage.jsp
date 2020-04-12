@@ -1,4 +1,3 @@
-<%@ page import ="java.util.HashMap"%>
 <%@ page import ="jar.bean.UserBean"%>
 <!doctype html>
 <html lang="en">
@@ -17,13 +16,13 @@
     <fieldset>
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header"><a class="navbar-brand">${user.username}</a></div>
+                <div class="navbar-header"><a class="navbar-brand">${user.getUsername()}</a></div>
                 <div>
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=profile" class="text-success">Profile</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes&id=${user.id}" class="text-success">Commandes</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getRessources&id=${user.id}" class="text-success">Your houses</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Commandes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                     </ul>
                 </div>

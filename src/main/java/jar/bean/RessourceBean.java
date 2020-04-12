@@ -3,14 +3,14 @@ package jar.bean;
 public class RessourceBean {
     private int id;
     private String type;
-    private int price;
+    private float price;
+    private int persons;
+    private String smoker;
     private int number;
     private String street;
     private int postal;
     private String city;
-    private String ressourceType;
-    private Boolean smoker;
-    private int owner;
+
 
     public RessourceBean(){}
     
@@ -26,12 +26,24 @@ public class RessourceBean {
     public void setType(String type){
         this.type = type;
     }
-    public int getPrice(){
+    public float getPrice(){
         return this.price;
     }
-    public void setPrice(int price){
+    public void setPrice(float price){
         this.price = price;
     }
+    public String getSmoker(){
+        return this.smoker;
+    }
+    public void setSmoker(String smoker){
+        this.smoker = smoker;
+    }
+    public int getPersons(){
+        return this.persons;
+    }
+    public void setPersons(int persons){
+        this.persons = persons;
+    }    
     public int getNumber(){
         return this.number;
     }
@@ -56,23 +68,9 @@ public class RessourceBean {
     public void setCity(String city){
         this.city = city;
     }
-    public boolean getSmoker(){
-        return this.smoker;
+    public String getAdresse(){
+        return this.number + " " + this.street + " " + this.city + " " + this.postal;
     }
-    public void setSmoker(boolean smoker){
-        this.smoker = smoker;
-    }
-    public String getRessourceType(){
-        return this.ressourceType;
-    }
-    public void setRessourceType(String ressourceType){
-        this.ressourceType = ressourceType;
-    }
-    public int getOwner(){
-        return this.owner;
-    }
-    public void setOwner(int owner){
-        this.owner = owner;
-    }
-    
 }
+
+
