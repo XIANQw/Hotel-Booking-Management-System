@@ -11,9 +11,9 @@ public class RessourceDao {
     public static void saveRessource(int owner, RessourceBean ress){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
-            String sql = "insert into Ressource values(0,'" + 
-                ress.getType() + "','" + 
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+            String sql = "insert into Ressource values(0,'" +
+                ress.getType() + "','" +
                 ress.getPrice() + "','"+
                 ress.getNumber() + "','"+
                 ress.getStreet() + "','"+
@@ -51,13 +51,13 @@ public class RessourceDao {
         ArrayList<RessourceBean> ressources = new ArrayList<RessourceBean>();
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql = "select * from Ressource where " + attribut + "=" + "'" + value +"';";
             System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             while(res.next()){
-                RessourceBean ress = new RessourceBean(); 
+                RessourceBean ress = new RessourceBean();
                 ress.setId(res.getInt(1));
                 ress.setType(res.getString(2));
                 ress.setPrice(res.getFloat(3));
@@ -82,7 +82,7 @@ public class RessourceDao {
         ArrayList<RessourceBean> ressources = new ArrayList<RessourceBean>();
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql = "select * from User_ressource where idu='" + owner + "';";
             System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
