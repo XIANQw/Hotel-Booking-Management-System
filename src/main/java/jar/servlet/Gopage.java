@@ -27,6 +27,15 @@ public class Gopage extends HttpServlet{
       else if("modifyAccount".equals(page)){
       modifyAccount(req,resp);
     }
+      else if("modifyRes".equals(page)){
+      modifyRes(req,resp);
+      }
+      else if("commandeList".equals(page)){
+      commandeList(req,resp);
+      }
+      else if("ressource".equals(page)){
+      ressource(req,resp);
+      }
       else {
 			     return ;
 		  }
@@ -61,6 +70,30 @@ public class Gopage extends HttpServlet{
             accueil(req, resp);
         } else{
             req.getRequestDispatcher("/static/view/modifyAccount.jsp").forward(req, resp);
+        }
+    }
+    public void modifyRes(HttpServletRequest req, HttpServletResponse resp)
+    throws IOException, ServletException{
+        if(!Client.sessionValide(req, resp)){
+            accueil(req, resp);
+        } else{
+            req.getRequestDispatcher("/static/view/modifyRes.jsp").forward(req, resp);
+        }
+    }
+    public void commandeList(HttpServletRequest req, HttpServletResponse resp)
+    throws IOException, ServletException{
+        if(!Client.sessionValide(req, resp)){
+            accueil(req, resp);
+        } else{
+            req.getRequestDispatcher("/static/view/commandeList.jsp").forward(req, resp);
+        }
+    }
+    public void ressource(HttpServletRequest req, HttpServletResponse resp)
+    throws IOException, ServletException{
+        if(!Client.sessionValide(req, resp)){
+            accueil(req, resp);
+        } else{
+            req.getRequestDispatcher("/static/view/ressource.jsp").forward(req, resp);
         }
     }
 
