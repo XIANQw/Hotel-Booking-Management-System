@@ -88,12 +88,22 @@ public class Client extends HttpServlet{
     }
 
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        HttpSession session = req.getSession(false);
-        if(session != null){
-            session.removeAttribute("user");
+        if(Client.sessionValide(req, resp)) {
+            req.getSession().removeAttribute("user");
         }
         resp.sendRedirect("http://localhost:8080/microproject/static/view/accueil.jsp");
         return ;
+    }
+
+    public static boolean sessionValide(HttpServletRequest req, HttpServletResponse resp)
+    throws ServletException, IOException{
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            req.setAttribute("info", "Session invalid, reconnect please ...");
+            req.setAttribute("type", "warning");
+            return false;
+        }
+        return true;
     }
 
 }
