@@ -22,7 +22,7 @@ public class Gopage extends HttpServlet{
             mainPage(req, resp);
 		}
       else if ("profile".equals(page)) {
-			profile(req, resp);
+		      profile(req, resp);
 		}
       else if("modifyAccount".equals(page)){
       modifyAccount(req,resp);
@@ -60,7 +60,8 @@ public class Gopage extends HttpServlet{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
         } else{
-            req.getRequestDispatcher("/static/view/profile.jsp").forward(req, resp);
+            //req.getRequestDispatcher("/static/view/profile.jsp").forward(req, resp);
+            Client.getProfile(req,resp);
         }
     }
 
@@ -70,6 +71,8 @@ public class Gopage extends HttpServlet{
             accueil(req, resp);
         } else{
             req.getRequestDispatcher("/static/view/modifyAccount.jsp").forward(req, resp);
+            //Client.modifyProfile(req,resp);
+
         }
     }
     public void modifyRes(HttpServletRequest req, HttpServletResponse resp)
