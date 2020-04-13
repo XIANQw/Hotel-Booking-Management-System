@@ -34,8 +34,9 @@
             </div>
         </div>
     </nav>
+
     {% if info %}
-    <div id="alert" class="alert alert-warning">{{info}}</div>
+     //  <div id="alert" class="alert alert-warning">{{info}}</div>  //
     {% endif %}
     <div class="container bootstrap snippet">
         <div class="row">
