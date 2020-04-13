@@ -71,8 +71,8 @@
                             <label>Smoker: </label>
                             <select name="smoker" id="id_smoker" class="form-control"
                                     placeholder="room's type" required>
-                                <option value="Smoker">Yes</option>
-                                <option value="No Smoker">No</option>
+                                <option value="y">Yes</option>
+                                <option value="n">No</option>
                             </select>
                         </div>
                     </div>

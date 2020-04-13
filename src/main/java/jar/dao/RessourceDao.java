@@ -2,6 +2,7 @@ package jar.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import jar.bean.RessourceBean;
@@ -47,12 +48,19 @@ public class RessourceDao {
         }
     }
 
-    public static List<RessourceBean> getRessourcesFrom(String attribut, String value){
+    public static List<RessourceBean> getRessourcesFrom(HashMap<String, String> attrs){
         ArrayList<RessourceBean> ressources = new ArrayList<RessourceBean>();
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
-            String sql = "select * from Ressource where " + attribut + "=" + "'" + value +"';";
+            String sql = "select * from Ressource where ";
+            for(String attr: attrs.keySet()){
+                if("persons".equals(attr))
+                    sql += "persons > " + attrs.get(attr) + " and ";
+                else
+                    sql +=  attr + "=" + "'" + attrs.get(attr) + "' and ";
+            }
+            sql += "1";
             System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
@@ -89,7 +97,9 @@ public class RessourceDao {
             ResultSet res = stmt.executeQuery(sql);
             while(res.next()){
                 String idr = res.getString(3);
-                ressources.addAll(getRessourcesFrom("id", idr));
+                HashMap<String, String> attrs = new HashMap<String, String>();
+                attrs.put("id", idr);
+                ressources.addAll(getRessourcesFrom(attrs));
             }
             return ressources;
         } catch (SQLException e){
@@ -116,6 +126,26 @@ public class RessourceDao {
             System.out.println("sql="+sql);
             if(res != 1){
                 throw new RuntimeException("error delete user_ressource ...");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void modifyRessource(RessourceBean res) {
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            String sql = "update Ressource set type='"+ res.getType() + "',price=" + res.getPrice()
+            + ",number=" + res.getNumber() + ",street='" + res.getStreet() + "', postal='" + res.getPostal()
+            + "', city='" + res.getCity() + "', persons=" + res.getPersons() + ", smoker='" + res.getSmoker() + "' where id=" + res.getId() + ";";
+            System.out.println("sql="+sql);
+            Statement stmt = con.createStatement();
+            int result = stmt.executeUpdate(sql);
+            if(result != 1){
+                throw new RuntimeException("error modify ressource ...");
             }
         } catch (SQLException e){
             e.printStackTrace();

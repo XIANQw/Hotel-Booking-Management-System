@@ -24,16 +24,17 @@
             <div>
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=modifyRessource&id=<%=res.getId()%>">modify</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Gopage?page=modifyRessource&id=<%=res.getId()%>">modify</a>
                     </li>
                     <li>
                         <a class="text-success" href="${pageContext.request.contextPath}/Service?method=deleteRessource&id=<%=res.getId()%>">delete</a>
                     </li>
                     <li>
-                    <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">back</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getRessources" >back</a>
                     </li>
                     <li>
-                        <a class="text-success" href="/gestionnaire/consulterRes/consulterDemRes/?resId={{res.id}}">Commandes of this ressource</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getCommandesFromRessource?id=<%=res.getId()%>">
+                        Commandes of this ressource</a>
                     </li>
                 </ul>
             </div>
@@ -77,11 +78,10 @@
                     {% for item in resMeu %}
                     <tr>
                         <th>{{item.nom_Meuble}}</th>
-
                         {% if request.session.username == 'root'  %}
                         <td>{{item.status}}</td>
                         <td><a class="text-success"
-                               href="/gestionnaire/consulterRes/removeMeu/?resId={{res.id}}&meuId={{item.id}}">Remove</a>
+                               href="${pageContext.request.contextPath}/Service?method=removeItem">Remove</a>
                         </td>
                         {%  endif %}
                     </tr>
@@ -110,10 +110,10 @@
                     <td>{{item.id}}</td>
                     <td>{{item.nom_Meuble}}</td>
                     <td>{{item.status}}</td>
-                    <td><a href="/gestionnaire/consulterRes/ajouterMeu/?resId={{res.id}}&meuId={{item.id}}">Add in
+                    <td><a href="${pageContext.request.contextPath}/Service?method=addItem">Add in
                         <%=res.getType()%> <%=res.getId()%></a></td>
                     <td><a class="modify" href="javascript:;">Modify</a></td>
-                    <td><a href="/gestionnaire/consulterRes/deleteMeu/?resId={{res.id}}&meuId={{item.id}}">Delete</a>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=removeItem">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -134,7 +134,7 @@
 
     <div class="row-fluid">
         <div id="creerMeubleForm" class="col-md-8 col-md-offset-4">
-            <form id="formCreerMeu" class="form-inline" action="/gestionnaire/consulterRes/creerMeuble/" method="post"
+            <form id="formCreerMeu" class="form-inline" action="${pageContext.request.contextPath}/Service?method=addItem" method="post"
                   onsubmit="check()">
                 <div class="title">
                     <p>Create an item</p><a onclick="layer.style.display=none"></a>
@@ -151,7 +151,7 @@
     </div>
 </div>
 <div class="row-fluid">
-    <form id="formModifMeu" class="form-inline" action="/gestionnaire/consulterRes/modifMeuble/" method="post"
+    <form id="formModifMeu" class="form-inline" action="${pageContext.request.contextPath}/Service?method=modifyItem" method="post"
           onsubmit="checkModif()">
         <input type='hidden' id="modifMeuNom" type="hidden" name="meuNom">
         <input type='hidden' id="modifMeuId" type="hidden" name="meuId">

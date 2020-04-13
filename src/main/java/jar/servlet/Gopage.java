@@ -2,10 +2,14 @@ package jar.servlet;
 
 import javax.servlet.http.*;
 
+import jar.bean.RessourceBean;
 import jar.bean.UserBean;
 import jar.dao.ProfileDao;
+import jar.dao.RessourceDao;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.*;
 
@@ -26,8 +30,8 @@ public class Gopage extends HttpServlet{
             Gopage.profile(req, resp);
         } else if("modifyAccount".equals(page)){
             Gopage.modifyAccount(req,resp);
-        } else if("modifyRes".equals(page)){
-            Gopage.modifyRes(req,resp);
+        } else if("modifyRessource".equals(page)){
+            Gopage.modifyRessource(req,resp);
         } else if("commandeList".equals(page)){
             Gopage.commandeList(req,resp);
         } else if("ressourceList".equals(page)){
@@ -72,12 +76,16 @@ public class Gopage extends HttpServlet{
             req.getRequestDispatcher("/static/view/modifyAccount.jsp").forward(req, resp);
         }
     }
-    public static void modifyRes(HttpServletRequest req, HttpServletResponse resp)
+    public static void modifyRessource(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
         } else{
-            req.getRequestDispatcher("/static/view/modifyRes.jsp").forward(req, resp);
+            HashMap<String, String> attrs = new HashMap<>();
+            attrs.put("id", req.getParameter("id"));
+            List<RessourceBean> ress = RessourceDao.getRessourcesFrom(attrs);
+            req.setAttribute("ressource", ress.get(0));
+            req.getRequestDispatcher("/static/view/modifyRessource.jsp").forward(req, resp);
         }
     }
     public static void commandeList(HttpServletRequest req, HttpServletResponse resp)
