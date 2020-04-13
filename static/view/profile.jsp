@@ -1,5 +1,8 @@
 <!--profile.jsp-->
 <%@ page import ="jar.bean.UserBean"%>
+<%@ page import ="jar.bean.ProfileBean"%>
+<%ProfileBean profile = (ProfileBean)request.getSession().getAttribute("profile");%>
+
 <%UserBean user = (UserBean)request.getSession().getAttribute("user");%>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,10 +34,15 @@
             </div>
         </div>
     </nav>
+
+    <%if(request.getAttribute("info")!=null) {%>
+        <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
+    <%}%>
+    
     <div class="container bootstrap snippet">
         <div class="row">
             <div class="col-sm-10">
-                <h1><%=user.getUsername()%></h1></div>
+                <h1>Bonjour <%=profile.getNom()%> <%=profile.getPrenom()%> !</h1></div>
             <div class="col-sm-2">
                 <a href="" class="pull-right"><img title="profile image" class="img-circle img-responsive"
                                                    src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
@@ -45,13 +53,14 @@
     <div class="col-sm-5">
         <ul class="list-group">
             <li class="list-group-item text-muted">Profile</li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong>Email</strong></span> {{user.email}}
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Email</strong></span>
+                <%=profile.getEmail()%>
             </li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Adresse</strong></span>
-                {{user.adresse}}
+                <%=profile.getAdresse()%>
             </li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Telephone</strong></span>
-                {{user.tel}}
+                <%=profile.getTelephone()%>
             </li>
         </ul>
     </div>
