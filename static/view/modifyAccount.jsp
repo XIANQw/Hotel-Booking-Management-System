@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <label>Mot de passe</label>
-                    <input type="password" name="pwd" value="{{user.pwd}}" class="form-control" placeholder="password"
+                    <input type="password" name="pwd" value="123456" class="form-control" placeholder="password"
                            required="required"/>
                 </div>
                 <div class="form-group">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     <label>Telephone</label>
-                    <input type="text" name="tel" value="{{user.tel}}" class="form-control" placeholder="telphone"/>
+                    <input type="text" name="tel" value="<%=profile.getTelephone()%>" class="form-control" placeholder="telphone"/>
                 </div>
                 <a type="button" href="${pageContext.request.contextPath}/Gopage?page=profile" class="btn btn-primary">Annuler</a>
                 <button type="submit" class="btn btn-primary float-right">Enregister</button>
