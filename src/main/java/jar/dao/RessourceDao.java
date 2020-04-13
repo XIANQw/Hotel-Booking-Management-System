@@ -12,8 +12,8 @@ public class RessourceDao {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
-            String sql = "insert into Ressource values(0,'" + 
-                ress.getType() + "','" + 
+            String sql = "insert into Ressource values(0,'" +
+                ress.getType() + "','" +
                 ress.getPrice() + "','"+
                 ress.getNumber() + "','"+
                 ress.getStreet() + "','"+
@@ -57,7 +57,7 @@ public class RessourceDao {
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             while(res.next()){
-                RessourceBean ress = new RessourceBean(); 
+                RessourceBean ress = new RessourceBean();
                 ress.setId(res.getInt(1));
                 ress.setType(res.getString(2));
                 ress.setPrice(res.getFloat(3));

@@ -12,9 +12,9 @@ public class CommandeDao {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
-            String sql = "insert into Commande values(0,'" + 
-            commande.getSender() + "','" + 
-            commande.getRessource() + "','"+ 
+            String sql = "insert into Commande values(0,'" +
+            commande.getSender() + "','" +
+            commande.getRessource() + "','"+
             commande.getCheckin() + "','" +
             commande.getCheckout() +  "');";
             Statement stmt = con.createStatement();
@@ -39,7 +39,7 @@ public class CommandeDao {
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             while(res.next()){
-                CommandeBean cmd = new CommandeBean(); 
+                CommandeBean cmd = new CommandeBean();
                 cmd.setId(res.getInt(1));
                 cmd.setSender(res.getInt(2));
                 cmd.setRessource(res.getInt(3));

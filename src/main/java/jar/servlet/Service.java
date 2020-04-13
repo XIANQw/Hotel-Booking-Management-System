@@ -15,12 +15,11 @@ public class Service extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException { 
+			HttpServletResponse resp) throws ServletException, IOException {
 		String method = req.getParameter("method");
 		if ("createSearch".equals(method)){
 			createSearch(req, resp);
 		}else if ("getCommandes".equals(method)) {
-			
 		} else if ("getRessources".equals(method)){
 			getRessource(req, resp);
 		} else if ("createRessource".equals(method)){
@@ -33,7 +32,7 @@ public class Service extends HttpServlet {
 		}
 	}
 
-	private void createSearch(HttpServletRequest req, 
+	private void createSearch(HttpServletRequest req,
 	HttpServletResponse resp) throws ServletException, IOException{
 		String destination = req.getParameter("destination");
 		String checkin = req.getParameter("checkin");
@@ -42,7 +41,7 @@ public class Service extends HttpServlet {
 		String type = req.getParameter("type");
 		String smoker = req.getParameter("smoker");
 		String info = destination + " " +
-			checkin + " " + 
+			checkin + " " +
 			checkout + " " +
 			numPeople + " " +
 			type + " " +
@@ -63,7 +62,7 @@ public class Service extends HttpServlet {
 		req.getRequestDispatcher("/static/view/ressources.jsp").forward(req, resp);
 	}
 
-	private void createRessource(HttpServletRequest req, 
+	private void createRessource(HttpServletRequest req,
 	HttpServletResponse resp) throws ServletException, IOException{
 		HttpSession session = req.getSession(false);
 		if(!Client.sessionValide(req, resp)){;
@@ -81,16 +80,16 @@ public class Service extends HttpServlet {
 		String smoker = req.getParameter("smoker");
 		int owner = ((UserBean)session.getAttribute("user")).getId();
 		RessourceBean ress = new RessourceBean();
-		ress.setType(type); 
-		ress.setPrice(price); 
-		ress.setNumber(number); 
-		ress.setStreet(street); 
+		ress.setType(type);
+		ress.setPrice(price);
+		ress.setNumber(number);
+		ress.setStreet(street);
 		ress.setPostal(postal);
 		ress.setCity(city);
 		ress.setPersons(persons);
 		ress.setSmoker(smoker);
 		String info = ress.getType() + " " +
-			ress.getPrice() + " " + 
+			ress.getPrice() + " " +
 			ress.getNumber() + " " +
 			ress.getStreet() + " " +
 			ress.getPostal() + " " +
