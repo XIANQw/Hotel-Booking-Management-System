@@ -1,21 +1,21 @@
 <!--profile.jsp-->
 <%@ page import ="jar.bean.UserBean"%>
 <%@ page import ="jar.bean.ProfileBean"%>
-<%ProfileBean profile = (ProfileBean)request.getSession().getAttribute("profile");%>
+<%ProfileBean profile = (ProfileBean)request.getAttribute("profile");%>
 <%UserBean user = (UserBean)request.getSession().getAttribute("user");%>
 <!--modifyAccount.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <!--modifyAccount.html-->
+    <title>modify your account</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/popper.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src='/static/js/page.js'></script>
+    <link rel="stylesheet" href="/microproject/static/css/bootstrap.min.css">
+    <script src="/microproject/static/js/jquery.min.js"></script>
+    <script src="/microproject/static/js/popper.js"></script>
+    <script src="/microproject/static/js/bootstrap.min.js"></script>
+    <script src='/microproject/static/js/page.js'></script>
 </head>
 <body>
 <div class="container">
@@ -26,7 +26,7 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a href="/logout/" class="text-success">deconnexion</a></li>
+                    <li><a href="Client?method=Logout" class="text-success">disconnect</a></li>
                 </ul>
             </div>
         </div>
@@ -35,8 +35,9 @@
     <fieldset>
         <legend>Espace de client</legend>
         <div id="modifyCompte">
-            <h6>Modifiez votre profil</h6>
-            <form action="${pageContext.request.contextPath}/Client?method=modifyProfile" method="post">{% csrf_token %}
+            <h6>Modify your account</h6>
+            <%if (profile != null) {%>
+            <form action="${pageContext.request.contextPath}/Client?method=modifyProfile" method="post">
                 <div class="form-group">
                     <label>Nom: </label>
                     <input type="text" name="nom" value= "<%=profile.getNom()%>" class="form-control" placeholder="nom"
@@ -67,8 +68,43 @@
                     <input type="text" name="tel" value="<%=profile.getTelephone()%>" class="form-control" placeholder="telphone"/>
                 </div>
                 <a type="button" href="${pageContext.request.contextPath}/Gopage?page=profile" class="btn btn-primary">Annuler</a>
+                <button type="submit" class="btn btn-primary float-right">Go</button>
+            </form>
+            <%} else {%>
+                <form action="${pageContext.request.contextPath}/Client?method=modifyProfile" method="post">
+                <div class="form-group">
+                    <label>Nom: </label>
+                    <input type="text" name="nom" value= "" class="form-control" placeholder="nom"
+                           required="required"/>
+                </div>
+                <div class="form-group">
+                    <label>Prenom: </label>
+                    <input type="text" name="prenom" value= "" class="form-control" placeholder="prenom"
+                           required="required"/>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" name="password" value="" class="form-control" placeholder="password"
+                           required="required"/>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" name="email" value="" class="form-control"
+                           placeholder="email"/>
+                </div>
+                <div class="form-group">
+                    <label>Adresse</label>
+                    <input type="text" name="adresse" value="" class="form-control"
+                           placeholder="adresse"/>
+                </div>
+                <div class="form-group">
+                    <label>Telephone</label>
+                    <input type="text" name="tel" value="" class="form-control" placeholder="telphone"/>
+                </div>
+                <a type="button" href="${pageContext.request.contextPath}/Gopage?page=profile" class="btn btn-primary">Annuler</a>
                 <button type="submit" class="btn btn-primary float-right">Enregister</button>
             </form>
+            <%}%>
         </div>
     </fieldset>
 </div>

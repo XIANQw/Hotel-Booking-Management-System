@@ -1,8 +1,7 @@
 <!--profile.jsp-->
 <%@ page import ="jar.bean.UserBean"%>
 <%@ page import ="jar.bean.ProfileBean"%>
-<%ProfileBean profile = (ProfileBean)request.getSession().getAttribute("profile");%>
-
+<%ProfileBean profile = (ProfileBean)request.getAttribute("profile");%>
 <%UserBean user = (UserBean)request.getSession().getAttribute("user");%>
 <!DOCTYPE html>
 <html lang="en">

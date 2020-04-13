@@ -25,16 +25,14 @@ public class Client extends HttpServlet{
 			signup(req, resp);
 		} else if ("Logout".equals(method)) {
 			logout(req, resp);
-    }
-      else if ("modifyProfile".equals(method)) {
-  		modifyProfile(req, resp);
-		} else if ("getProfile".equals(method)) {
-      getProfile(req, resp);
-    }
-      else {
-			req.setAttribute("type", "danger");
-			req.setAttribute("info", "undefine " + method);
-			req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+        } else if ("modifyProfile".equals(method)) {
+            modifyProfile(req, resp);
+        } else if ("getProfile".equals(method)) {
+            getProfile(req, resp);
+        } else {
+            req.setAttribute("type", "danger");
+            req.setAttribute("info", "undefine " + method);
+            req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
 		} 
     }
 
@@ -115,14 +113,19 @@ public class Client extends HttpServlet{
 
     public static void getProfile(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
-      if(!Client.sessionValide(req, resp)){
-        req.getRequestDispatcher("Gopage?page=accueil").forward(req, resp);
-      }
-      int id = ((UserBean)req.getSession().getAttribute("user")).getId();
-      ProfileBean profile = ProfileDao.getProfileFromUser(id);
-
-      req.getSession().setAttribute("profile", profile);
-      req.getRequestDispatcher("/static/view/profile.jsp").forward(req, resp);
+        if(!Client.sessionValide(req, resp)){
+            req.getRequestDispatcher("Gopage?page=accueil").forward(req, resp);
+        }
+        String info;
+        int id = ((UserBean)req.getSession().getAttribute("user")).getId();
+        ProfileBean profile = ProfileDao.getProfileFromUser(id);
+        if (profile == null){
+            info = "You have not yet a profile, you can set your information here";
+            req.setAttribute("info", info); req.setAttribute("type", "warning");
+            req.getRequestDispatcher("Gopage?page=modifyAccount").forward(req, resp);
+        }
+        req.setAttribute("profile", profile);
+        req.getRequestDispatcher("/static/view/profile.jsp").forward(req, resp);
     }
 
     public static void modifyProfile(HttpServletRequest req, HttpServletResponse resp)
@@ -145,7 +148,8 @@ public class Client extends HttpServlet{
       profile.setEmail(email);
       profile.setAdresse(adresse);
       profile.setTelephone(telephone);
-      ProfileDao.saveProfile(id,profile);
+      ProfileDao.saveProfile(id, profile);
+      req.setAttribute("profile", profile);
       req.getRequestDispatcher("Client?method=getProfile").forward(req, resp);
     }
 
