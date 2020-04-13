@@ -26,12 +26,22 @@ public class Client extends HttpServlet{
 		} else if ("Logout".equals(method)) {
 			logout(req, resp);
 		} else {
-			return ;
+			req.setAttribute("type", "danger");
+			req.setAttribute("info", "undefine " + method);
+			req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+<<<<<<< HEAD
+		} 
+    }
+
+    public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter("username").trim();   
+=======
 		}
     }
 
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username").trim();
+>>>>>>> wang
         String password = req.getParameter("password").trim();
         HashMap<String, UserBean> users = UserDao.getUsers();
         String info, type;
@@ -60,7 +70,11 @@ public class Client extends HttpServlet{
     }
 
     public void signup(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+<<<<<<< HEAD
+        String username = req.getParameter("username").trim();   
+=======
         String username = req.getParameter("username").trim();
+>>>>>>> wang
         String password = req.getParameter("password").trim();
         String info, type;
         if(username==null || username.equals("")){
@@ -86,12 +100,26 @@ public class Client extends HttpServlet{
     }
 
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        HttpSession session = req.getSession(false);
-        if(session != null){
-            session.removeAttribute("user");
+        if(Client.sessionValide(req, resp)) {
+            req.getSession().removeAttribute("user");
         }
         resp.sendRedirect("http://localhost:8080/microproject/static/view/accueil.jsp");
         return ;
     }
 
+    public static boolean sessionValide(HttpServletRequest req, HttpServletResponse resp)
+    throws ServletException, IOException{
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            req.setAttribute("info", "Session invalid, reconnect please ...");
+            req.setAttribute("type", "warning");
+            return false;
+        }
+        return true;
+    }
+
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> wang

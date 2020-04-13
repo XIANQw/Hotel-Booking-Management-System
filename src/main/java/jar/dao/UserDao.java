@@ -10,7 +10,7 @@ public class UserDao {
     public static void saveUser(UserBean user){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
             String sql = "insert into User values(0,'" + user.getUsername() + "','"+ user.getPassword() + "');";
             Statement stmt = con.createStatement();
             System.out.println("sql= " + sql);
@@ -29,7 +29,7 @@ public class UserDao {
         HashMap<String, UserBean> users = new HashMap<String, UserBean>();
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
             String sql = "select * from User;";
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
