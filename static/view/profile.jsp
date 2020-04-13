@@ -37,7 +37,7 @@
                 <h1><%=user.getUsername()%></h1></div>
             <div class="col-sm-2">
                 <a href="" class="pull-right"><img title="profile image" class="img-circle img-responsive"
-                                                   src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
+                src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
             </div>
         </div>
     </div>
