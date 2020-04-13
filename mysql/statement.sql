@@ -19,11 +19,11 @@ create table pc3r.User (
 );
 
 create table user_ressource (
-    id int auto_increment, 
+    id int auto_increment,
     idu int,
     idr int,
     primary key(id));
-
+    
 CREATE TABLE profile (
     Id int NOT NULL,
     nom VARCHAR(20),
