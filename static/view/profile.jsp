@@ -34,6 +34,7 @@
         </div>
     </nav>
 
+    <%-- information --%>
     <%if(request.getAttribute("info")!=null) {%>
         <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
     <%}%>

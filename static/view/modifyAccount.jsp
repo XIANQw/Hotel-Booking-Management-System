@@ -32,8 +32,13 @@
         </div>
     </nav>
 
+    <%-- information --%>
+    <%if(request.getAttribute("info")!=null) {%>
+        <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
+    <%}%>
+
     <fieldset>
-        <legend>Espace de client</legend>
+        <legend>Account information</legend>
         <div id="modifyCompte">
             <h2>Modify your account</h2>
             <%if (profile != null) {%>
@@ -46,7 +51,7 @@
                 <div class="form-group">
                     <label>First name: </label>
                     <input type="text" name="prenom" value= "<%=profile.getPrenom()%>" class="form-control" placeholder="prenom"
-                           required="required"/>
+                           required="required"/>  
                 </div>
                 <div class="form-group">
                     <label>Email</label>
@@ -62,8 +67,8 @@
                     <label>Telephone</label>
                     <input type="text" name="tel" value="<%=profile.getTelephone()%>" class="form-control" placeholder="telphone"/>
                 </div>
-                <a type="button" href="${pageContext.request.contextPath}/Gopage?page=profile" class="btn btn-primary">Annuler</a>
-                <button type="submit" class="btn btn-primary float-right">Go</button>
+                <a type="button" href="${pageContext.request.contextPath}/Client?method=getProfile" class="btn btn-primary">Cancel</a>
+                <button type="submit" class="btn btn-primary float-right">Save</button>
             </form>
             <%} else {%>
                 <form action="${pageContext.request.contextPath}/Client?method=modifyProfile" method="post">
@@ -91,8 +96,8 @@
                     <label>Telephone</label>
                     <input type="text" name="tel" value="" class="form-control" placeholder="telphone"/>
                 </div>
-                <a type="button" href="${pageContext.request.contextPath}/Gopage?page=profile" class="btn btn-primary">Annuler</a>
-                <button type="submit" class="btn btn-primary float-right">Enregister</button>
+                <a type="button" href="${pageContext.request.contextPath}/Client?method=getProfile" class="btn btn-primary">Cancel</a>
+                <button type="submit" class="btn btn-primary float-right">Save</button>
             </form>
             <%}%>
         </div>

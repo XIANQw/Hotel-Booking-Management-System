@@ -20,24 +20,24 @@ public class Client extends HttpServlet{
     throws IOException, ServletException{
 		String method = req.getParameter("method");
 		if ("Login".equals(method)) {
-            login(req, resp);
+            Client.login(req, resp);
 		} else if ("Signup".equals(method)) {
-			signup(req, resp);
+			Client.signup(req, resp);
 		} else if ("Logout".equals(method)) {
-			logout(req, resp);
+			Client.logout(req, resp);
         } else if ("modifyProfile".equals(method)) {
-            modifyProfile(req, resp);
+            Client.modifyProfile(req, resp);
         } else if ("getProfile".equals(method)) {
-            getProfile(req, resp);
+            Client.getProfile(req, resp);
         } else {
             req.setAttribute("type", "danger");
             req.setAttribute("info", "undefine " + method);
-            req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+            Gopage.accueil(req, resp);
 		} 
     }
 
 
-    public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public static void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username").trim();
         String password = req.getParameter("password").trim();
         HashMap<String, UserBean> users = UserDao.getUsers();
@@ -46,7 +46,7 @@ public class Client extends HttpServlet{
             info = "That's a wrong username"; type="danger";
             req.setAttribute("info", info);
             req.setAttribute("type", type);
-            req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+            Gopage.accueil(req, resp);
             return ;
         }
         UserBean user = users.get(username);
@@ -54,7 +54,7 @@ public class Client extends HttpServlet{
             info = "Your password is wrong"; type="danger";
             req.setAttribute("info", info);
             req.setAttribute("type", type);
-            req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+            Gopage.accueil(req, resp);
             return ;
         }
         info="Welcome [" + username + "] !!!"; type = "success";
@@ -63,10 +63,10 @@ public class Client extends HttpServlet{
         req.setAttribute("users", users);
         req.setAttribute("type", type);
         req.setAttribute("info", info);
-        req.getRequestDispatcher("/static/view/mainPage.jsp").forward(req, resp);
+        Gopage.mainPage(req, resp);
     }
 
-    public void signup(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+    public static void signup(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
         String username = req.getParameter("username").trim();
         String password = req.getParameter("password").trim();
         String info, type;
@@ -74,7 +74,7 @@ public class Client extends HttpServlet{
             info = "Username is invalid"; type = "danger";
             req.setAttribute("info", info);
             req.setAttribute("type", type);
-            req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+            Gopage.accueil(req, resp);
             return ;
         }
         HashMap<String, UserBean> users = UserDao.getUsers();
@@ -82,21 +82,21 @@ public class Client extends HttpServlet{
             info = "Username is used by other users"; type = "danger";
             req.setAttribute("info", info);
             req.setAttribute("type", type);
-            req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
+            Gopage.accueil(req, resp);
             return ;
         }
         UserBean user = new UserBean();
         user.setUsername(username);
         user.setPassword(password);
         UserDao.saveUser(user);
-        req.getRequestDispatcher("Client?method=Login").forward(req, resp);
+        Client.login(req, resp);
     }
 
-    public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    public static void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         if(Client.sessionValide(req, resp)) {
-            req.getSession().removeAttribute("user");
+            req.getSession().invalidate();
         }
-        resp.sendRedirect("http://localhost:8080/microproject/static/view/accueil.jsp");
+        Gopage.accueil(req, resp);
         return ;
     }
 
@@ -114,43 +114,43 @@ public class Client extends HttpServlet{
     public static void getProfile(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
         if(!Client.sessionValide(req, resp)){
-            req.getRequestDispatcher("Gopage?page=accueil").forward(req, resp);
+            Gopage.accueil(req, resp);
         }
         String info;
         int id = ((UserBean)req.getSession().getAttribute("user")).getId();
         ProfileBean profile = ProfileDao.getProfileFromUser(id);
+        System.out.println(profile == null);
         if (profile == null){
             info = "You have not yet a profile, you can set your information here";
             req.setAttribute("info", info); req.setAttribute("type", "warning");
-            req.getRequestDispatcher("Gopage?page=modifyAccount").forward(req, resp);
+            Gopage.modifyAccount(req, resp);
         }
         req.setAttribute("profile", profile);
-        req.getRequestDispatcher("/static/view/profile.jsp").forward(req, resp);
+        Gopage.profile(req, resp);
     }
 
     public static void modifyProfile(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
-      if(!Client.sessionValide(req, resp)){
-        req.getRequestDispatcher("Gopage?page=accueil").forward(req, resp);
-      }
-
-      String nom = req.getParameter("nom");
-      String prenom = req.getParameter("prenom");
-      String email =req.getParameter("email");
-      String adresse = req.getParameter("adresse");
-      int telephone = Integer.parseInt(req.getParameter("tel"));
-      int id = ((UserBean)req.getSession().getAttribute("user")).getId();
-      
-      ProfileBean profile = new ProfileBean();
-      profile.setId(id);
-      profile.setNom(nom);
-      profile.setPrenom(prenom);
-      profile.setEmail(email);
-      profile.setAdresse(adresse);
-      profile.setTelephone(telephone);
-      ProfileDao.saveProfile(id, profile);
-      req.setAttribute("profile", profile);
-      req.getRequestDispatcher("Client?method=getProfile").forward(req, resp);
+        if(!Client.sessionValide(req, resp)){
+            Gopage.accueil(req, resp);
+        }
+        String nom = req.getParameter("nom");
+        String prenom = req.getParameter("prenom");
+        String email =req.getParameter("email");
+        String adresse = req.getParameter("adresse");
+        String telephone = req.getParameter("tel");
+        int id = ((UserBean)req.getSession().getAttribute("user")).getId();
+        
+        ProfileBean profile = new ProfileBean();
+        profile.setId(id);
+        profile.setNom(nom);
+        profile.setPrenom(prenom);
+        profile.setEmail(email);
+        profile.setAdresse(adresse);
+        profile.setTelephone(telephone);
+        ProfileDao.saveProfile(id, profile);
+        req.setAttribute("profile", profile);
+        Client.getProfile(req, resp);
     }
 
 }

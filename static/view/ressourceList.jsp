@@ -1,4 +1,4 @@
-<!--ressources.jsp-->
+<!--ressourceList.jsp-->
 <%@page import ="jar.bean.RessourceBean"%>
 <%@page import ="java.util.List"%>
 <%List<RessourceBean> ressources = (List<RessourceBean>)request.getAttribute("ressources");%>
@@ -32,6 +32,7 @@
             </div>
         </div>
     </nav>
+    <%-- information --%>
     <%if(request.getAttribute("info")!=null) {%>
         <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
     <%}%>
@@ -103,15 +104,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <%-- {% for item in res %}
-                    <tr>
-                        <th scope="row">{{item.numero}}</th>
-                        <td>{{item.type}}</td>
-                        <td>{{item.price}}</td>
-                        <td><a href="/gestionnaire/consulterRes/?resId={{item.id}}" class="text-success"> Consulter</a>
-                        </td>
-                    </tr>
-                    {% endfor %} --%>
                     <%for(RessourceBean ress: ressources) {%>
                     <tr>
                         <td><%=ress.getId()%></td>
@@ -120,9 +112,12 @@
                         <td><%=ress.getPersons()%></td>
                         <td><%=ress.getAdresse()%></td>
                         <td><%=ress.getSmoker()%></td>
+                        <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=ress.getId()%>" class="text-success">details</a></td>
+                        <td><a href="${pageContext.request.contextPath}/Service?method=deleteRessource&id=<%=ress.getId()%>" class="text-success">delete</a></td>
                     </tr>
                     <%}%>
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

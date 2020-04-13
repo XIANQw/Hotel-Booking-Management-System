@@ -5,7 +5,7 @@ public class ProfileBean   {
     private String prenom;
     private String email;
     private String adresse;
-    private int telephone;
+    private String telephone;
 
     public ProfileBean(){}
 
@@ -24,10 +24,9 @@ public class ProfileBean   {
     public void setAdresse(String adresse){
         this.adresse = adresse;
     }
-    public void setTelephone(int telephone){
+    public void setTelephone(String telephone){
         this.telephone = telephone;
     }
-
 
     public int getId(){
         return this.id;
@@ -44,9 +43,7 @@ public class ProfileBean   {
     public String getAdresse(){
         return this.adresse;
     }
-    public int getTelephone(){
+    public String getTelephone(){
         return this.telephone;
     }
-
-
 }

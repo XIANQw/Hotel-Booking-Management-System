@@ -30,6 +30,6 @@ create table Profile (
     prenom VARCHAR(20),
     email VARCHAR(50),
     adresse VARCHAR(100),
-    telephone int,
+    telephone VARCHAR(20),
     primary key(id)
 );

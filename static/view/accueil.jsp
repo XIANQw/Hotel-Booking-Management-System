@@ -14,9 +14,12 @@
 <div class="container">
     <fieldset>
         <legend>Systeme de Gestion Hoteliere</legend>
+        
+        <%-- information --%>
         <%if(request.getAttribute("info")!=null) {%>
             <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
         <%}%>
+
         <div id="zoneLogin">
             <h3>login</h3>
             <form action="${pageContext.request.contextPath}/Client?method=Login" method="post">
@@ -30,7 +33,7 @@
                     <input type="password" name="password" class="form-control" id="id_password" placeholder="password"
                            required/>
                 </div>
-                <button type="submit" class="btn btn-primary float-right">Identifiez-vous</button>
+                <button type="submit" class="btn btn-primary float-right">Sign in</button>
             </form>
             <div id="gotoSignup">
                 <span>Have not yet username? click </span>

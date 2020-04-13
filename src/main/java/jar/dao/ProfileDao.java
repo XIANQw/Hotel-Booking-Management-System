@@ -1,8 +1,6 @@
 package jar.dao;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import jar.bean.ProfileBean;
 
 public class ProfileDao {
@@ -18,12 +16,12 @@ public static void saveProfile(int idu, ProfileBean profile){
         if (oldProfile ==  null){
             //如果没有profile就先insert fail没关系
             sql = "insert into Profile values("+ idu +",'"+ profile.getNom() +"','" + profile.getPrenom()
-            +"','"+ profile.getEmail() +"','" +profile.getAdresse() +"'," + profile.getTelephone() + ");";
+            +"','"+ profile.getEmail() +"','" +profile.getAdresse() +"','" + profile.getTelephone() + "');";
         }else{
             //有就update
             sql = "update Profile set nom ='"+ profile.getNom() +"',prenom ='"+ profile.getPrenom()
             +"',email ='"+profile.getEmail()+"',adresse='"
-            + profile.getAdresse() +"',telephone ="+ profile.getTelephone() +" where id = "+ idu;
+            + profile.getAdresse() +"',telephone ='"+ profile.getTelephone() +"' where id = "+ idu;
         }
         int res = stmt.executeUpdate(sql);
         System.out.println("sql="+sql);
@@ -55,7 +53,7 @@ public static void saveProfile(int idu, ProfileBean profile){
                 profile.setPrenom(res.getString(3));
                 profile.setEmail(res.getString(4));
                 profile.setAdresse(res.getString(5));
-                profile.setTelephone(res.getInt(6));
+                profile.setTelephone(res.getString(6));
             }
             return profile;
         } catch (SQLException e){

@@ -99,4 +99,29 @@ public class RessourceDao {
         }
         return ressources;
     }
+
+    public static void deleteRessource(String idr){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            String sql = "delete from Ressource where id='" + idr + "';";
+            System.out.println("sql="+sql);
+            Statement stmt = con.createStatement();
+            int res = stmt.executeUpdate(sql);
+            if(res != 1){
+                throw new RuntimeException("error delete ressource ...");
+            }
+            sql = "delete from User_ressource where idr='" + idr + "';";
+            res = stmt.executeUpdate(sql);
+            System.out.println("sql="+sql);
+            if(res != 1){
+                throw new RuntimeException("error delete user_ressource ...");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -19,30 +19,32 @@ public class Gopage extends HttpServlet{
     throws IOException, ServletException{
         String page = req.getParameter("page");
         if("accueil".equals(page)){
-            accueil(req, resp);
+            Gopage.accueil(req, resp);
         } else if ("mainPage".equals(page)) {
-            mainPage(req, resp);
+            Gopage.mainPage(req, resp);
         } else if ("profile".equals(page)) {
-            profile(req, resp);
+            Gopage.profile(req, resp);
         } else if("modifyAccount".equals(page)){
-            modifyAccount(req,resp);
+            Gopage.modifyAccount(req,resp);
         } else if("modifyRes".equals(page)){
-            modifyRes(req,resp);
+            Gopage.modifyRes(req,resp);
         } else if("commandeList".equals(page)){
-            commandeList(req,resp);
-        } else if("ressource".equals(page)){
-            ressource(req,resp);
-        } else {
+            Gopage.commandeList(req,resp);
+        } else if("ressourceList".equals(page)){
+            Gopage.ressourceList(req, resp);
+        }else if("infoRessource".equals(page)){
+            Gopage.infoRessource(req, resp);
+        }else {
             return ;
         }
     }
 
-    public void accueil(HttpServletRequest req, HttpServletResponse resp)
+    public static void accueil(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         req.getRequestDispatcher("/static/view/accueil.jsp").forward(req, resp);
     }
 
-    public void mainPage(HttpServletRequest req, HttpServletResponse resp)
+    public static void mainPage(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
@@ -51,16 +53,16 @@ public class Gopage extends HttpServlet{
         }
     }
 
-    public void profile(HttpServletRequest req, HttpServletResponse resp)
+    public static void profile(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
         } else{
-            Client.getProfile(req,resp);
+            req.getRequestDispatcher("/static/view/profile.jsp").forward(req, resp);
         }
     }
 
-    public void modifyAccount(HttpServletRequest req, HttpServletResponse resp)
+    public static void modifyAccount(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
@@ -70,7 +72,7 @@ public class Gopage extends HttpServlet{
             req.getRequestDispatcher("/static/view/modifyAccount.jsp").forward(req, resp);
         }
     }
-    public void modifyRes(HttpServletRequest req, HttpServletResponse resp)
+    public static void modifyRes(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
@@ -78,7 +80,7 @@ public class Gopage extends HttpServlet{
             req.getRequestDispatcher("/static/view/modifyRes.jsp").forward(req, resp);
         }
     }
-    public void commandeList(HttpServletRequest req, HttpServletResponse resp)
+    public static void commandeList(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
@@ -86,12 +88,20 @@ public class Gopage extends HttpServlet{
             req.getRequestDispatcher("/static/view/commandeList.jsp").forward(req, resp);
         }
     }
-    public void ressource(HttpServletRequest req, HttpServletResponse resp)
+    public static void ressourceList(HttpServletRequest req, HttpServletResponse resp)
     throws IOException, ServletException{
         if(!Client.sessionValide(req, resp)){
             accueil(req, resp);
         } else{
-            req.getRequestDispatcher("/static/view/ressource.jsp").forward(req, resp);
+            req.getRequestDispatcher("/static/view/ressourceList.jsp").forward(req, resp);
+        }
+    }
+    public static void infoRessource(HttpServletRequest req, HttpServletResponse resp)
+    throws IOException, ServletException{
+        if(!Client.sessionValide(req, resp)){
+            accueil(req, resp);
+        } else{
+            req.getRequestDispatcher("/static/view/infoRessource.jsp").forward(req, resp);
         }
     }
 

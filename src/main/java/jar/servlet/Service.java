@@ -18,62 +18,63 @@ public class Service extends HttpServlet {
 			HttpServletResponse resp) throws ServletException, IOException {
 		String method = req.getParameter("method");
 		if ("createSearch".equals(method)){
-			createSearch(req, resp);
-		}else if ("getCommandes".equals(method)) {
-		} else if ("getRessources".equals(method)){
-			getRessource(req, resp);
-		} else if ("createRessource".equals(method)){
-			createRessource(req, resp);
+			Service.createSearch(req, resp);
+		} else if ("getCommandes".equals(method)) {
+		} else if ("getRessources".equals(method)) {
+			Service.getRessource(req, resp);
+		} else if ("createRessource".equals(method)) {
+			Service.createRessource(req, resp);
+		} else if ("deleteRessource".equals(method)) {
+			Service.deleteRessource(req, resp);
+		} else if ("infoRessource".equals(method)) {
+			Service.infoRessource(req, resp);
 		}
 		else {
 			req.setAttribute("type", "danger");
 			req.setAttribute("info", "undefine " + method);
-			req.getRequestDispatcher("/static/view/mainPage.jsp").forward(req, resp);
+			Gopage.mainPage(req, resp);
 		}
 	}
 
-	private void createSearch(HttpServletRequest req,
+	public static void createSearch(HttpServletRequest req,
 	HttpServletResponse resp) throws ServletException, IOException{
-		String destination = req.getParameter("destination");
+		String destination = req.getParameter("destination").toLowerCase();
 		String checkin = req.getParameter("checkin");
 		String checkout = req.getParameter("checkout");
 		String numPeople = req.getParameter("nb");
 		String type = req.getParameter("type");
 		String smoker = req.getParameter("smoker");
-		String info = destination + " " +
-			checkin + " " +
-			checkout + " " +
-			numPeople + " " +
-			type + " " +
-			smoker;
+		String info = "Search a house";
+		List<RessourceBean> result = RessourceDao.getRessourcesFrom("city", destination);
 		req.setAttribute("info", info);
 		req.setAttribute("type", "success");
-		req.getRequestDispatcher("/static/view/mainPage.jsp").forward(req, resp);
+		req.setAttribute("result", result);
+		Gopage.mainPage(req, resp);
 	}
 
-	private void getRessource(HttpServletRequest req, HttpServletResponse resp)
+	public static void getRessource(HttpServletRequest req, HttpServletResponse resp)
 	throws ServletException, IOException {
 		if(!Client.sessionValide(req, resp)){;
-			req.getRequestDispatcher("Gopage?page=accueil").forward(req, resp);
+			Gopage.accueil(req, resp);
 		}
 		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
 		List<RessourceBean> ressources = RessourceDao.getRessourcesFromOwner(owner);
 		req.setAttribute("ressources", ressources);
-		req.getRequestDispatcher("/static/view/ressources.jsp").forward(req, resp);
+		Gopage.ressourceList(req, resp);
 	}
 
-	private void createRessource(HttpServletRequest req,
+	public static void createRessource(HttpServletRequest req,
 	HttpServletResponse resp) throws ServletException, IOException{
 		HttpSession session = req.getSession(false);
 		if(!Client.sessionValide(req, resp)){;
-			req.getRequestDispatcher("Gopage?page=accueil").forward(req, resp);
+			Gopage.accueil(req, resp);
 		}
 		String type = req.getParameter("type");
 		float price = Float.parseFloat(req.getParameter("price"));
 		int number = Integer.parseInt(req.getParameter("number"));
-		String street = req.getParameter("street");
+		String street = req.getParameter("street").toLowerCase();
 		int postal = Integer.parseInt(req.getParameter("postal"));
-		String city = req.getParameter("city");
+		String city = req.getParameter("city").toLowerCase();
 		int persons;
 		if("room".equals(type)) persons = Integer.parseInt(req.getParameter("persons_room"));
 		else persons = Integer.parseInt(req.getParameter("persons_house"));
@@ -88,19 +89,38 @@ public class Service extends HttpServlet {
 		ress.setCity(city);
 		ress.setPersons(persons);
 		ress.setSmoker(smoker);
-		String info = ress.getType() + " " +
-			ress.getPrice() + " " +
-			ress.getNumber() + " " +
-			ress.getStreet() + " " +
-			ress.getPostal() + " " +
-			ress.getCity() + " " +
-			ress.getPersons() + " " +
-			ress.getSmoker() + " " +
-			owner;
+		String info = "Added a " + type;
 		RessourceDao.saveRessource(owner, ress);
 		req.setAttribute("info", info);
 		req.setAttribute("type", "success");
-		req.getRequestDispatcher("Service?method=getRessources").forward(req, resp);
+		Service.getRessource(req, resp);
+	}
+
+	public static void deleteRessource(HttpServletRequest req,
+	HttpServletResponse resp) throws ServletException, IOException{
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+		}
+		String idr = req.getParameter("id");
+		RessourceDao.deleteRessource(idr);
+		getRessource(req, resp);
+	}
+
+	public static void infoRessource(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException{
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+		}
+		String info;
+		String idr = req.getParameter("id");
+		List<RessourceBean> ress = RessourceDao.getRessourcesFrom("id", idr);
+		if(ress.isEmpty()){
+			info = "Ressource " + idr + "not exist";
+			req.setAttribute("info", info); req.setAttribute("type", "danger");
+			getRessource(req, resp);
+		}
+		req.setAttribute("ressource", ress.get(0));
+		Gopage.infoRessource(req, resp);
 	}
 
 }

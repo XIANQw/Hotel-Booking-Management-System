@@ -1,4 +1,8 @@
-<%@ page import ="jar.bean.UserBean"%>
+<%@page import ="jar.bean.UserBean"%>
+<%@page import ="jar.bean.RessourceBean"%>
+<%@page import ="java.util.List"%>
+<%List<RessourceBean> result = (List<RessourceBean>)request.getAttribute("result");%>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,7 +24,7 @@
                 <div>
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Gopage?page=profile" class="text-success">Profile</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Client?method=getProfile" class="text-success">Profile</a></li>
                         <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Commandes</a></li>
                         <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
@@ -76,6 +80,36 @@
                 <button type="submit" class="btn btn-primary float-right">Go</button>
             </form>
         </div>
+
+        <%if (result!=null) {%>
+        <div>
+        <legend>Search result</legend>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th scope="col">id</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">Persons</th>
+            <th scope="col">Adresse</th>                  
+            </tr>
+            </thead>
+            <tbody>
+            <%for (RessourceBean res : result) {%>
+                <tr>
+                <td><%=res.getId()%></td>
+                <td><%=res.getType()%></td>
+                <td><%=res.getPrice()%></td>
+                <td><%=res.getPersons()%></td>
+                <td><%=res.getAdresse()%></td>
+                <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=res.getId()%>" class="text-success">details</a></td>
+                </tr>
+            <%}%>
+            </tbody>
+        </table>
+        </div>
+
+        <%}%>
     </fieldset>
 </div>
 </body>

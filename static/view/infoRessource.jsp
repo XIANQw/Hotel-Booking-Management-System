@@ -1,4 +1,6 @@
-<!--ressource.html-->
+<%@page import ="jar.bean.RessourceBean"%>
+<%RessourceBean res = (RessourceBean)request.getAttribute("ressource");%>
+<!--infoRessource.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,50 +19,48 @@
         <nav class="navbar navbar-inverse" role="navigation">
 
             <div class="navbar-header">
-                <a class="navbar-brand">Information de {{res.type}} {{res.id}} </a>
+                <a class="navbar-brand">Information</a>
             </div>
             <div>
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class="text-success" href="/gestionnaire/consulterRes/modifyRessource/?id={{res.id}}">modifier</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=modifyRessource&id=<%=res.getId()%>">modify</a>
                     </li>
                     <li>
-                        <a class="text-success" href="/gestionnaire/consulterRes/deleteRessource/?resId={{res.id}}">supprimer</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=deleteRessource&id=<%=res.getId()%>">delete</a>
                     </li>
                     <li>
-                        <!--cd == -2 in case of no id-->
-                        {% if request.session.username == 'root' and cd == '-1' %}
-                        <a class="text-success" href="/gestionnaire/consulterRes/consultPlanRessource/?planId={{plan.id}}">retour</a>
-                        {% elif cd == '-2' %}
-                        <a class="text-success" href="/gestionnaire/">retour</a>
-                        {% else %}
-                        <a href="/mainPage/consulterRes/consultPlanRessource/?planId={{plan.id}}&id={{request.session.id}}&flag=1">retour</a>
-                        {% endif %}
+                    <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">back</a>
                     </li>
                     <li>
-                        <a class="text-success" href="/gestionnaire/consulterRes/consulterDemRes/?resId={{res.id}}">consulter demandes concerné</a>
+                        <a class="text-success" href="/gestionnaire/consulterRes/consulterDemRes/?resId={{res.id}}">Commandes of this ressource</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </div>
 
-    {% if info %}
-    <div class="alert alert-{{infoType}}" id="alert">{{info}}</div>
-    {% endif %}
+    <%-- information --%>
+    <%if(request.getAttribute("info")!=null) {%>
+        <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
+    <%}%>
+
     <div class='row-fluid'>
         <div class="col-md-4 ">
             <div id='ressourceInfo'>
                 <ul class="list-group">
                     <li class="list-group-item text-muted">Ressource</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Numero</strong></span>
-                        {{res.numero}}
+                        <%=res.getId()%>
                     </li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Type</strong></span>
-                        {{res.type}}
+                        <%=res.getType()%>
                     </li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Prix</strong></span>
-                        {{res.prix}}
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Price</strong></span>
+                        <%=res.getPrice()%>
+                    </li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Adresse</strong></span>
+                        <%=res.getAdresse()%>
                     </li>
                 </ul>
             </div>
@@ -70,10 +70,7 @@
                     <tr>
                         <li>Info de Meuble</li>
                         <th>Nom Meuble</th>
-                        {% if request.session.username == 'root'  %}
                         <th>Status</th>
-                        {%  endif %}
-
                     </tr>
                     </thead>
                     <tbody>
@@ -87,16 +84,15 @@
                                href="/gestionnaire/consulterRes/removeMeu/?resId={{res.id}}&meuId={{item.id}}">Remove</a>
                         </td>
                         {%  endif %}
-
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+
         {% if request.session.username == 'root'%}
         <div id='toutRessource' class="col-md-8">
-
             <table class="table table-striped">
                 <thead class="thead-dark">
                 <tr>
@@ -106,7 +102,6 @@
                     <th>Status</th>
                     <th></th>
                     <th>Operation</th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -115,9 +110,9 @@
                     <td>{{item.id}}</td>
                     <td>{{item.nom_Meuble}}</td>
                     <td>{{item.status}}</td>
-                    <td><a href="/gestionnaire/consulterRes/ajouterMeu/?resId={{res.id}}&meuId={{item.id}}">Ajouter dans
-                        {{res.type}} {{res.id}}</a></td>
-                    <td><a class="modify" href="javascript:;">Modifier</a></td>
+                    <td><a href="/gestionnaire/consulterRes/ajouterMeu/?resId={{res.id}}&meuId={{item.id}}">Add in
+                        <%=res.getType()%> <%=res.getId()%></a></td>
+                    <td><a class="modify" href="javascript:;">Modify</a></td>
                     <td><a href="/gestionnaire/consulterRes/deleteMeu/?resId={{res.id}}&meuId={{item.id}}">Delete</a>
                     </td>
                 </tr>
@@ -140,32 +135,27 @@
     <div class="row-fluid">
         <div id="creerMeubleForm" class="col-md-8 col-md-offset-4">
             <form id="formCreerMeu" class="form-inline" action="/gestionnaire/consulterRes/creerMeuble/" method="post"
-                  onsubmit="check()">{% csrf_token %}
-
+                  onsubmit="check()">
                 <div class="title">
-                    <p>Creer Nouv Meuble</p><a onclick="layer.style.display=none"></a>
+                    <p>Create an item</p><a onclick="layer.style.display=none"></a>
                 </div>
-
                 <div class="form-group">
-                    <label>Nom du Meuble: </label>
-                    <input class="form-control" type="input" id="nomMeuble" name="nomMeuble"
-                           placeholder="Nom du Meuble"/>
+                    <label>Item: </label>
+                    <input class="form-control" type="input" id="nomMeuble" name="nameItem"
+                           placeholder="Item name"/>
                 </div>
-
-                <input type="hidden" name="resId" value={{res.id}}>
-
-                <button type="submit" class="btn btn-primary">Creer</button>
-
+                <input type="hidden" name="resId" value="<%=res.getId()%>">
+                <button type="submit" class="btn btn-primary">Create</button>
             </form>
         </div>
     </div>
 </div>
 <div class="row-fluid">
     <form id="formModifMeu" class="form-inline" action="/gestionnaire/consulterRes/modifMeuble/" method="post"
-          onsubmit="checkModif()">{% csrf_token %}
+          onsubmit="checkModif()">
         <input type='hidden' id="modifMeuNom" type="hidden" name="meuNom">
         <input type='hidden' id="modifMeuId" type="hidden" name="meuId">
-        <input type="hidden" name="resId" value={{res.id}}>
+        <input type="hidden" name="resId" value="<%=res.getId()%>">
     </form>
 </div>
 </body>
