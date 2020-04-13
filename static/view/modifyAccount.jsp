@@ -35,22 +35,17 @@
     <fieldset>
         <legend>Espace de client</legend>
         <div id="modifyCompte">
-            <h6>Modify your account</h6>
+            <h2>Modify your account</h2>
             <%if (profile != null) {%>
             <form action="${pageContext.request.contextPath}/Client?method=modifyProfile" method="post">
                 <div class="form-group">
-                    <label>Nom: </label>
+                    <label>Family name: </label>
                     <input type="text" name="nom" value= "<%=profile.getNom()%>" class="form-control" placeholder="nom"
                            required="required"/>
                 </div>
                 <div class="form-group">
-                    <label>Prenom: </label>
+                    <label>First name: </label>
                     <input type="text" name="prenom" value= "<%=profile.getPrenom()%>" class="form-control" placeholder="prenom"
-                           required="required"/>
-                </div>
-                <div class="form-group">
-                    <label>Mot de passe</label>
-                    <input type="password" name="pwd" value="123456" class="form-control" placeholder="password"
                            required="required"/>
                 </div>
                 <div class="form-group">
@@ -73,18 +68,13 @@
             <%} else {%>
                 <form action="${pageContext.request.contextPath}/Client?method=modifyProfile" method="post">
                 <div class="form-group">
-                    <label>Nom: </label>
+                    <label>Family name: </label>
                     <input type="text" name="nom" value= "" class="form-control" placeholder="nom"
                            required="required"/>
                 </div>
                 <div class="form-group">
-                    <label>Prenom: </label>
+                    <label>First name: </label>
                     <input type="text" name="prenom" value= "" class="form-control" placeholder="prenom"
-                           required="required"/>
-                </div>
-                <div class="form-group">
-                    <label>Mot de passe</label>
-                    <input type="password" name="password" value="" class="form-control" placeholder="password"
                            required="required"/>
                 </div>
                 <div class="form-group">
