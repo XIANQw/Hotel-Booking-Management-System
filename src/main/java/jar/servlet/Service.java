@@ -36,6 +36,8 @@ public class Service extends HttpServlet {
 			Service.modifyRessource(req, resp);
 		} else if ("sendCommande".equals(method)) {
 			Service.sendCommande(req, resp);
+		} else if ("getCommandes".equals(method)){
+			Service.getCommandes(req, resp);
 		}
 		else {
 			req.setAttribute("type", "danger");
@@ -210,4 +212,16 @@ public class Service extends HttpServlet {
 		Gopage.mainPage(req, resp);
 	}
 
+	public static void getCommandes(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException{
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+		}
+		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("idu", Integer.toString(owner));
+		List<CommandeBean> commandes = CommandeDao.getCommandesFrom(attrs);
+		req.setAttribute("cmds", commandes);
+		Gopage.commandeList(req, resp);
+	}
 }

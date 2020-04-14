@@ -15,11 +15,12 @@ public class CommandeDao {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "insert into Commande values(0," +
-            commande.getIdu() + "," +
-            commande.getIdr() + ",'"+
+            commande.getIdr() + ","+
+            commande.getIdu() + ",'" +
             commande.getCheckin().toString() + "','" +
             commande.getCheckout().toString() +  "','" +
             df.format(commande.getCreateTime()) + "');";
+            System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
             System.out.println("sql= " + sql);
             int res = stmt.executeUpdate(sql);
@@ -43,15 +44,17 @@ public class CommandeDao {
                 sql +=  attr + "=" + "'" + attrs.get(attr) + "' and ";
             }
             sql += "1";
+            System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             while(res.next()){
                 CommandeBean cmd = new CommandeBean();
                 cmd.setId(res.getInt(1));
-                cmd.setIdu(res.getInt(2));
-                cmd.setIdr(res.getInt(3));
+                cmd.setIdr(res.getInt(2));
+                cmd.setIdu(res.getInt(3));
                 cmd.setCheckin(res.getDate(4));
                 cmd.setCheckout(res.getDate(5));
+                cmd.setCreateTime(new java.util.Date());
                 commandes.add(cmd);
             }
             return commandes;
