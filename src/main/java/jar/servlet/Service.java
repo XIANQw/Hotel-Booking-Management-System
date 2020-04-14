@@ -28,10 +28,16 @@ public class Service extends HttpServlet {
 			Ressource.modifyRessource(req, resp);
 		} else if ("sendCommande".equals(method)) {
 			Commande.sendCommande(req, resp);
-		} else if ("getCommandes".equals(method)){
-			Commande.getCommandes(req, resp);
+		} else if ("getSendedCommandes".equals(method)){
+			Commande.getSendedCommandes(req, resp);
+		} else if ("deleteSendedCommandes".equals(method)){
+			Commande.deleteSendedCommandes(req, resp);
 		} else if ("getCommandesFromRessource".equals(method)) {
 			Commande.getCommandesFromRessource(req, resp);
+		} else if ("getRecievedCommandes".equals(method)) {
+			Commande.getRecievedCommandes(req, resp);
+		} else if ("deleteRecievedCommandes".equals(method)) {
+			Commande.deleteRecievedCommandes(req, resp);
 		}
 		else {
 			req.setAttribute("type", "danger");

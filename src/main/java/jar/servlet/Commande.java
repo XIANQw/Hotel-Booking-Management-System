@@ -72,7 +72,7 @@ public class Commande {
 		Gopage.mainPage(req, resp);
 	}
 
-	public static void getCommandes(HttpServletRequest req, HttpServletResponse resp) 
+	public static void getSendedCommandes(HttpServletRequest req, HttpServletResponse resp) 
 	throws ServletException, IOException{
 		if(!Client.sessionValide(req, resp)){;
 			Gopage.accueil(req, resp);
@@ -82,9 +82,21 @@ public class Commande {
 		attrs.put("idu", Integer.toString(owner));
 		List<CommandeBean> commandes = CommandeDao.getCommandesFrom(attrs);
 		req.setAttribute("cmds", commandes);
-		Gopage.commandeList(req, resp);
+		Gopage.sendedCommandeList(req, resp);
     }
     
+    public static void deleteSendedCommandes(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException{
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+        }
+        String idr = req.getParameter("id");
+        HashMap<String, String> attrs = new HashMap<>();
+        attrs.put("idr", idr);
+        CommandeDao.deleteCommandesFrom(attrs);
+        Commande.getSendedCommandes(req, resp);
+    }
+
     public static void getCommandesFromRessource(HttpServletRequest req, HttpServletResponse resp) 
 	throws ServletException, IOException{
 		if(!Client.sessionValide(req, resp)){;
@@ -95,6 +107,37 @@ public class Commande {
         attrs.put("idr", idr);
         List<CommandeBean> cmds = CommandeDao.getCommandesFrom(attrs);
         req.setAttribute("cmds", cmds);
-        Gopage.commandeList(req, resp);
+        Gopage.recievedCommandeList(req, resp);
+    }
+
+	public static void getRecievedCommandes(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException{
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+		}
+		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
+		HashMap<String, String> attrs = new HashMap<>();
+        attrs.put("idu", Integer.toString(owner));
+        List<RessourceBean> ressources = RessourceDao.getRessourcesFrom(attrs);
+        List<CommandeBean> commandes = new ArrayList<CommandeBean>();
+        for(RessourceBean res : ressources) {
+            attrs.clear();
+            attrs.put("idr", Integer.toString(res.getId()));
+            commandes.addAll(CommandeDao.getCommandesFrom(attrs));
+        }
+		req.setAttribute("cmds", commandes);
+		Gopage.recievedCommandeList(req, resp);
+    }
+
+    public static void deleteRecievedCommandes(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException{
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+        }
+        String idr = req.getParameter("id");
+        HashMap<String, String> attrs = new HashMap<>();
+        attrs.put("idr", idr);
+        CommandeDao.deleteCommandesFrom(attrs);
+        Commande.getRecievedCommandes(req, resp);
     }
 }

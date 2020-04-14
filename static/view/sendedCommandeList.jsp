@@ -27,11 +27,12 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <div class="navbar-header"><a class="navbar-brand">${user.getUsername()}</a></div>
                     <div>
                         <ul class="nav navbar-nav">
-                            <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Client?method=getProfile" class="text-success">Profile</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Sended commandes</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=${user.getId()}" class="text-success">Profile</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getSendedCommandes" class="text-success">Sended commandes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedCommandes" class="text-success">Recieved commandes</a></li>                        
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                         </ul>
                     </div>
                 </div>
@@ -42,7 +43,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             <%}%>
 
             <div id="commandeList">
-            <legend>Your commandes</legend>
+            <legend>Your sended commandes</legend>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -72,7 +73,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <td><%=cmd.getCheckin().toString()%></td>
                     <td><%=cmd.getCheckout().toString()%></td>
                     <td><%=df.format(cmd.getCreateTime())%></td>
-                    <td><a href="${pageContext.request.contextPath}/Service?method=DeleteCommande" class="text-success">Delete</a></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=deleteSendedCommandes&id=<%=res.getId()%>" class="text-success">Delete</a></td>
                     </tr>
                 <%}%>
                 </tbody>

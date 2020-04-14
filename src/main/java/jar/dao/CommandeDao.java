@@ -65,4 +65,26 @@ public class CommandeDao {
         }
         return commandes;
     }
+
+    public static void deleteCommandesFrom(HashMap<String, String> attrs){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            String sql = "delete from Commande where "; 
+            for(String attr : attrs.keySet()){
+                sql +=  attr + "=" + "'" + attrs.get(attr) + "' and ";
+            }
+            sql += "1";
+            System.out.println("sql="+sql);
+            Statement stmt = con.createStatement();
+            int res = stmt.executeUpdate(sql);
+            if(res != 1){
+                throw new RuntimeException("error save commande....");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
