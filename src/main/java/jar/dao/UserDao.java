@@ -50,4 +50,24 @@ public class UserDao {
         }
         return users;
     }
+
+    public static String getUsername(int id) {
+        String username = null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            String sql = "select * from User where id=" + id + ";";
+            Statement stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery(sql);
+            while(res.next()){
+                username = res.getString("username");
+            }
+            return username;
+        } catch (SQLException e){
+            e.printStackTrace();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return username;
+    }
 }

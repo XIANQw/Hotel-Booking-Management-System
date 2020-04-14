@@ -47,6 +47,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
+                    <th scope="col">Sender</th>
                     <th scope="col">Owner</th>
                     <th scope="col">Ressource</th>
                     <th scope="col">Checkin date</th>
@@ -60,11 +61,13 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     HashMap<String, String> attrs = new HashMap<>();
                     attrs.put("id", Integer.toString(cmd.getIdr()));
                     RessourceBean res = RessourceDao.getRessourcesFrom(attrs).get(0);
-                    ProfileBean profile = ProfileDao.getProfileFromUser(res.getIdu());
                     %>
                     <tr>
                     <td><%=cmd.getId()%></td>
-                    <td><%=profile.getPrenom() + " " + profile.getNom()%></td>
+                    <td><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=<%=cmd.getIdu()%>" class="text-success">
+                    <%=UserDao.getUsername(cmd.getIdu())%></a></td>
+                    <td><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=<%=res.getIdu()%>" class="text-success">
+                    <%=UserDao.getUsername(res.getIdu())%></a></td>
                     <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=res.getId()%>" class="text-success"><%=res.getType() + " " + res.getId()%></a></td>
                     <td><%=cmd.getCheckin().toString()%></td>
                     <td><%=cmd.getCheckout().toString()%></td>

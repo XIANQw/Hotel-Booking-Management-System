@@ -117,13 +117,18 @@ public class Client extends HttpServlet{
             Gopage.accueil(req, resp);
         }
         String info;
-        int id = ((UserBean)req.getSession().getAttribute("user")).getId();
-        ProfileBean profile = ProfileDao.getProfileFromUser(id);
-        System.out.println(profile == null);
-        if (profile == null){
+        int idu = Integer.parseInt(req.getParameter("id"));
+        int id = (((UserBean)req.getSession().getAttribute("user")).getId());
+        ProfileBean profile = ProfileDao.getProfileFromUser(idu);
+        if ((id == idu) && (profile == null)){
             info = "You have not yet a profile, you can set your information here";
             req.setAttribute("info", info); req.setAttribute("type", "warning");
             Gopage.modifyAccount(req, resp);
+        }
+        if((id != idu) && (profile == null)) {
+            info = "This user has not yet a profile, you can set your information here";
+            req.setAttribute("info", info); req.setAttribute("type", "warning");
+            Gopage.mainPage(req, resp);
         }
         req.setAttribute("profile", profile);
         Gopage.profile(req, resp);
@@ -150,7 +155,7 @@ public class Client extends HttpServlet{
         profile.setTelephone(telephone);
         ProfileDao.saveProfile(id, profile);
         req.setAttribute("profile", profile);
-        Client.getProfile(req, resp);
+        req.getRequestDispatcher("Client?method=getProfile&id="+id).forward(req, resp);
     }
 
 }

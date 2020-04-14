@@ -2,7 +2,6 @@
 <%@ page import ="jar.bean.UserBean"%>
 <%@ page import ="jar.bean.ProfileBean"%>
 <%ProfileBean profile = (ProfileBean)request.getAttribute("profile");%>
-<%UserBean user = (UserBean)request.getSession().getAttribute("user");%>
 <!--modifyAccount.html-->
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +21,7 @@
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand"><%=user.getUsername()%></a>
+                <a class="navbar-brand">${user.getUsername()}</a>
             </div>
             <div>
                 <ul class="nav navbar-nav">

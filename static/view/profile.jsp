@@ -15,18 +15,20 @@
     <script src="/static/js/popper.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src='/static/js/page.js'></script>
-    <title><%=user.getUsername()%></title>
+    <title>${user.getUsername()}</title>
 </head>
 <body>
 <div class="container">
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand"><%=user.getUsername()%></a>
+                <a class="navbar-brand">${user.getUsername()}</a>
             </div>
             <div>
                 <ul class="nav navbar-nav">
+                    <%if (user.getId() == profile.getId()) {%>
                     <li><a href="${pageContext.request.contextPath}/Gopage?page=modifyAccount" class="text-success">modify account</a></li>
+                    <%}%>
                     <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage" class="text-success">back</a></li>
                     <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">disconnect</a></li>
                 </ul>
@@ -42,7 +44,7 @@
     <div class="container bootstrap snippet">
         <div class="row">
             <div class="col-sm-10">
-                <h1>Bonjour <%=profile.getNom()%> <%=profile.getPrenom()%> !</h1></div>
+                <h1>Hello <%=profile.getNom()%> <%=profile.getPrenom()%> !</h1></div>
             <div class="col-sm-2">
                 <a href="" class="pull-right"><img title="profile image" class="img-circle img-responsive"
                 src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
