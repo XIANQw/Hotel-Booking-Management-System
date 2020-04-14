@@ -31,7 +31,8 @@ public class Commande {
 		CommandeBean cmd = new CommandeBean();
 		cmd.setCheckin(checkin); 
 		cmd.setCheckout(checkout); 
-		cmd.setIdu(idu);
+        cmd.setIdu(idu);
+        cmd.setStatus("Pending");
 		req.getSession().setAttribute("cmd", cmd);
 
 		HashMap<String, String> attrs = new HashMap<>();

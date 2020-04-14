@@ -37,6 +37,7 @@ create table pc3r.Commande (
     checkin date,
     checkout date,
     create_time datetime,
+    status varchar(10),
     primary key(id)
 );
 

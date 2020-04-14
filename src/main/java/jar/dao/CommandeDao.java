@@ -19,10 +19,10 @@ public class CommandeDao {
             commande.getIdu() + ",'" +
             commande.getCheckin().toString() + "','" +
             commande.getCheckout().toString() +  "','" +
-            df.format(commande.getCreateTime()) + "');";
+            df.format(commande.getCreateTime()) + "','" +
+            commande.getStatus() + "');";
             System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
-            System.out.println("sql= " + sql);
             int res = stmt.executeUpdate(sql);
             if(res != 1){
                 throw new RuntimeException("error save commande....");
@@ -47,6 +47,7 @@ public class CommandeDao {
             System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             while(res.next()){
                 CommandeBean cmd = new CommandeBean();
                 cmd.setId(res.getInt(1));
@@ -54,7 +55,8 @@ public class CommandeDao {
                 cmd.setIdu(res.getInt(3));
                 cmd.setCheckin(res.getDate(4));
                 cmd.setCheckout(res.getDate(5));
-                cmd.setCreateTime(new java.util.Date());
+                cmd.setCreateTime(df.parse(res.getString(6)));
+                cmd.setStatus(res.getString(7));
                 commandes.add(cmd);
             }
             return commandes;

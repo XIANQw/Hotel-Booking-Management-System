@@ -54,6 +54,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <th scope="col">Checkin date</th>
                     <th scope="col">Checkout date</th>
                     <th scope="col">Create Time</th>
+                    <th scope="col">Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,6 +74,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <td><%=cmd.getCheckin().toString()%></td>
                     <td><%=cmd.getCheckout().toString()%></td>
                     <td><%=df.format(cmd.getCreateTime())%></td>
+                    <td><%=cmd.getStatus()%></td>
                     <td><a href="${pageContext.request.contextPath}/Service?method=deleteRecievedCommandes&id=<%=res.getId()%>" class="text-success">Delete</a></td>
                     <td><a href="${pageContext.request.contextPath}/Service?method=acceptCommande&id=<%=res.getId()%>" class="text-success">Accept</a></td>
                     </tr>

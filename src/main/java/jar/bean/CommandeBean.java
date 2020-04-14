@@ -11,7 +11,7 @@ public class CommandeBean extends HttpServlet {
     private Date checkin;
     private Date checkout;
     private java.util.Date createTime;
-    
+    private String status;
 
     public CommandeBean(){}
 
@@ -33,7 +33,9 @@ public class CommandeBean extends HttpServlet {
     public void setCreateTime(java.util.Date createTime){
         this.createTime = createTime;
     }
-
+    public void setStatus(String status){
+        this.status = status;
+    }
     public int getId(){
         return this.id;
     }
@@ -52,5 +54,7 @@ public class CommandeBean extends HttpServlet {
     public java.util.Date getCreateTime(){
         return this.createTime;
     }
-
+    public String getStatus(){
+        return this.status;
+    }
 }
