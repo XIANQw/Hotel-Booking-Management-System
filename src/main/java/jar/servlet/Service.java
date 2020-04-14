@@ -1,6 +1,8 @@
 package jar.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import jar.bean.*;
+import jar.dao.CommandeDao;
 import jar.dao.RessourceDao;
 
 public class Service extends HttpServlet {
@@ -31,6 +34,8 @@ public class Service extends HttpServlet {
 			Service.infoRessource(req, resp);
 		} else if ("modifyRessource".equals(method)) {
 			Service.modifyRessource(req, resp);
+		} else if ("sendCommande".equals(method)) {
+			Service.sendCommande(req, resp);
 		}
 		else {
 			req.setAttribute("type", "danger");
@@ -44,22 +49,30 @@ public class Service extends HttpServlet {
 		if(!Client.sessionValide(req, resp)){;
 			Gopage.accueil(req, resp);
 		}
+		int idu = ((UserBean)req.getSession().getAttribute("user")).getId();
 		String destination = req.getParameter("destination").toLowerCase();
-		String checkin = req.getParameter("checkin");
-		String checkout = req.getParameter("checkout");
+		Date checkin = Date.valueOf(req.getParameter("checkin"));
+		Date checkout = Date.valueOf(req.getParameter("checkout"));
 		String numPeople = req.getParameter("nb");
 		String type = req.getParameter("type");
 		String smoker = req.getParameter("smoker");
-		String info = "Result";
-		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
+		String info = "Result of command: " + checkin + " " + checkout;
+		
+		CommandeBean cmd = new CommandeBean();
+		cmd.setCheckin(checkin); 
+		cmd.setCheckout(checkout); 
+		cmd.setIdu(idu);
+		req.getSession().setAttribute("cmd", cmd);
+
 		HashMap<String, String> attrs = new HashMap<>();
 		attrs.put("city", destination); 
 		attrs.put("persons", numPeople);
 		attrs.put("type", type);
 		attrs.put("smoker", smoker);
+		
 		List<RessourceBean> tmp = RessourceDao.getRessourcesFrom(attrs), result = new ArrayList<RessourceBean>();
 		for(RessourceBean res : tmp){
-			if(res.getIdu() != owner) result.add(res);
+			if(res.getIdu() != idu) result.add(res);
 		}
 		req.setAttribute("info", info);
 		req.setAttribute("type", "success");
@@ -82,10 +95,10 @@ public class Service extends HttpServlet {
 
 	public static void createRessource(HttpServletRequest req,
 	HttpServletResponse resp) throws ServletException, IOException{
-		HttpSession session = req.getSession(false);
 		if(!Client.sessionValide(req, resp)){;
 			Gopage.accueil(req, resp);
 		}
+		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type");
 		float price = Float.parseFloat(req.getParameter("price"));
 		int number = Integer.parseInt(req.getParameter("number"));
@@ -96,7 +109,6 @@ public class Service extends HttpServlet {
 		if("room".equals(type)) persons = Integer.parseInt(req.getParameter("persons_room"));
 		else persons = Integer.parseInt(req.getParameter("persons_house"));
 		String smoker = req.getParameter("smoker");
-		int owner = ((UserBean)session.getAttribute("user")).getId();
 		RessourceBean ress = new RessourceBean();
 		ress.setIdu(owner);
 		ress.setType(type);
@@ -149,6 +161,7 @@ public class Service extends HttpServlet {
 			Gopage.accueil(req, resp);
 		}
 		int id = Integer.parseInt(req.getParameter("id"));
+		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type");
 		float price = Float.parseFloat(req.getParameter("price"));
 		int number = Integer.parseInt(req.getParameter("number"));
@@ -161,6 +174,7 @@ public class Service extends HttpServlet {
 		String smoker = req.getParameter("smoker");
 		RessourceBean ress = new RessourceBean();
 		ress.setId(id);
+		ress.setIdu(owner);
 		ress.setType(type);
 		ress.setPrice(price);
 		ress.setNumber(number);
@@ -173,4 +187,27 @@ public class Service extends HttpServlet {
 		req.setAttribute("ressource", ress);
 		Gopage.infoRessource(req, resp);
 	}
+
+	public static void sendCommande(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException{
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+		}
+		int idr = Integer.parseInt(req.getParameter("id"));
+		java.util.Date createTime = new java.util.Date();
+		CommandeBean cmd = (CommandeBean)req.getSession().getAttribute("cmd");
+		cmd.setIdr(idr);
+		cmd.setCreateTime(createTime);
+		CommandeDao.saveCommande(cmd);
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String info = "user=" + cmd.getIdu() + 
+		" ressource=" + cmd.getIdr() + 
+		" checkin=" + cmd.getCheckin().toString() + 
+		" checkout="+ cmd.getCheckout().toString() + 
+		" createTime=" + df.format(cmd.getCreateTime());
+		req.setAttribute("info", info);
+		req.setAttribute("type", "success");
+		Gopage.mainPage(req, resp);
+	}
+
 }

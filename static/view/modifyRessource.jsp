@@ -73,7 +73,7 @@
                         placeholder="Number of your room" require="false"/>
                 </div>
                 <button id="quitCreation" class="btn btn-primary">Cancel</button>
-                <button type="submit" class="btn btn-primary float-right">Create</button>
+                <button type="submit" class="btn btn-primary float-right">Modify</button>
                 <%} else {%>
                 <div id="optionRoom" style="display: none">
                     <div class="form-group">

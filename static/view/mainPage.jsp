@@ -25,7 +25,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=getProfile" class="text-success">Profile</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Commandes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Your commandes</a></li>
                         <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                     </ul>
@@ -69,11 +69,8 @@
                         </div>
                         <div class="form-group">
                             <label>Smoker: </label>
-                            <select name="smoker" id="id_smoker" class="form-control"
-                                    placeholder="room's type" required>
-                                <option value="y">Yes</option>
-                                <option value="n">No</option>
-                            </select>
+                            <input name="smoker" id="id_smoker" value="y" type="radio" >Yes
+                            <input name="smoker" id="id_no_smoker" value="n" type="radio" checked/>No
                         </div>
                     </div>
                 </div>
@@ -103,6 +100,7 @@
                 <td><%=res.getPersons()%></td>
                 <td><%=res.getAdresse()%></td>
                 <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=res.getId()%>" class="text-success">details</a></td>
+                <td><a href="${pageContext.request.contextPath}/Service?method=sendCommande&id=<%=res.getId()%>" class="text-success">reserve</a></td>
                 </tr>
             <%}%>
             </tbody>

@@ -23,7 +23,7 @@
                         <div class="navbar-header"><a class="navbar-brand">${user.username}</a></div>
                         <div>
                             <ul class="nav navbar-nav">
-                                <li><a href="${pageContext.request.contextPath}/Service?method=Logout" class="text-success">deconnexion</a></li>
+                                <li><a href="${pageContext.request.contextPath}/Service?method=Logout" class="text-success">disconnect</a></li>
                             </ul>
                         </div>
                     </div>

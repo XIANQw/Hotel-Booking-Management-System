@@ -30,10 +30,10 @@
                 <ul class="nav navbar-nav">
                     <%if(user.getId() == res.getIdu()) {%>
                     <li>
-                        <a class="text-success" href="${pageContext.request.contextPath}/Gopage?page=modifyRessource&id=<%=res.getId()%>">modify</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Gopage?page=modifyRessource&id=<%=res.getId()%>">Modify</a>
                     </li>
                     <li>
-                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=deleteRessource&id=<%=res.getId()%>">delete</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=deleteRessource&id=<%=res.getId()%>">Delete</a>
                     </li>
                     <li>
                         <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getCommandesFromRessource?id=<%=res.getId()%>">

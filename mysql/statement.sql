@@ -19,8 +19,8 @@ create table pc3r.User (
     password char(20)
 );
     
-create table Profile (
-    Id int NOT NULL,
+create table pc3r.Profile (
+    id int NOT NULL,
     nom VARCHAR(20),
     prenom VARCHAR(20),
     email VARCHAR(50),
@@ -28,3 +28,14 @@ create table Profile (
     telephone VARCHAR(20),
     primary key(id)
 );
+
+create table pc3r.Commande (
+    id int not null auto_increment,
+    idr int,
+    idu int,
+    checkin date,
+    checkout date,
+    create_time datetime,
+    primary key(id)
+);
+
