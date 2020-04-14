@@ -2,6 +2,7 @@ package jar.bean;
 
 public class RessourceBean {
     private int id;
+    private int idu;
     private String type;
     private float price;
     private int persons;
@@ -19,6 +20,12 @@ public class RessourceBean {
     }
     public void setId(int id){
         this.id = id;
+    }
+    public int getIdu(){
+        return this.idu;
+    }
+    public void setIdu(int idu){
+        this.idu = idu;
     }
     public String getType(){
         return this.type;

@@ -1,5 +1,10 @@
 <%@page import ="jar.bean.RessourceBean"%>
+<%@page import ="jar.bean.UserBean"%>
+<%@page import ="jar.bean.ProfileBean"%>
+<%@page import ="jar.dao.ProfileDao"%>
 <%RessourceBean res = (RessourceBean)request.getAttribute("ressource");%>
+<%UserBean user = (UserBean)request.getSession().getAttribute("user");%>
+<%ProfileBean ownerInfo = ProfileDao.getProfileFromUser(res.getIdu()); %>
 <!--infoRessource.html-->
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +28,7 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
+                    <%if(user.getId() == res.getIdu()) {%>
                     <li>
                         <a class="text-success" href="${pageContext.request.contextPath}/Gopage?page=modifyRessource&id=<%=res.getId()%>">modify</a>
                     </li>
@@ -30,11 +36,12 @@
                         <a class="text-success" href="${pageContext.request.contextPath}/Service?method=deleteRessource&id=<%=res.getId()%>">delete</a>
                     </li>
                     <li>
-                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getRessources" >back</a>
-                    </li>
-                    <li>
                         <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getCommandesFromRessource?id=<%=res.getId()%>">
                         Commandes of this ressource</a>
+                    </li>
+                    <%}%>
+                    <li>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getRessources" >back</a>
                     </li>
                 </ul>
             </div>
@@ -65,33 +72,23 @@
                     </li>
                 </ul>
             </div>
-            <div id='meubleDansRes'>
-                <table class="table table-striped">
-                    <thead class="thead-light">
-                    <tr>
-                        <li>Info de Meuble</li>
-                        <th>Nom Meuble</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for item in resMeu %}
-                    <tr>
-                        <th>{{item.nom_Meuble}}</th>
-                        {% if request.session.username == 'root'  %}
-                        <td>{{item.status}}</td>
-                        <td><a class="text-success"
-                               href="${pageContext.request.contextPath}/Service?method=removeItem">Remove</a>
-                        </td>
-                        {%  endif %}
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+            <div id='infoOwner'>
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Owner's information</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Owner</strong></span>
+                        <%=ownerInfo.getPrenom() + " " + ownerInfo.getNom()%>
+                    </li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Email</strong></span>
+                        <%=ownerInfo.getEmail()%>
+                    </li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Telephone</strong></span>
+                        <%=ownerInfo.getTelephone()%>
+                    </li>
+                </ul>
             </div>
         </div>
 
-        {% if request.session.username == 'root'%}
+        
         <div id='toutRessource' class="col-md-8">
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -105,34 +102,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for item in meubles %}
                 <tr>
-                    <td>{{item.id}}</td>
-                    <td>{{item.nom_Meuble}}</td>
-                    <td>{{item.status}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td><a href="${pageContext.request.contextPath}/Service?method=addItem">Add in
                         <%=res.getType()%> <%=res.getId()%></a></td>
                     <td><a class="modify" href="javascript:;">Modify</a></td>
                     <td><a href="${pageContext.request.contextPath}/Service?method=removeItem">Delete</a>
                     </td>
                 </tr>
-                {% endfor %}
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input id="hrefCreerMeu" type="button" class="btn btn-primary" value="Creer nouveau meuble"/>
-                    </td>
-                </tr>
                 </tbody>
             </table>
         </div>
-        {% endif %}
     </div>
 
-    <div class="row-fluid">
+    <%-- <div class="row-fluid">
         <div id="creerMeubleForm" class="col-md-8 col-md-offset-4">
             <form id="formCreerMeu" class="form-inline" action="${pageContext.request.contextPath}/Service?method=addItem" method="post"
                   onsubmit="check()">
@@ -148,15 +133,15 @@
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>
         </div>
-    </div>
+    </div> --%>
 </div>
-<div class="row-fluid">
+<%-- <div class="row-fluid">
     <form id="formModifMeu" class="form-inline" action="${pageContext.request.contextPath}/Service?method=modifyItem" method="post"
           onsubmit="checkModif()">
         <input type='hidden' id="modifMeuNom" type="hidden" name="meuNom">
         <input type='hidden' id="modifMeuId" type="hidden" name="meuId">
         <input type="hidden" name="resId" value="<%=res.getId()%>">
     </form>
-</div>
+</div> --%>
 </body>
 </html>

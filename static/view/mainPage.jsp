@@ -1,7 +1,7 @@
 <%@page import ="jar.bean.UserBean"%>
 <%@page import ="jar.bean.RessourceBean"%>
 <%@page import ="java.util.List"%>
-<%List<RessourceBean> result = (List<RessourceBean>)request.getAttribute("result");%>
+<%List<RessourceBean> result = (List<RessourceBean>)request.getSession().getAttribute("result");%>
 
 <!doctype html>
 <html lang="en">

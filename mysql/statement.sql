@@ -2,6 +2,7 @@ create database pc3r;
 
 create table pc3r.Ressource (
     id int auto_increment,
+    idu int,
     type varchar(10),
     price float,
     number int,
@@ -17,12 +18,6 @@ create table pc3r.User (
     username char(20),
     password char(20)
 );
-
-create table User_ressource (
-    id int auto_increment,
-    idu int,
-    idr int,
-    primary key(id));
     
 create table Profile (
     Id int NOT NULL,

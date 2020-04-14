@@ -1,6 +1,7 @@
 package jar.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class Service extends HttpServlet {
 
 	public static void createSearch(HttpServletRequest req,
 	HttpServletResponse resp) throws ServletException, IOException {
+		if(!Client.sessionValide(req, resp)){;
+			Gopage.accueil(req, resp);
+		}
 		String destination = req.getParameter("destination").toLowerCase();
 		String checkin = req.getParameter("checkin");
 		String checkout = req.getParameter("checkout");
@@ -47,15 +51,19 @@ public class Service extends HttpServlet {
 		String type = req.getParameter("type");
 		String smoker = req.getParameter("smoker");
 		String info = "Result";
+		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
 		HashMap<String, String> attrs = new HashMap<>();
 		attrs.put("city", destination); 
 		attrs.put("persons", numPeople);
 		attrs.put("type", type);
 		attrs.put("smoker", smoker);
-		List<RessourceBean> result = RessourceDao.getRessourcesFrom(attrs);
+		List<RessourceBean> tmp = RessourceDao.getRessourcesFrom(attrs), result = new ArrayList<RessourceBean>();
+		for(RessourceBean res : tmp){
+			if(res.getIdu() != owner) result.add(res);
+		}
 		req.setAttribute("info", info);
 		req.setAttribute("type", "success");
-		req.setAttribute("result", result);
+		req.getSession().setAttribute("result", result);
 		Gopage.mainPage(req, resp);
 	}
 
@@ -65,7 +73,9 @@ public class Service extends HttpServlet {
 			Gopage.accueil(req, resp);
 		}
 		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
-		List<RessourceBean> ressources = RessourceDao.getRessourcesFromOwner(owner);
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("idu", Integer.toString(owner));
+		List<RessourceBean> ressources = RessourceDao.getRessourcesFrom(attrs);
 		req.setAttribute("ressources", ressources);
 		Gopage.ressourceList(req, resp);
 	}
@@ -88,6 +98,7 @@ public class Service extends HttpServlet {
 		String smoker = req.getParameter("smoker");
 		int owner = ((UserBean)session.getAttribute("user")).getId();
 		RessourceBean ress = new RessourceBean();
+		ress.setIdu(owner);
 		ress.setType(type);
 		ress.setPrice(price);
 		ress.setNumber(number);
@@ -97,7 +108,7 @@ public class Service extends HttpServlet {
 		ress.setPersons(persons);
 		ress.setSmoker(smoker);
 		String info = "Added a " + type;
-		RessourceDao.saveRessource(owner, ress);
+		RessourceDao.saveRessource(ress);
 		req.setAttribute("info", info);
 		req.setAttribute("type", "success");
 		Service.getRessource(req, resp);
