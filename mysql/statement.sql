@@ -16,7 +16,8 @@ create table pc3r.Ressource (
 create table pc3r.User (
     id int auto_increment,
     username char(20),
-    password char(20)
+    password char(20),
+    primary key(id)
 );
     
 create table pc3r.Profile (

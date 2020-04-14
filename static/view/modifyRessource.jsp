@@ -11,7 +11,7 @@
     <script src="/microproject/static/js/jquery.min.js"></script>
     <script src="/microproject/static/js/popper.js"></script>
     <script src="/microproject/static/js/bootstrap.min.js"></script>
-    <script src='/microproject/static/js/page.js'></script>>
+    <script src='/microproject/static/js/page.js'></script>
 </head>
 <body>
 <div class="container">

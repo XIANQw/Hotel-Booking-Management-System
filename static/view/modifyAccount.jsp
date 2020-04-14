@@ -26,7 +26,7 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a href="Client?method=Logout" class="text-success">disconnect</a></li>
+                    <li><a href="Client?method=Logout" class="text-success">Disconnect</a></li>
                 </ul>
             </div>
         </div>

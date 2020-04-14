@@ -29,7 +29,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         <ul class="nav navbar-nav">
                             <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                             <li><a href="${pageContext.request.contextPath}/Client?method=getProfile" class="text-success">Profile</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Your commandes</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Sended commandes</a></li>
                             <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                             <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                         </ul>
@@ -47,7 +47,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Sender</th>
+                    <th scope="col">Owner</th>
                     <th scope="col">Ressource</th>
                     <th scope="col">Checkin date</th>
                     <th scope="col">Checkout date</th>
@@ -65,7 +65,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <tr>
                     <td><%=cmd.getId()%></td>
                     <td><%=profile.getPrenom() + " " + profile.getNom()%></td>
-                    <td><%=res.getType() + " " + res.getId()%></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=res.getId()%>" class="text-success"><%=res.getType() + " " + res.getId()%></a></td>
                     <td><%=cmd.getCheckin().toString()%></td>
                     <td><%=cmd.getCheckout().toString()%></td>
                     <td><%=df.format(cmd.getCreateTime())%></td>

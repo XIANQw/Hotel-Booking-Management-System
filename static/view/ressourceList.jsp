@@ -25,7 +25,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                 <li><a href="${pageContext.request.contextPath}/Gopage?page=profile" class="text-success">Profile</a></li>
-                <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes&id=${user.id}" class="text-success">Commandes</a></li>
+                <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes&id=${user.id}" class="text-success">Sended commandes</a></li>
                 <li><a href="${pageContext.request.contextPath}/Service?method=getRessources&id=${user.id}" class="text-success">Your houses</a></li>
                 <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
             </ul>
