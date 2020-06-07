@@ -84,7 +84,7 @@
                         <input type="number" name="persons_house" id="id_num_room" class="form-control" 
                             placeholder="Number of your room" require="false"/>
                     </div>
-                    <button id="quitCreation" class="btn btn-primary">Cancel</button>
+                    <button id="RessourceQuitCreation" class="btn btn-primary">Cancel</button>
                     <button type="submit" class="btn btn-primary float-right">Create</button>
                 </form>
             </fieldset>
@@ -125,7 +125,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><a id="ModeCreation" class="text-success">Add a house</a></td></tr>
+                        <td><a id="RessourceModeCreation" class="text-success">Add a house</a></td></tr>
                     </tbody>
                 </table>
             </fieldset>

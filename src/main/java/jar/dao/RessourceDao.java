@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import jar.bean.RessourceBean;
+import jar.util.Parameter;
 
 public class RessourceDao {
 

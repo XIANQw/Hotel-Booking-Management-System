@@ -3,6 +3,7 @@ package jar.dao;
 import jar.util.*;
 import java.sql.*;
 import jar.bean.ProfileBean;
+import jar.util.Parameter;
 
 public class ProfileDao {
 

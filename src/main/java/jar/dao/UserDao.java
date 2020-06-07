@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.HashMap;
 
 import jar.bean.UserBean;
+import jar.util.Parameter;
 
 public class UserDao {
 

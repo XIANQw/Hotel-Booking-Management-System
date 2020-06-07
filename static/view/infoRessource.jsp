@@ -88,60 +88,43 @@
             </div>
         </div>
 
-        
-        <div id='toutRessource' class="col-md-8">
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                <tr>
-                    <li>Liste Meuble disponible</li>
-                    <th>#</th>
-                    <th>Nom Meuble</th>
-                    <th>Status</th>
-                    <th></th>
-                    <th>Operation</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><a href="${pageContext.request.contextPath}/Service?method=addItem">Add in
-                        <%=res.getType()%> <%=res.getId()%></a></td>
-                    <td><a class="modify" href="javascript:;">Modify</a></td>
-                    <td><a href="${pageContext.request.contextPath}/Service?method=removeItem">Delete</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+        <!--google map api----------------------------------------------------->
+        <div id='map' style="width:500px;height:380px;" class="col-md-8"></div>
+        <input type="hidden" id="adresse"  value="<%=res.getAdresseForMap()%>">
 
-    <%-- <div class="row-fluid">
-        <div id="creerMeubleForm" class="col-md-8 col-md-offset-4">
-            <form id="formCreerMeu" class="form-inline" action="${pageContext.request.contextPath}/Service?method=addItem" method="post"
-                  onsubmit="check()">
-                <div class="title">
-                    <p>Create an item</p><a onclick="layer.style.display=none"></a>
-                </div>
-                <div class="form-group">
-                    <label>Item: </label>
-                    <input class="form-control" type="input" id="nomMeuble" name="nameItem"
-                           placeholder="Item name"/>
-                </div>
-                <input type="hidden" name="resId" value="<%=res.getId()%>">
-                <button type="submit" class="btn btn-primary">Create</button>
-            </form>
-        </div>
-    </div> --%>
+      <script>
+          function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: {lat: -34.397, lng: 150.644}
+            });
+            var geocoder = new google.maps.Geocoder();
+
+              geocodeAddress(geocoder, map);
+
+          }
+          function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('adresse').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+              if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: results[0].geometry.location
+
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+          }
+        </script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpVUVmmjb1fQP25RB5TCYR20_3WkKlCok&callback=initMap">
+        </script>
+
+        <!--end google map api----------------------------------------------------->
+    </div>
 </div>
-<%-- <div class="row-fluid">
-    <form id="formModifMeu" class="form-inline" action="${pageContext.request.contextPath}/Service?method=modifyItem" method="post"
-          onsubmit="checkModif()">
-        <input type='hidden' id="modifMeuNom" type="hidden" name="meuNom">
-        <input type='hidden' id="modifMeuId" type="hidden" name="meuId">
-        <input type="hidden" name="resId" value="<%=res.getId()%>">
-    </form>
-</div> --%>
 </body>
 </html>
