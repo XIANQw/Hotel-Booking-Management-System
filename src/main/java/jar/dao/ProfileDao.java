@@ -1,5 +1,6 @@
 package jar.dao;
 
+import jar.util.*;
 import java.sql.*;
 import jar.bean.ProfileBean;
 
@@ -9,7 +10,7 @@ public class ProfileDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // sql配置
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+                    Parameter.username, Parameter.pwd);
             String sql;
             ProfileBean oldProfile = getProfileFromUser(idu);
             if (oldProfile == null) {
@@ -42,7 +43,7 @@ public class ProfileDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+                    Parameter.username, Parameter.pwd);
             String sql = "select * from Profile where id='" + idu + "';";
             System.out.println("sql=" + sql);
             Statement stmt = con.createStatement();

@@ -1,5 +1,6 @@
 package jar.dao;
 
+import jar.util.Parameter;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -13,7 +14,7 @@ public class DemandDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+                    Parameter.username, Parameter.pwd);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "insert into Demand values(0," + demand.getIdr() + "," + demand.getIdu() + ",'"
                     + demand.getCheckin().toString() + "','" + demand.getCheckout().toString() + "','"
@@ -35,7 +36,7 @@ public class DemandDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+                    Parameter.username, Parameter.pwd);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "update Demand set idr=" + demand.getIdr() + ",idu=" + demand.getIdu() + ",checkin='"
                     + demand.getCheckin().toString() + "',checkout='" + demand.getCheckout().toString()
@@ -61,7 +62,7 @@ public class DemandDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+                    Parameter.username, Parameter.pwd);
             String sql = "select * from Demand where ";
             for (String attr : attrs.keySet()) {
                 sql += attr + "=" + "'" + attrs.get(attr) + "' and ";
@@ -95,7 +96,7 @@ public class DemandDao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+                    Parameter.username, Parameter.pwd);
             String sql = "delete from Demand where ";
             for (String attr : attrs.keySet()) {
                 sql += attr + "=" + "'" + attrs.get(attr) + "' and ";
