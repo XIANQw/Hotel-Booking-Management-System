@@ -66,7 +66,7 @@
                     <label>Telephone</label>
                     <input type="text" name="tel" value="<%=profile.getTelephone()%>" class="form-control" placeholder="telphone"/>
                 </div>
-                <a type="button" href="${pageContext.request.contextPath}/Client?method=getProfile" class="btn btn-primary">Cancel</a>
+                <a type="button" href="${pageContext.request.contextPath}/Client?method=getProfile&id=${user.getId()}" class="btn btn-primary">Cancel</a>
                 <button type="submit" class="btn btn-primary float-right">Save</button>
             </form>
             <%} else {%>

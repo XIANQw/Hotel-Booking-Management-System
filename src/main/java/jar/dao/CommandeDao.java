@@ -9,46 +9,69 @@ import jar.bean.CommandeBean;
 
 public class CommandeDao {
 
-    public static void saveCommande(CommandeBean commande){
-        try{
+    public static void saveCommande(CommandeBean commande) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    "xian", "");
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String sql = "insert into Commande values(0," +
-            commande.getIdr() + ","+
-            commande.getIdu() + ",'" +
-            commande.getCheckin().toString() + "','" +
-            commande.getCheckout().toString() +  "','" +
-            df.format(commande.getCreateTime()) + "','" +
-            commande.getStatus() + "');";
-            System.out.println("sql="+sql);
+            String sql = "insert into Commande values(0," + commande.getIdr() + "," + commande.getIdu() + ",'"
+                    + commande.getCheckin().toString() + "','" + commande.getCheckout().toString() + "','"
+                    + df.format(commande.getCreateTime()) + "','" + commande.getStatus() + "');";
+            System.out.println("sql=" + sql);
             Statement stmt = con.createStatement();
             int res = stmt.executeUpdate(sql);
-            if(res != 1){
+            if (res != 1) {
                 throw new RuntimeException("error save commande....");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static List<CommandeBean> getCommandesFrom(HashMap<String, String> attrs){
-        ArrayList<CommandeBean> commandes = new ArrayList<CommandeBean>();
-        try{
+    public static void updateCommande(CommandeBean commande) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
-            String sql = "select * from Commande where "; 
-            for(String attr : attrs.keySet()){
-                sql +=  attr + "=" + "'" + attrs.get(attr) + "' and ";
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    "xian", "");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String sql = "update Commande set idr=" + commande.getIdr() + ",idu=" + commande.getIdu() + ",checkin='"
+                    + commande.getCheckin().toString() + "',checkout='" + commande.getCheckout().toString()
+                    + "',create_time='" + df.format(commande.getCreateTime()) + "',status='" + commande.getStatus()
+                    + "' where id=" + commande.getId();
+
+            System.out.println("sql=" + sql);
+            Statement stmt = con.createStatement();
+            int res = stmt.executeUpdate(sql);
+            res = stmt.executeUpdate(sql);
+            if (res != 1) {
+                throw new RuntimeException("error update Profile ...");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<CommandeBean> getCommandesFrom(HashMap<String, String> attrs) {
+        ArrayList<CommandeBean> commandes = new ArrayList<CommandeBean>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    "xian", "");
+            String sql = "select * from Commande where ";
+            for (String attr : attrs.keySet()) {
+                sql += attr + "=" + "'" + attrs.get(attr) + "' and ";
             }
             sql += "1";
-            System.out.println("sql="+sql);
+            System.out.println("sql=" + sql);
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            while(res.next()){
+            while (res.next()) {
                 CommandeBean cmd = new CommandeBean();
                 cmd.setId(res.getInt(1));
                 cmd.setIdr(res.getInt(2));
@@ -60,32 +83,33 @@ public class CommandeDao {
                 commandes.add(cmd);
             }
             return commandes;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return commandes;
     }
 
-    public static void deleteCommandesFrom(HashMap<String, String> attrs){
-        try{
+    public static void deleteCommandesFrom(HashMap<String, String> attrs) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
-            String sql = "delete from Commande where "; 
-            for(String attr : attrs.keySet()){
-                sql +=  attr + "=" + "'" + attrs.get(attr) + "' and ";
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    "xian", "");
+            String sql = "delete from Commande where ";
+            for (String attr : attrs.keySet()) {
+                sql += attr + "=" + "'" + attrs.get(attr) + "' and ";
             }
             sql += "1";
-            System.out.println("sql="+sql);
+            System.out.println("sql=" + sql);
             Statement stmt = con.createStatement();
             int res = stmt.executeUpdate(sql);
-            if(res != 1){
+            if (res != 1) {
                 throw new RuntimeException("error save commande....");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

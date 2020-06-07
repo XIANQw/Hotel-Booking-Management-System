@@ -13,48 +13,69 @@ public class CommandeBean extends HttpServlet {
     private java.util.Date createTime;
     private String status;
 
-    public CommandeBean(){}
+    public CommandeBean() {
+    }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
-    public void setIdr(int idr){
+
+    public void setIdr(int idr) {
         this.idr = idr;
     }
-    public void setIdu(int idu){
+
+    public void setIdu(int idu) {
         this.idu = idu;
     }
-    public void setCheckin(Date checkin){
+
+    public void setCheckin(Date checkin) {
         this.checkin = checkin;
     }
-    public void setCheckout(Date checkout){
+
+    public void setCheckout(Date checkout) {
         this.checkout = checkout;
     }
-    public void setCreateTime(java.util.Date createTime){
+
+    public void setCreateTime(java.util.Date createTime) {
         this.createTime = createTime;
     }
-    public void setStatus(String status){
+
+    public void setStatus(String status) {
         this.status = status;
     }
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
-    public int getIdr(){
+
+    public int getIdr() {
         return this.idr;
     }
-    public int getIdu(){
+
+    public int getIdu() {
         return this.idu;
     }
-    public Date getCheckin(){
+
+    public Date getCheckin() {
         return this.checkin;
     }
-    public Date getCheckout(){
+
+    public Date getCheckout() {
         return this.checkout;
     }
-    public java.util.Date getCreateTime(){
+
+    public java.util.Date getCreateTime() {
         return this.createTime;
     }
-    public String getStatus(){
+
+    public String getStatus() {
         return this.status;
+    }
+
+    @Override
+    public String toString() {
+        String str = "cmd" + id + ",idr=" + idr + ",idu=" + idu + ",in=" + checkin.toString() + "out="
+                + checkout.toString() + "creatTime=" + createTime.toString() + "," + status;
+        return str;
     }
 }

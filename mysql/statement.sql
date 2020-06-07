@@ -40,4 +40,3 @@ create table pc3r.Commande (
     status varchar(10),
     primary key(id)
 );
-

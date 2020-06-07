@@ -75,8 +75,8 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <td><%=cmd.getCheckout().toString()%></td>
                     <td><%=df.format(cmd.getCreateTime())%></td>
                     <td><%=cmd.getStatus()%></td>
-                    <td><a href="${pageContext.request.contextPath}/Service?method=deleteRecievedCommandes&id=<%=res.getId()%>" class="text-success">Delete</a></td>
-                    <td><a href="${pageContext.request.contextPath}/Service?method=acceptCommande&id=<%=res.getId()%>" class="text-success">Accept</a></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=deleteRecievedCommandes&idc=<%=cmd.getId()%>" class="text-success">Delete</a></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=acceptCommande&idc=<%=cmd.getId()%>&idr=<%=res.getId()%>" class="text-success">Accept</a></td>
                     </tr>
                 <%}%>
                 </tbody>
