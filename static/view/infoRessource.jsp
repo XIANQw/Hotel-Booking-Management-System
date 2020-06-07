@@ -36,8 +36,8 @@
                         <a class="text-success" href="${pageContext.request.contextPath}/Service?method=deleteRessource&id=<%=res.getId()%>">Delete</a>
                     </li>
                     <li>
-                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getCommandesFromRessource&id=<%=res.getId()%>">
-                        Commandes of this ressource</a>
+                        <a class="text-success" href="${pageContext.request.contextPath}/Service?method=getDemandsFromRessource&id=<%=res.getId()%>">
+                        Demands of this ressource</a>
                     </li>
                     <%}%>
                     <li>
