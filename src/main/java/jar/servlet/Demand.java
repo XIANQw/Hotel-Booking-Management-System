@@ -17,7 +17,6 @@ public class Demand {
 	public static void createSearch(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		int idu = ((UserBean) req.getSession().getAttribute("user")).getId();
@@ -53,10 +52,54 @@ public class Demand {
 		Gopage.mainPage(req, resp);
 	}
 
+	public static void createSearchAjax(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (!Client.sessionValide(req, resp)) {
+			Gopage.accueil(req, resp);
+		}
+		int idu = ((UserBean) req.getSession().getAttribute("user")).getId();
+		String destination = req.getParameter("destination").toLowerCase();
+		
+		Date checkin = Date.valueOf(req.getParameter("checkin"));
+		Date checkout = Date.valueOf(req.getParameter("checkout"));
+		String numPeople = req.getParameter("nb");
+		String type = req.getParameter("type");
+		String smoker = req.getParameter("smoker");
+		String info = "Result of command: " + checkin + " " + checkout;
+
+		DemandBean cmd = new DemandBean();
+		cmd.setCheckin(checkin);
+		cmd.setCheckout(checkout);
+		cmd.setIdu(idu);
+		cmd.setStatus("Pending");
+		req.getSession().setAttribute("cmd", cmd);
+
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("city", destination);
+		attrs.put("persons", numPeople);
+		attrs.put("type", type);
+		attrs.put("smoker", smoker);
+
+		List<RessourceBean> tmp = RessourceDao.getRessourcesFrom(attrs), result = new ArrayList<RessourceBean>();
+		String resJson = "[";
+		if (tmp.size() > 0) {
+			for (int i = 0; i < tmp.size() - 1; i++) {
+				RessourceBean res = tmp.get(i);
+				if (res.getIdu() != idu)
+					resJson += res.toJson();
+				resJson += ",";
+			}
+			resJson += tmp.get(tmp.size() - 1).toJson();
+		}
+		resJson += "]";
+		resp.setCharacterEncoding("utf-8");
+		resp.getWriter().write(resJson);
+		System.out.println(resJson);
+	}
+
 	public static void sendDemand(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		int idr = Integer.parseInt(req.getParameter("id"));

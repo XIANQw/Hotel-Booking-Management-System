@@ -6,8 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class Service extends HttpServlet {
-    public void doGet(HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
@@ -17,6 +16,8 @@ public class Service extends HttpServlet {
 		System.out.println("service="+method);
 		if ("createSearch".equals(method)){
 			Demand.createSearch(req, resp);
+		} else if ("createSearchAjax".equals(method)){
+			Demand.createSearchAjax(req, resp);	
 		} else if ("getRessources".equals(method)) {
 			Ressource.getRessource(req, resp);
 		} else if ("createRessource".equals(method)) {
@@ -48,6 +49,5 @@ public class Service extends HttpServlet {
 			Gopage.mainPage(req, resp);
 		}
 	}
-
 
 }

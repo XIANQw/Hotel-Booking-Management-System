@@ -99,10 +99,16 @@ public class RessourceBean {
         return this.number + " " + this.street + " " + this.city + " " + this.postal;
     }
 
-    public String getAdresseForMap(){
+    public String getAdresseForMap() {
         return this.number + "," + this.street + "," + this.city + "," + this.postal;
     }
-    
+
+    public String toJson() {
+        String str = "{\"id\":" + id + ",\"idu\":" + idu + ",\"type\":\"" + type + "\",\"price\":" + price + ",\"adresse\":\"" + number + " "
+                + street + " " + postal + " " + city + "\",\"person\":" + persons + ",\"smoke\":\"" + smoker + "\"}";
+        return str;
+    }
+
     @Override
     public String toString() {
         String str = "res";

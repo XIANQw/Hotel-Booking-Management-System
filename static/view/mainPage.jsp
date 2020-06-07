@@ -14,6 +14,7 @@
     <script src="/microproject/static/js/popper.js"></script>
     <script src="/microproject/static/js/bootstrap.min.js"></script>
     <script src='/microproject/static/js/page.js'></script>
+    <script src='/microproject/static/js/mainPage.js'></script>
 </head>
 <body>
 <div class="container">
@@ -40,7 +41,7 @@
 
         <div id="createDemande">
             <legend>Get a house or room</legend>
-            <form action="${pageContext.request.contextPath}/Service?method=createSearch" method="post">
+            <form id="FormSearch" method="post">
                 <div id="inputDemande">
                     <div id="plan1">
                         <div class="form-group">
@@ -75,8 +76,10 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary float-right">Go</button>
+                <button id="ButtonSearch"  type="button" class="btn btn-primary float-right">Go</button>
             </form>
+        </div>
+        <div id="resultOfSearch">
         </div>
 
         <%if (result!=null) {%>
