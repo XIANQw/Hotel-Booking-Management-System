@@ -3,7 +3,7 @@
 <%@ page import ="java.util.*"%>
 <%@ page import = "java.text.SimpleDateFormat"%>
 <%
-List<CommandeBean> cmds = (List<CommandeBean>)request.getAttribute("cmds");
+List<DemandBean> cmds = (List<DemandBean>)request.getAttribute("cmds");
 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 <!doctype html>
@@ -29,8 +29,8 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=${user.getId()}" class="text-success">Profile</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getSendedCommandes" class="text-success">Sended commandes</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedCommandes" class="text-success">Recieved commandes</a></li>                        
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getSendedDemands" class="text-success">Sended demands</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedDemands" class="text-success">Recieved demands</a></li>                        
                         <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                         </ul>
@@ -42,8 +42,8 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
             <%}%>
 
-            <div id="commandeList">
-            <legend>Your sended commandes</legend>
+            <div id="demandList">
+            <legend>Your sended demands</legend>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -58,7 +58,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 </tr>
                 </thead>
                 <tbody>
-                <% for(CommandeBean cmd : cmds) { %>
+                <% for(DemandBean cmd : cmds) { %>
                     <%
                     HashMap<String, String> attrs = new HashMap<>();
                     attrs.put("id", Integer.toString(cmd.getIdr()));
@@ -75,7 +75,7 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <td><%=cmd.getCheckout().toString()%></td>
                     <td><%=df.format(cmd.getCreateTime())%></td>
                     <td><%=cmd.getStatus()%></td>
-                    <td><a href="${pageContext.request.contextPath}/Service?method=deleteSendedCommandes&id=<%=res.getId()%>" class="text-success">Delete</a></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=deleteSendedDemands&id=<%=res.getId()%>" class="text-success">Delete</a></td>
                     </tr>
                 <%}%>
                 </tbody>

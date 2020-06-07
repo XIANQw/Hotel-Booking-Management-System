@@ -25,8 +25,8 @@
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=${user.getId()}" class="text-success">Profile</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getSendedCommandes" class="text-success">Sended commandes</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedCommandes" class="text-success">Recieved commandes</a></li>                        
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getSendedDemands" class="text-success">Sended demands</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedDemands" class="text-success">Recieved demands</a></li>                        
                         <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                     </ul>
@@ -101,7 +101,7 @@
                 <td><%=res.getPersons()%></td>
                 <td><%=res.getAdresse()%></td>
                 <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=res.getId()%>" class="text-success">details</a></td>
-                <td><a href="${pageContext.request.contextPath}/Service?method=sendCommande&id=<%=res.getId()%>" class="text-success">reserve</a></td>
+                <td><a href="${pageContext.request.contextPath}/Service?method=sendDemand&id=<%=res.getId()%>" class="text-success">reserve</a></td>
                 </tr>
             <%}%>
             </tbody>

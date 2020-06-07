@@ -3,13 +3,13 @@
 <%@ page import ="java.util.*"%>
 <%@ page import = "java.text.SimpleDateFormat"%>
 <%
-List<CommandeBean> cmds = (List<CommandeBean>)request.getAttribute("cmds");
+List<DemandBean> cmds = (List<DemandBean>)request.getAttribute("cmds");
 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 <!doctype html>
 <html lang="en">
 <head>
-    <title>main</title>
+    <title>recieved demands</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/microproject/static/css/bootstrap.min.css">
@@ -28,8 +28,9 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     <div>
                         <ul class="nav navbar-nav">
                             <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Client?method=getProfile" class="text-success">Profile</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Service?method=getCommandes" class="text-success">Your commandes</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=${user.getId()}" class="text-success">Profile</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Service?method=getSendedDemands" class="text-success">Sended demands</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedDemands" class="text-success">Recieved demands</a></li>                        
                             <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                             <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                         </ul>
@@ -41,35 +42,41 @@ SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
             <%}%>
 
-            <div id="commandeList">
-            <legend>Your commandes</legend>
+            <div id="demandList">
+            <legend>Your recieved demands</legend>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Sender</th>
+                    <th scope="col">Owner</th>
                     <th scope="col">Ressource</th>
                     <th scope="col">Checkin date</th>
                     <th scope="col">Checkout date</th>
                     <th scope="col">Create Time</th>
+                    <th scope="col">Status</th>
                 </tr>
                 </thead>
                 <tbody>
-                <% for(CommandeBean cmd : cmds) { %>
+                <% for(DemandBean cmd : cmds) { %>
                     <%
                     HashMap<String, String> attrs = new HashMap<>();
                     attrs.put("id", Integer.toString(cmd.getIdr()));
                     RessourceBean res = RessourceDao.getRessourcesFrom(attrs).get(0);
-                    ProfileBean profile = ProfileDao.getProfileFromUser(res.getIdu());
                     %>
                     <tr>
                     <td><%=cmd.getId()%></td>
-                    <td><%=profile.getPrenom() + " " + profile.getNom()%></td>
-                    <td><%=res.getType() + " " + res.getId()%></td>
+                    <td><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=<%=cmd.getIdu()%>" class="text-success">
+                    <%=UserDao.getUsername(cmd.getIdu())%></a></td>
+                    <td><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=<%=res.getIdu()%>" class="text-success">
+                    <%=UserDao.getUsername(res.getIdu())%></a></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=res.getId()%>" class="text-success"><%=res.getType() + " " + res.getId()%></a></td>
                     <td><%=cmd.getCheckin().toString()%></td>
                     <td><%=cmd.getCheckout().toString()%></td>
                     <td><%=df.format(cmd.getCreateTime())%></td>
-                    <td><a href="${pageContext.request.contextPath}/Service?method=DeleteCommande" class="text-success">Delete</a></td>
+                    <td><%=cmd.getStatus()%></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=deleteRecievedDemands&idc=<%=cmd.getId()%>" class="text-success">Delete</a></td>
+                    <td><a href="${pageContext.request.contextPath}/Service?method=acceptDemand&idc=<%=cmd.getId()%>&idr=<%=res.getId()%>" class="text-success">Accept</a></td>
                     </tr>
                 <%}%>
                 </tbody>

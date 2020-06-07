@@ -25,8 +25,8 @@
             <ul class="nav navbar-nav">
                 <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
                 <li><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=${user.getId()}" class="text-success">Profile</a></li>
-                <li><a href="${pageContext.request.contextPath}/Service?method=getSendedCommandes" class="text-success">Sended commandes</a></li>
-                <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedCommandes" class="text-success">Recieved commandes</a></li>                        
+                <li><a href="${pageContext.request.contextPath}/Service?method=getSendedDemands" class="text-success">Sended demands</a></li>
+                <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedDemands" class="text-success">Recieved demands</a></li>                        
                 <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
                 <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
             </ul>
@@ -84,7 +84,7 @@
                         <input type="number" name="persons_house" id="id_num_room" class="form-control" 
                             placeholder="Number of your room" require="false"/>
                     </div>
-                    <button id="quitCreation" class="btn btn-primary">Cancel</button>
+                    <button id="RessourceQuitCreation" class="btn btn-primary">Cancel</button>
                     <button type="submit" class="btn btn-primary float-right">Create</button>
                 </form>
             </fieldset>
@@ -125,7 +125,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><a id="ModeCreation" class="text-success">Add a house</a></td></tr>
+                        <td><a id="RessourceModeCreation" class="text-success">Add a house</a></td></tr>
                     </tbody>
                 </table>
             </fieldset>

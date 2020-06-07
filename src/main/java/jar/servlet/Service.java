@@ -16,7 +16,7 @@ public class Service extends HttpServlet {
 		String method = req.getParameter("method");
 		System.out.println("service="+method);
 		if ("createSearch".equals(method)){
-			Commande.createSearch(req, resp);
+			Demand.createSearch(req, resp);
 		} else if ("getRessources".equals(method)) {
 			Ressource.getRessource(req, resp);
 		} else if ("createRessource".equals(method)) {
@@ -27,20 +27,20 @@ public class Service extends HttpServlet {
 			Ressource.infoRessource(req, resp);
 		} else if ("modifyRessource".equals(method)) {
 			Ressource.modifyRessource(req, resp);
-		} else if ("sendCommande".equals(method)) {
-			Commande.sendCommande(req, resp);
-		} else if ("getSendedCommandes".equals(method)){
-			Commande.getSendedCommandes(req, resp);
-		} else if ("deleteSendedCommandes".equals(method)){
-			Commande.deleteSendedCommandes(req, resp);
-		} else if ("getCommandesFromRessource".equals(method)) {
-			Commande.getCommandesFromRessource(req, resp);
-		} else if ("getRecievedCommandes".equals(method)) {
-			Commande.getRecievedCommandes(req, resp);
-		} else if ("deleteRecievedCommandes".equals(method)) {
-			Commande.deleteRecievedCommandes(req, resp);
-		} else if ("acceptCommande".equals(method)){
-			Commande.acceptCommandes(req, resp);
+		} else if ("sendDemand".equals(method)) {
+			Demand.sendDemand(req, resp);
+		} else if ("getSendedDemands".equals(method)){
+			Demand.getSendedDemands(req, resp);
+		} else if ("deleteSendedDemands".equals(method)){
+			Demand.deleteSendedDemands(req, resp);
+		} else if ("getDemandsFromRessource".equals(method)) {
+			Demand.getDemandsFromRessource(req, resp);
+		} else if ("getRecievedDemands".equals(method)) {
+			Demand.getRecievedDemands(req, resp);
+		} else if ("deleteRecievedDemands".equals(method)) {
+			Demand.deleteRecievedDemands(req, resp);
+		} else if ("acceptDemand".equals(method)){
+			Demand.acceptDemands(req, resp);
 		}
 		else {
 			req.setAttribute("type", "danger");

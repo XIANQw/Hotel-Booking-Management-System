@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import javax.servlet.http.HttpServlet;
 
-public class CommandeBean extends HttpServlet {
+public class DemandBean extends HttpServlet {
     private int id;
     private int idr;
     private int idu;
@@ -13,7 +13,7 @@ public class CommandeBean extends HttpServlet {
     private java.util.Date createTime;
     private String status;
 
-    public CommandeBean() {
+    public DemandBean() {
     }
 
     public void setId(int id) {

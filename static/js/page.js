@@ -1,80 +1,48 @@
-$(function(){
-   $("#ModeLogin").click(ModeSignIn);
-   $("#ModeSignUp").click(ModeSignUp);
-   $('#ModeCreation').click(gotoCreationRessource);
-   $('#quitCreation').click(quitCreationRessource);
-   $('#id_room').click(gotoCreationRoom)
-   $('#id_house').click(gotoCreationHouse);
-   $('#gotoRes').click(gotoRes);
-   $('#gotoUsers').click(gotoUser);
-   $('#gotoCreateDemande').click(gotoCreateDemande);
-   $('#gotoInfoDemande').click(gotoInfoDemande);
-   $('#gotoDemendes').click(goDemandes);
+$(function () {
+  $("#ModeLogin").click(ModeSignIn);
+  $("#ModeSignUp").click(ModeSignUp);
+  $('#RessourceModeCreation').click(gotoCreationRessource);
+  $('#RessourceQuitCreation').click(quitCreationRessource);
+  $('#id_room').click(gotoCreationRoom)
+  $('#id_house').click(gotoCreationHouse);
 });
 
 
 // modify gestionnaire.html
-function ModeSignIn(){
-  $('#zoneLogin').css('display','block');
-  $('#zoneSignUp').css('display','none');
+function ModeSignIn() {
+  $('#zoneLogin').css('display', 'block');
+  $('#zoneSignUp').css('display', 'none');
 }
 
 
-function ModeSignUp(){
-  $('#zoneSignUp').css('display','block');
-  $('#zoneLogin').css('display','none');
+function ModeSignUp() {
+  $('#zoneSignUp').css('display', 'block');
+  $('#zoneLogin').css('display', 'none');
 }
-
-function goDemandes(){
-  $('#zoneRessource').css('display','none');
-  $('#infoClient').css('display','none');
-  $('#zoneDemande').css('display','block');
-}
-
 
 function gotoCreationRessource() {
-  $('#createRessource').css('display','block');
-  $('#infoRessource').css('display','none');
+  $('#createRessource').css('display', 'block');
+  $('#infoRessource').css('display', 'none');
 }
+
 function quitCreationRessource() {
-  $('#createRessource').css('display','none');
-  $('#infoRessource').css('display','block');
+  $('#createRessource').css('display', 'none');
+  $('#infoRessource').css('display', 'block');
 }
 
 function gotoCreationHouse() {
-    $('#optionRoom').css('display','none');
-    $('#optionHouse').css('display','block');
-    $('#id_num_room').attr('required');
-    $('#id_room_type').removeAttr('required');
-  }
+  $('#optionRoom').css('display', 'none');
+  $('#optionHouse').css('display', 'block');
+  $('#id_num_room').attr('required');
+  $('#id_room_type').removeAttr('required');
+}
 
 function gotoCreationRoom() {
-    $('#optionRoom').css('display','block');
-    $('#optionHouse').css('display','none');
-    $('#id_num_room').removeAttr('required');
-    $('#id_room_type').attr('required');
-  }
-
-function gotoRes() {
-  $('#zoneRessource').css('display','block');
-  $('#infoClient').css('display','none');
-  $('#zoneDemande').css('display','none');
-}
-function gotoUser() {
-  $('#zoneRessource').css('display','none');
-  $('#infoClient').css('display','block');
-  $('#zoneDemande').css('display','none');
+  $('#optionRoom').css('display', 'block');
+  $('#optionHouse').css('display', 'none');
+  $('#id_num_room').removeAttr('required');
+  $('#id_room_type').attr('required');
 }
 
 
-// modify mainPage.html
-function gotoCreateDemande() {
-    $('#infoDemande').css('display', 'none');
-    $('#createDemande').css('display', 'block');
-}
-
-function gotoInfoDemande(){
-    $('#infoDemande').css('display', 'block');
-    $('#createDemande').css('display', 'none');
-}
 

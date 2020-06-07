@@ -30,10 +30,10 @@ public class Gopage extends HttpServlet {
             Gopage.modifyAccount(req, resp);
         } else if ("modifyRessource".equals(page)) {
             Gopage.modifyRessource(req, resp);
-        } else if ("sendedCommandeList".equals(page)) {
-            Gopage.sendedCommandeList(req, resp);
-        } else if ("recievedCommandeList".equals(page)) {
-            Gopage.recievedCommandeList(req, resp);
+        } else if ("sendedDemandList".equals(page)) {
+            Gopage.sendedDemandList(req, resp);
+        } else if ("recievedDemandList".equals(page)) {
+            Gopage.recievedDemandList(req, resp);
         } else if ("ressourceList".equals(page)) {
             Gopage.ressourceList(req, resp);
         } else if ("infoRessource".equals(page)) {
@@ -87,21 +87,21 @@ public class Gopage extends HttpServlet {
         }
     }
 
-    public static void sendedCommandeList(HttpServletRequest req, HttpServletResponse resp)
+    public static void sendedDemandList(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         if (!Client.sessionValide(req, resp)) {
             accueil(req, resp);
         } else {
-            req.getRequestDispatcher("/static/view/sendedCommandeList.jsp").forward(req, resp);
+            req.getRequestDispatcher("/static/view/sendedDemandList.jsp").forward(req, resp);
         }
     }
 
-    public static void recievedCommandeList(HttpServletRequest req, HttpServletResponse resp)
+    public static void recievedDemandList(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         if (!Client.sessionValide(req, resp)) {
             accueil(req, resp);
         } else {
-            req.getRequestDispatcher("/static/view/recievedCommandeList.jsp").forward(req, resp);
+            req.getRequestDispatcher("/static/view/recievedDemandList.jsp").forward(req, resp);
         }
     }
 
