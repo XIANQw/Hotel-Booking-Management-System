@@ -24,12 +24,12 @@
             <h3>login</h3>
             <form action="${pageContext.request.contextPath}/Client?method=Login" method="post">
                 <div class="form-group">
-                    <label for="id_username">username: </label>
+                    <label for="id_username">Username: </label>
                     <input type="text" name="username" class="form-control" id="id_username" placeholder="login" autofocus
                            required/>
                 </div>
                 <div class="form-group">
-                    <label for="id_password">password: </label>
+                    <label for="id_password">Password: </label>
                     <input type="password" name="password" class="form-control" id="id_password" placeholder="password"
                            required/>
                 </div>
