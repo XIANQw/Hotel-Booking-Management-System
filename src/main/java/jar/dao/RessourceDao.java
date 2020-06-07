@@ -12,7 +12,7 @@ public class RessourceDao {
     public static void saveRessource(RessourceBean ress){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql = "insert into Ressource values(0,'" +
                 ress.getIdu() + "','" +
                 ress.getType() + "','" +
@@ -40,7 +40,7 @@ public class RessourceDao {
         ArrayList<RessourceBean> ressources = new ArrayList<RessourceBean>();
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql = "select * from Ressource where ";
             for(String attr: attrs.keySet()){
                 if("persons".equals(attr))
@@ -78,7 +78,7 @@ public class RessourceDao {
     public static void deleteRessource(String idr){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql = "delete from Ressource where id='" + idr + "';";
             System.out.println("sql="+sql);
             Statement stmt = con.createStatement();
@@ -96,7 +96,7 @@ public class RessourceDao {
     public static void modifyRessource(RessourceBean res) {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql = "update Ressource set type='"+ res.getType() + "',price=" + res.getPrice()
             + ",number=" + res.getNumber() + ",street='" + res.getStreet() + "', postal='" + res.getPostal()
             + "', city='" + res.getCity() + "', persons=" + res.getPersons() + ", smoker='" + res.getSmoker() + "' where id=" + res.getId() + ";";

@@ -99,6 +99,10 @@ public class RessourceBean {
         return this.number + " " + this.street + " " + this.city + " " + this.postal;
     }
 
+    public String getAdresseForMap(){
+        return this.number + "," + this.street + "," + this.city + "," + this.postal;
+    }
+    
     @Override
     public String toString() {
         String str = "res";

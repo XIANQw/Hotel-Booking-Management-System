@@ -88,6 +88,43 @@
             </div>
         </div>
 
+        <!--google map api----------------------------------------------------->
+        <div id='map' style="width:500px;height:380px;" class="col-md-8"></div>
+        <input type="hidden" id="adresse"  value="<%=res.getAdresseForMap()%>">
+
+      <script>
+          function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: {lat: -34.397, lng: 150.644}
+            });
+            var geocoder = new google.maps.Geocoder();
+
+              geocodeAddress(geocoder, map);
+
+          }
+          function geocodeAddress(geocoder, resultsMap) {
+            var address = document.getElementById('adresse').value;
+            geocoder.geocode({'address': address}, function(results, status) {
+              if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: results[0].geometry.location
+
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+          }
+        </script>
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpVUVmmjb1fQP25RB5TCYR20_3WkKlCok&callback=initMap">
+        </script>
+
+        <!--end google map api----------------------------------------------------->
+
         
         <div id='toutRessource' class="col-md-8">
             <table class="table table-striped">

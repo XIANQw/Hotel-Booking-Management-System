@@ -12,8 +12,8 @@ public class CommandeDao {
     public static void saveCommande(CommandeBean commande) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "insert into Commande values(0," + commande.getIdr() + "," + commande.getIdu() + ",'"
                     + commande.getCheckin().toString() + "','" + commande.getCheckout().toString() + "','"
@@ -34,8 +34,8 @@ public class CommandeDao {
     public static void updateCommande(CommandeBean commande) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "update Commande set idr=" + commande.getIdr() + ",idu=" + commande.getIdu() + ",checkin='"
                     + commande.getCheckin().toString() + "',checkout='" + commande.getCheckout().toString()
@@ -60,8 +60,8 @@ public class CommandeDao {
         ArrayList<CommandeBean> commandes = new ArrayList<CommandeBean>();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+
             String sql = "select * from Commande where ";
             for (String attr : attrs.keySet()) {
                 sql += attr + "=" + "'" + attrs.get(attr) + "' and ";
