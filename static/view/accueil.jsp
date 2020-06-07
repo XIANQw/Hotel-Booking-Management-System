@@ -25,7 +25,7 @@
             <form action="${pageContext.request.contextPath}/Client?method=Login" method="post">
                 <div class="form-group">
                     <label for="id_username">Username: </label>
-                    <input type="text" name="username" class="form-control" id="id_username" placeholder="login" autofocus
+                    <input type="text" name="username" class="form-control" id="id_username" placeholder="username" autofocus
                            required/>
                 </div>
                 <div class="form-group">
@@ -45,7 +45,7 @@
             <form action="${pageContext.request.contextPath}/Client?method=Signup" method="post">
                 <div class="form-group">
                     <label for="id_nom">Username: </label>
-                    <input type="text" name="username" class="form-control" id="id_nom" placeholder="nom"
+                    <input type="text" name="username" class="form-control" id="id_nom" placeholder="username"
                            required="required"/>
                 </div>
                 <div class="form-group">
