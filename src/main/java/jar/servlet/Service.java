@@ -36,6 +36,8 @@ public class Service extends HttpServlet {
 			Demand.sendDemandAjax(req, resp);
 		} else if ("getSendedDemands".equals(method)){
 			Demand.getSendedDemands(req, resp);
+		} else if ("getSendedDemandsAjax".equals(method)){
+			Demand.getSendedDemandsAjax(req, resp);
 		} else if ("deleteSendedDemands".equals(method)){
 			Demand.deleteSendedDemands(req, resp);
 		} else if ("getDemandsFromRessource".equals(method)) {

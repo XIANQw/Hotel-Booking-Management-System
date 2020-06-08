@@ -59,7 +59,7 @@ public class Demand {
 		}
 		int idu = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String destination = req.getParameter("destination").toLowerCase();
-		
+
 		Date checkin = Date.valueOf(req.getParameter("checkin"));
 		Date checkout = Date.valueOf(req.getParameter("checkout"));
 		String numPeople = req.getParameter("nb");
@@ -112,10 +112,10 @@ public class Demand {
 		req.setAttribute("type", "success");
 		Gopage.mainPage(req, resp);
 	}
-	
+
 	public static void sendDemandAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		resp.setCharacterEncoding("utf-8");		
+		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
 			resp.getWriter().write("Session invalid, reconnect please ...");
 		}
@@ -133,7 +133,6 @@ public class Demand {
 	public static void getSendedDemands(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
@@ -144,10 +143,37 @@ public class Demand {
 		Gopage.sendedDemandList(req, resp);
 	}
 
+	public static void getSendedDemandsAjax(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
+		if (!Client.sessionValide(req, resp)) {
+			resp.getWriter().write("Session invalid, reconnect please ...");
+		}
+		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("idu", Integer.toString(owner));
+		List<DemandBean> demands = DemandDao.getDemandsFrom(attrs);
+		String json = "[";
+		for (int i = 0; i < demands.size() - 1; i++) {
+			attrs.clear();
+			attrs.put("id", Integer.toString(demands.get(i).getIdr()));
+			RessourceBean res = RessourceDao.getRessourcesFrom(attrs).get(0);
+			json += "{\"demand\":" + demands.get(i).toJson() + ", \"res\":" + res.toJson() + "}, ";
+		}
+		if (demands.size() > 0) {
+			attrs.clear();
+			attrs.put("id", Integer.toString(demands.get(demands.size() - 1).getIdr()));
+			RessourceBean res = RessourceDao.getRessourcesFrom(attrs).get(0);
+			json += "{\"demand\":" + demands.get(demands.size() - 1).toJson() + ", \"res\":" + res.toJson() + "}";
+		}
+		json += "]";
+		resp.getWriter().write(json);
+		System.out.println(json);
+	}
+
 	public static void deleteSendedDemands(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		String idr = req.getParameter("id");
@@ -160,7 +186,6 @@ public class Demand {
 	public static void getDemandsFromRessource(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		String idr = req.getParameter("id");
@@ -174,7 +199,6 @@ public class Demand {
 	public static void getRecievedDemands(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
@@ -194,7 +218,6 @@ public class Demand {
 	public static void deleteRecievedDemands(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		String id = req.getParameter("idc");
@@ -207,7 +230,6 @@ public class Demand {
 	public static void acceptDemands(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			;
 			Gopage.accueil(req, resp);
 		}
 		String idr = req.getParameter("idr"), idc = req.getParameter("idc");

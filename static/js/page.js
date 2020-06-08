@@ -61,6 +61,17 @@ function gotoPageResDetails() {
     $('#DivResDetails').css('display', 'block');
 }
 
+function gotoPageSendedDemands() {
+    $('#mainDiv').children().css('display', 'none');
+    $('#DivSendedDemands').css('display', 'block');
+}
+
+function gotoPageRecievedDemands() {
+    $('#mainDiv').children().css('display', 'none');
+    $('#DivRecievedDemands').css('display', 'block');
+}
+
+
 function setAlert(str) {
     var html = "<div id=\"alert\" class=\"alert alert-danger\">" + str + "</div>";
     $('#divAlert').html(html);
@@ -105,41 +116,74 @@ function htmlProfile(profileJson) {
 function htmlResDetails(json) {
     var owner = json[0];
     var res = json[1];
-    var html = 
+    var html =
         '<div class=row-fluid>\
             <div class="col-md-4 ">\
             <div id="ressourceInfo">\
                 <ul class="list-group">\
                     <li class="list-group-item text-muted">Ressource</li>\
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Numero</strong></span>'
-                        + res.id +
-                    '</li>\
+        + res.id +
+        '</li>\
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Type</strong></span>'
-                        + res.type +
-                    '</li>\
+        + res.type +
+        '</li>\
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Price</strong></span>'
-                        + res.price +
-                    '</li>\
+        + res.price +
+        '</li>\
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Adresse</strong></span>'
-                        + res.adresse +
-                    '</li>\
+        + res.adresse +
+        '</li>\
                 </ul>\
             </div>\
             <div id=infoOwner>\
                 <ul class="list-group">\
                     <li class="list-group-item text-muted">Owner\'s information</li>\
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Owner</strong></span>'
-                        + owner.prenom + " " + owner.nom +
-                    '</li>\
+        + owner.prenom + " " + owner.nom +
+        '</li>\
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Email</strong></span>'
-                        + owner.email +
-                    '</li>\
+        + owner.email +
+        '</li>\
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Telephone</strong></span>'
-                        + owner.telephone +
-                    '</li>\
+        + owner.telephone +
+        '</li>\
                 </ul>\
             </div>\
         </div>';
+    return html;
+}
+
+function htmlSendedDemands(resp) {
+    var html =
+        '<div id="demandList">\
+            <legend>Your sended demands</legend>\
+            <table class="table table-striped">\
+                <thead>\
+                <tr>\
+                    <th scope="col">Id</th>\
+                    <th scope="col">Ressource</th>\
+                    <th scope="col">Checkin date</th>\
+                    <th scope="col">Checkout date</th>\
+                    <th scope="col">Create Time</th>\
+                    <th scope="col">Status</th>\
+                </tr>\
+                </thead>\
+                <tbody>';
+    for (var i = 0; i < resp.length; i++) {
+        var demand = resp[i].demand;
+        var res = resp[i].res;
+        html += "<tr>";
+        html += "<td>" + demand.id + "</td>";
+        html += '<td><a class=accesResDetails  class=text-success data-id=' + res.id + '>' + res.type + " " + res.id + "</a></td>";
+        html += '<td>' + demand.checkin + '</td>';
+        html += '<td>' + demand.checkout + '</td>';
+        html += '<td>' + demand.createTime + '</td>';
+        html += '<td>' + demand.status + '</td>';
+        html += '<td><a class=deleteSendedDemand class=text-success data-id=' + demand.id + '>Delete</a></td>';
+        html += "<tr>";
+    }
+    html += '</tbody></table></div>';
     return html;
 }
 

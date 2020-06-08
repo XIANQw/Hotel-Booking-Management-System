@@ -1,6 +1,7 @@
 $(function () {
     $("#ButtonSearch").click(searchRessource);
     $('#gotoPageProfile').click(getProfile);
+    $('#gotoPageSendedDemands').click(getSendedDemands);
 });
 
 function getResDetails() {
@@ -55,7 +56,6 @@ function searchRessource() {
                 $('#buttonDetails' + resp[i].id).click(getResDetails);
                 $('#buttonReserve' + resp[i].id).click(reserveRes);
             }
-
         }, error: function (res) {
             alert("error=" + res.responseText);
         }
@@ -78,6 +78,24 @@ function getProfile() {
                 gotoPageHome();
                 setAlert("Your amount has not yet a profile");
             }
+        }
+    });
+}
+
+function getSendedDemands() {
+    var id = $('#userId').text();
+    $.ajax({
+        type: "GET",
+        url: "Service?method=getSendedDemandsAjax&id="+id,
+        success: function (result, status) {
+            var resp = JSON.parse(result);
+            var html = htmlSendedDemands(resp);
+            $('#DivSendedDemands').html(html);
+            $(".accesResDetails").click(getResDetails);
+            gotoPageSendedDemands();
+        }, error: function (res) {
+            gotoPageHome();
+            setAlert(res.responseText);
         }
     });
 }

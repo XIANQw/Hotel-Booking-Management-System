@@ -72,6 +72,13 @@ public class DemandBean extends HttpServlet {
         return this.status;
     }
 
+    public String toJson() {
+        String str = "{\"id\":" + id + ",\"idr\":" + idr + ",\"idu\":" + idu + ",\"checkin\":\"" + checkin.toString()
+                + "\",\"checkout\":\"" + checkout.toString() + "\",\"createTime\":\"" + createTime.toString()
+                + "\",\"status\":\"" + status + "\"}";
+        return str;
+    }
+
     @Override
     public String toString() {
         String str = "cmd" + id + ",idr=" + idr + ",idu=" + idu + ",in=" + checkin.toString() + "out="

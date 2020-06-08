@@ -88,6 +88,9 @@
 
             <div id="DivResDetails">
             </div>
+
+            <div id="DivSendedDemands">
+            </div>
         </div>
 
         <%if (result!=null) {%>
