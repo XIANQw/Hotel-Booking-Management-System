@@ -43,10 +43,12 @@ public class Service extends HttpServlet {
 			Demand.getDemandsFromRessource(req, resp);
 		} else if ("getRecievedDemands".equals(method)) {
 			Demand.getRecievedDemands(req, resp);
+		} else if ("getRecievedDemandsAjax".equals(method)) {
+			Demand.getRecievedDemandsAjax(req, resp);
 		} else if ("deleteRecievedDemands".equals(method)) {
 			Demand.deleteRecievedDemands(req, resp);
-		} else if ("acceptDemand".equals(method)) {
-			Demand.acceptDemands(req, resp);
+		} else if ("acceptDemandAjax".equals(method)) {
+			Demand.acceptDemandAjax(req, resp);
 		} else {
 			req.setAttribute("type", "danger");
 			req.setAttribute("info", "Sorry..we're developing it");

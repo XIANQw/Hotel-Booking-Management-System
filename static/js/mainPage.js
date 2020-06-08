@@ -2,6 +2,7 @@ $(function () {
     $("#ButtonSearch").click(searchRessource);
     $('#gotoPageProfile').click(getProfile);
     $('#gotoPageSendedDemands').click(getSendedDemands);
+    $('#gotoPageRecievedDemands').click(getRecievedDemands);
 });
 
 function getResDetails() {
@@ -86,6 +87,7 @@ function getProfile() {
             var resp = JSON.parse(str);
             var html = htmlProfile(resp);
             $('#DivProfile').html(html);
+            gotoPageProfile();
         }, error: function (res) {
             if (res.responseText == "0") {
                 gotoPageHome();
@@ -97,12 +99,14 @@ function getProfile() {
 
 function deleteDemands() {
     var idd = $(this).attr("data-id");
+    var sended = $(this).attr("data-sended");
     $.ajax({
         type: "GET",
         url: "Service?method=deleteDemandAjax&id=" + idd,
         success: function (result, status) {
             var resp = JSON.parse(result);
-            getSendedDemands();
+            if(sended=='1') getSendedDemands();
+            else getRecievedDemands();
             setSucess(resp.info);
         }, error: function (res) {
             gotoPageHome();
@@ -130,7 +134,66 @@ function getSendedDemands() {
     });
 }
 
+function accesDemander() {
+    var id = $(this).attr("data-id");
+    $.ajax({
+        type: "GET",
+        url: "Client?method=getProfileAjax&id=" + id,
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            var html = htmlProfile(resp);
+            $('#DivProfile').html(html);
+            gotoPageProfile();
+        }, error: function (res) {
+            if (res.responseText == "0") {
+                gotoPageHome();
+                setAlert("This demander has not yet a profile");
+            }
+        }
+    });
+}
 
+function getRecievedDemands() {
+    var id = $('#userId').text();
+    $.ajax({
+        type: "GET",
+        url: "Service?method=getRecievedDemandsAjax&id=" + id,
+        success: function (result, status) {
+            var resp = JSON.parse(result);
+            var html = htmlRecievedDemands(resp);
+            $('#DivRecievedDemands').html(html);
+            $(".accesResDetails").click(getResDetails);
+            $(".deleteRecievedDemand").click(deleteDemands);
+            $(".accesDemander").click(accesDemander);
+            $(".acceptDemand").click(acceptDemander);
+            gotoPageRecievedDemands();
+        }, error: function (res) {
+            gotoPageHome();
+            setAlert(res.responseText);
+        }
+    });
+}
+
+function acceptDemander(){
+    var id = $(this).attr("data-id");
+    $.ajax({
+        type: "GET",
+        url: "Service?method=acceptDemandAjax&id=" + id,
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            if(resp.status==1){
+                getRecievedDemands();
+                setSucess(resp.info);
+            } else {
+                setAlert(resp.info);
+            }
+        }, error: function (res) {
+            setAlert(res.responseText);
+        }
+    });
+}
 
 
 

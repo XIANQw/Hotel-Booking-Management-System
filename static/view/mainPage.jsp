@@ -91,6 +91,9 @@
 
             <div id="DivSendedDemands">
             </div>
+
+            <div id="DivRecievedDemands">
+            </div>
         </div>
 
         <%if (result!=null) {%>

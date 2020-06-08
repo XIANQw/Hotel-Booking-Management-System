@@ -227,6 +227,48 @@ public class Demand {
 		Gopage.recievedDemandList(req, resp);
 	}
 
+	public static void getRecievedDemandsAjax(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
+		if (!Client.sessionValide(req, resp)) {
+			resp.getWriter().write("Session invalid, reconnect please ...");
+			return;
+		}
+		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("idu", Integer.toString(owner));
+		List<RessourceBean> ressources = RessourceDao.getRessourcesFrom(attrs);
+		List<DemandBean> demands = new ArrayList<DemandBean>();
+		HashMap<DemandBean, RessourceBean> dmdRes = new HashMap<>();
+		for (RessourceBean res : ressources) {
+			attrs.clear();
+			attrs.put("idr", Integer.toString(res.getId()));
+			List<DemandBean> dmds = DemandDao.getDemandsFrom(attrs);
+			demands.addAll(dmds);
+			for (DemandBean dmd : dmds) {
+				dmdRes.put(dmd, res);
+			}
+		}
+		String json = "[";
+		for (int i = 0; i < demands.size() - 1; i++) {
+			int idu = demands.get(i).getIdu();
+			String username = UserDao.getUsername(idu);
+			String jsonUser = "{\"id\":" + idu + ",\"username\":\"" + username + "\"}";
+			json += "{\"demand\":" + demands.get(i).toJson() + ",\"demander\":" + jsonUser + ",\"res\":"
+					+ dmdRes.get(demands.get(i)).toJson() + "}, ";
+		}
+		if (demands.size() > 0) {
+			int idu = demands.get(demands.size() - 1).getIdu();
+			String username = UserDao.getUsername(idu);
+			String jsonUser = "{\"id\":" + idu + ",\"username\":\"" + username + "\"}";
+			json += "{\"demand\":" + demands.get(demands.size() - 1).toJson() + ",\"demander\":" + jsonUser
+					+ ",\"res\":" + dmdRes.get(demands.get(demands.size() - 1)).toJson() + "}";
+		}
+		json += "]";
+		resp.getWriter().write(json);
+		System.out.println(json);
+	}
+
 	public static void deleteRecievedDemands(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
@@ -239,31 +281,31 @@ public class Demand {
 		Demand.getRecievedDemands(req, resp);
 	}
 
-	public static void acceptDemands(HttpServletRequest req, HttpServletResponse resp)
+
+	public static void acceptDemandAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			Gopage.accueil(req, resp);
+			resp.getWriter().write("Session invalid, reconnect please ...");
+			return;
 		}
-		String idr = req.getParameter("idr"), idc = req.getParameter("idc");
+		String idc = req.getParameter("id");
 		HashMap<String, String> attrs = new HashMap<>();
 		attrs.put("id", idc);
-		DemandBean cmd = DemandDao.getDemandsFrom(attrs).get(0);
+		DemandBean dmd = DemandDao.getDemandsFrom(attrs).get(0);
 		attrs.clear();
-		attrs.put("id", idr);
-		RessourceBean res = RessourceDao.getRessourcesFrom(attrs).get(0);
-		attrs.clear();
-		attrs.put("idr", idr);
+		attrs.put("idr", Integer.toString(dmd.getIdr()));
 		String status = "Accepted";
 		attrs.put("status", status);
 		List<DemandBean> cmdsOfRes = DemandDao.getDemandsFrom(attrs);
 		boolean conflict = false;
 		for (DemandBean com : cmdsOfRes) {
-			Date cmdIn = java.sql.Date.valueOf(cmd.getCheckin().toString()),
-					cmdOut = java.sql.Date.valueOf(cmd.getCheckout().toString()),
+			Date dmdIn = java.sql.Date.valueOf(dmd.getCheckin().toString()),
+					dmdOut = java.sql.Date.valueOf(dmd.getCheckout().toString()),
 					comIn = java.sql.Date.valueOf(com.getCheckin().toString()),
 					comOut = java.sql.Date.valueOf(com.getCheckout().toString());
 
-			if (cmdOut.before(comIn) || cmdIn.after(comOut))
+			if (dmdOut.before(comIn) || dmdIn.after(comOut))
 				continue;
 			else {
 				conflict = true;
@@ -271,17 +313,13 @@ public class Demand {
 			}
 		}
 		if (conflict) {
-			String info = "This demand could not be accepted, it will cause a conflict";
-			req.setAttribute("info", info);
-			req.setAttribute("type", "danger");
-			getRecievedDemands(req, resp);
+			String json = "{\"info\":\"This demand could not be accepted, it will cause a conflict\", \"status\":0}";
+			resp.getWriter().write(json);
 		} else {
-			cmd.setStatus(status);
-			DemandDao.updateDemand(cmd);
-			String info = "The demand has been accepted";
-			req.setAttribute("info", info);
-			req.setAttribute("type", "success");
-			getRecievedDemands(req, resp);
+			dmd.setStatus(status);
+			DemandDao.updateDemand(dmd);
+			String json = "{\"info\":\"The demand has been accepted\", \"status\":1}";
+			resp.getWriter().write(json);
 		}
 	}
 }

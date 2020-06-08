@@ -6,7 +6,6 @@ $(function () {
     $('#id_room').click(gotoCreationRoom)
     $('#id_house').click(gotoCreationHouse);
     $('#gotoPageHome').click(gotoPageHome);
-    $('#gotoPageProfile').click(gotoPageProfile);
 });
 
 
@@ -92,13 +91,16 @@ function emptyMsg() {
 }
 
 function htmlProfile(profileJson) {
+    var user = $('#userId').text();
     var html =
         '<div class="container bootstrap snippet">\
-            <div class="row">\
-                <div class="col-sm-10">\
+            <div class="row">';
+    if (profileJson.id == user) {
+        html += '<div class="col-sm-10">\
                     <h1>Hello '+ profileJson.nom + ' ' + profileJson.prenom + '!</h1>\
-                </div>\
-                <div class="col-sm-2">\
+                </div>';
+    }
+    html += '<div class="col-sm-2">\
                     <a href="" class="pull-right"><img title="profile image" class="img-circle img-responsive"\
                     src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>\
                 </div>\
@@ -189,10 +191,46 @@ function htmlSendedDemands(resp) {
         html += '<td>' + demand.checkout + '</td>';
         html += '<td>' + demand.createTime + '</td>';
         html += '<td>' + demand.status + '</td>';
-        html += '<td><a class=deleteSendedDemand class=text-success data-id=' + demand.id + '>Delete</a></td>';
+        html += '<td><a class=deleteSendedDemand class=text-success data-sended=1 data-id=' + demand.id + '>Delete</a></td>';
         html += "<tr>";
     }
     html += '</tbody></table></div>';
     return html;
 }
 
+function htmlRecievedDemands(resp) {
+    var html =
+        '<div id="demandList">\
+            <legend>Your recieved demands</legend>\
+            <table class="table table-striped">\
+                <thead>\
+                <tr>\
+                    <th scope="col">Id</th>\
+                    <th scope="col">Ressource</th>\
+                    <th scope="col">Demander</th>\
+                    <th scope="col">Checkin date</th>\
+                    <th scope="col">Checkout date</th>\
+                    <th scope="col">Create Time</th>\
+                    <th scope="col">Status</th>\
+                </tr>\
+                </thead>\
+                <tbody>';
+    for (var i = 0; i < resp.length; i++) {
+        var demand = resp[i].demand;
+        var demander = resp[i].demander;
+        var res = resp[i].res;
+        html += "<tr>";
+        html += "<td>" + demand.id + "</td>";
+        html += '<td><a class=accesResDetails  class=text-success data-id=' + res.id + '>' + res.type + " " + res.id + "</a></td>";
+        html += '<td><a class=accesDemander  class=text-success data-id=' + demander.id + '>' + demander.username + "</a></td>";
+        html += '<td>' + demand.checkin + '</td>';
+        html += '<td>' + demand.checkout + '</td>';
+        html += '<td>' + demand.createTime + '</td>';
+        html += '<td>' + demand.status + '</td>';
+        html += '<td><a class=deleteRecievedDemand class=text-success data-sended=0 data-id=' + demand.id + '>Delete</a></td>';
+        html += '<td><a class=acceptDemand class=text-success data-id=' + demand.id + '>Accept</a></td>';
+        html += "<tr>";
+    }
+    html += '</tbody></table></div>';
+    return html;
+}
