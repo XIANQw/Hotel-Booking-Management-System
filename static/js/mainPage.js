@@ -26,7 +26,20 @@ function getResDetails() {
 
 function reserveRes() {
     var idr = $(this).attr("data-id");
-    alert(idr);
+    $.ajax({
+        type: "GET",
+        url: "Service?method=sendDemandAjax&id=" + idr,
+        success: function (result, status) {
+            var resp = JSON.parse(result);
+            gotoPageHome();
+            setSucess(resp.info);
+        }, error: function (res) {
+            if (res.responseText == "0") {
+                gotoPageHome();
+                setAlert("Your amount has not yet a profile");
+            }
+        }
+    });
 }
 
 function searchRessource() {
@@ -82,16 +95,33 @@ function getProfile() {
     });
 }
 
+function deleteDemands() {
+    var idd = $(this).attr("data-id");
+    $.ajax({
+        type: "GET",
+        url: "Service?method=deleteDemandAjax&id=" + idd,
+        success: function (result, status) {
+            var resp = JSON.parse(result);
+            getSendedDemands();
+            setSucess(resp.info);
+        }, error: function (res) {
+            gotoPageHome();
+            setAlert(res.responseText);
+        }
+    });
+}
+
 function getSendedDemands() {
     var id = $('#userId').text();
     $.ajax({
         type: "GET",
-        url: "Service?method=getSendedDemandsAjax&id="+id,
+        url: "Service?method=getSendedDemandsAjax&id=" + id,
         success: function (result, status) {
             var resp = JSON.parse(result);
             var html = htmlSendedDemands(resp);
             $('#DivSendedDemands').html(html);
             $(".accesResDetails").click(getResDetails);
+            $(".deleteSendedDemand").click(deleteDemands);
             gotoPageSendedDemands();
         }, error: function (res) {
             gotoPageHome();
@@ -99,6 +129,7 @@ function getSendedDemands() {
         }
     });
 }
+
 
 
 

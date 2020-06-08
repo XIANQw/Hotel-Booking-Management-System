@@ -10,14 +10,11 @@ public class Service extends HttpServlet {
 		doPost(req, resp);
 	}
 
-	public void doPost(HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String method = req.getParameter("method");
-		System.out.println("service="+method);
-		if ("createSearch".equals(method)){
-			Demand.createSearch(req, resp);
-		} else if ("createSearchAjax".equals(method)){
-			Demand.createSearchAjax(req, resp);	
+		System.out.println("service=" + method);
+		if ("createSearchAjax".equals(method)) {
+			Demand.createSearchAjax(req, resp);
 		} else if ("getRessources".equals(method)) {
 			Ressource.getRessource(req, resp);
 		} else if ("createRessource".equals(method)) {
@@ -26,19 +23,21 @@ public class Service extends HttpServlet {
 			Ressource.deleteRessource(req, resp);
 		} else if ("infoRessource".equals(method)) {
 			Ressource.infoRessource(req, resp);
-		} else if ("getResDetailsAjax".equals(method)){
+		} else if ("getResDetailsAjax".equals(method)) {
 			Ressource.getResDetailsAjax(req, resp);
 		} else if ("modifyRessource".equals(method)) {
 			Ressource.modifyRessource(req, resp);
 		} else if ("sendDemand".equals(method)) {
 			Demand.sendDemand(req, resp);
-		} else if ("sendDemandAjax".equals(method)){
+		} else if ("sendDemandAjax".equals(method)) {
 			Demand.sendDemandAjax(req, resp);
-		} else if ("getSendedDemands".equals(method)){
+		} else if ("getSendedDemands".equals(method)) {
 			Demand.getSendedDemands(req, resp);
-		} else if ("getSendedDemandsAjax".equals(method)){
+		} else if ("getSendedDemandsAjax".equals(method)) {
 			Demand.getSendedDemandsAjax(req, resp);
-		} else if ("deleteSendedDemands".equals(method)){
+		} else if ("deleteDemandAjax".equals(method)) {
+			Demand.deleteDemandAjax(req, resp);
+		} else if ("deleteSendedDemands".equals(method)) {
 			Demand.deleteSendedDemands(req, resp);
 		} else if ("getDemandsFromRessource".equals(method)) {
 			Demand.getDemandsFromRessource(req, resp);
@@ -46,10 +45,9 @@ public class Service extends HttpServlet {
 			Demand.getRecievedDemands(req, resp);
 		} else if ("deleteRecievedDemands".equals(method)) {
 			Demand.deleteRecievedDemands(req, resp);
-		} else if ("acceptDemand".equals(method)){
+		} else if ("acceptDemand".equals(method)) {
 			Demand.acceptDemands(req, resp);
-		}
-		else {
+		} else {
 			req.setAttribute("type", "danger");
 			req.setAttribute("info", "Sorry..we're developing it");
 			Gopage.mainPage(req, resp);

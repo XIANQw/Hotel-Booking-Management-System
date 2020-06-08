@@ -47,26 +47,31 @@ function gotoCreationRoom() {
 }
 
 function gotoPageHome() {
+    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivSearch').css('display', 'block');
 }
 
 function gotoPageProfile() {
+    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivProfile').css('display', 'block');
 }
 
 function gotoPageResDetails() {
+    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivResDetails').css('display', 'block');
 }
 
 function gotoPageSendedDemands() {
+    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivSendedDemands').css('display', 'block');
 }
 
 function gotoPageRecievedDemands() {
+    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivRecievedDemands').css('display', 'block');
 }
@@ -78,8 +83,12 @@ function setAlert(str) {
 }
 
 function setSucess(str) {
-    var html = "<div id=\"alert\" class=\"alert alert-sucess\">" + str + "</div>";
+    var html = "<div id=\"alert\" class=\"alert alert-success\">" + str + "</div>";
     $('#divAlert').html(html);
+}
+
+function emptyMsg() {
+    $('#divAlert').html("");
 }
 
 function htmlProfile(profileJson) {

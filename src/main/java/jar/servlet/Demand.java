@@ -125,8 +125,7 @@ public class Demand {
 		cmd.setIdr(idr);
 		cmd.setCreateTime(createTime);
 		DemandDao.saveDemand(cmd);
-		String info = "\"Your demand sended successfully\"";
-		String json = "{\"info\":" + info + ",\"type:\"" + "\"sucess\"}";
+		String json = "{\"info\":\"Your demand sended successfully\"}";
 		resp.getWriter().write(json);
 	}
 
@@ -181,6 +180,19 @@ public class Demand {
 		attrs.put("idr", idr);
 		DemandDao.deleteDemandsFrom(attrs);
 		Demand.getSendedDemands(req, resp);
+	}
+
+	public static void deleteDemandAjax(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
+		if (!Client.sessionValide(req, resp)) {
+			resp.getWriter().write("Session invalid, reconnect please ...");
+		}
+		String id = req.getParameter("id");
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("id", id);
+		DemandDao.deleteDemandsFrom(attrs);
+		resp.getWriter().write("{\"info\": \"Your demande has been deleted successfully\"}");
 	}
 
 	public static void getDemandsFromRessource(HttpServletRequest req, HttpServletResponse resp)
