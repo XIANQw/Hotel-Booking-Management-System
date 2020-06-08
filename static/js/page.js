@@ -48,12 +48,17 @@ function gotoCreationRoom() {
 
 function gotoPageHome() {
     $('#mainDiv').children().css('display', 'none');
-    $('#DivSearch').css('display', 'block');   
+    $('#DivSearch').css('display', 'block');
 }
 
 function gotoPageProfile() {
     $('#mainDiv').children().css('display', 'none');
     $('#DivProfile').css('display', 'block');
+}
+
+function gotoPageResDetails() {
+    $('#mainDiv').children().css('display', 'none');
+    $('#DivResDetails').css('display', 'block');
 }
 
 function setAlert(str) {
@@ -96,4 +101,45 @@ function htmlProfile(profileJson) {
     return html;
 }
 
+
+function htmlResDetails(json) {
+    var owner = json[0];
+    var res = json[1];
+    var html = 
+        '<div class=row-fluid>\
+            <div class="col-md-4 ">\
+            <div id="ressourceInfo">\
+                <ul class="list-group">\
+                    <li class="list-group-item text-muted">Ressource</li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Numero</strong></span>'
+                        + res.id +
+                    '</li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Type</strong></span>'
+                        + res.type +
+                    '</li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Price</strong></span>'
+                        + res.price +
+                    '</li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Adresse</strong></span>'
+                        + res.adresse +
+                    '</li>\
+                </ul>\
+            </div>\
+            <div id=infoOwner>\
+                <ul class="list-group">\
+                    <li class="list-group-item text-muted">Owner\'s information</li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Owner</strong></span>'
+                        + owner.prenom + " " + owner.nom +
+                    '</li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Email</strong></span>'
+                        + owner.email +
+                    '</li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Telephone</strong></span>'
+                        + owner.telephone +
+                    '</li>\
+                </ul>\
+            </div>\
+        </div>';
+    return html;
+}
 

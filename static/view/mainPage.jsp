@@ -85,6 +85,9 @@
 
             <div id="DivProfile">
             </div>
+
+            <div id="DivResDetails">
+            </div>
         </div>
 
         <%if (result!=null) {%>

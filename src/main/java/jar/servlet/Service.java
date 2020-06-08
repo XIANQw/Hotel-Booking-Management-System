@@ -26,10 +26,14 @@ public class Service extends HttpServlet {
 			Ressource.deleteRessource(req, resp);
 		} else if ("infoRessource".equals(method)) {
 			Ressource.infoRessource(req, resp);
+		} else if ("getResDetailsAjax".equals(method)){
+			Ressource.getResDetailsAjax(req, resp);
 		} else if ("modifyRessource".equals(method)) {
 			Ressource.modifyRessource(req, resp);
 		} else if ("sendDemand".equals(method)) {
 			Demand.sendDemand(req, resp);
+		} else if ("sendDemandAjax".equals(method)){
+			Demand.sendDemandAjax(req, resp);
 		} else if ("getSendedDemands".equals(method)){
 			Demand.getSendedDemands(req, resp);
 		} else if ("deleteSendedDemands".equals(method)){

@@ -3,6 +3,31 @@ $(function () {
     $('#gotoPageProfile').click(getProfile);
 });
 
+function getResDetails() {
+    var idr = $(this).attr("data-id");
+    $.ajax({
+        type: "GET",
+        url: "Service?method=getResDetailsAjax&id=" + idr,
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            var html = htmlResDetails(resp);
+            $('#DivResDetails').html(html);
+            gotoPageResDetails();
+        }, error: function (res) {
+            if (res.responseText == "0") {
+                gotoPageHome();
+                setAlert("Your amount has not yet a profile");
+            }
+        }
+    });
+}
+
+function reserveRes() {
+    var idr = $(this).attr("data-id");
+    alert(idr);
+}
+
 function searchRessource() {
     $.ajax({
         type: "POST",
@@ -20,12 +45,17 @@ function searchRessource() {
                 html += "<td>" + resp[i].price + "</td>";
                 html += "<td>" + resp[i].person + "</td>";
                 html += "<td>" + resp[i].adresse + "</td>";
-                html += "<td><a id=buttonDetails" + resp[i].id + "\" class=\"text-success\">details</a></td>";
-                html += "<td><a id=buttonReserve" + resp[i].id + "\" class=\"text-success\">reserve</a></td>";
+                html += "<td><a id=buttonDetails" + resp[i].id + " data-id=" + resp[i].id + " class=\"text-success\">details</a></td>";
+                html += "<td><a id=buttonReserve" + resp[i].id + " data-id=" + resp[i].id + " class=\"text-success\">reserve</a></td>";
                 html += "</tr>";
             }
             html += "</tbody></table>";
             $("#resultOfSearch").html(html);
+            for (var i = 0; i < resp.length; i++) {
+                $('#buttonDetails' + resp[i].id).click(getResDetails);
+                $('#buttonReserve' + resp[i].id).click(reserveRes);
+            }
+
         }, error: function (res) {
             alert("error=" + res.responseText);
         }

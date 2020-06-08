@@ -86,6 +86,24 @@ public class Ressource {
 		Gopage.infoRessource(req, resp);
 	}
 
+	public static void getResDetailsAjax(HttpServletRequest req, HttpServletResponse resp) 
+	throws ServletException, IOException{
+		resp.setCharacterEncoding("utf-8");
+		if(!Client.sessionValide(req, resp)){;
+			resp.getWriter().write("Session invalid, reconnect please ...");
+			return ;
+		}
+		String idr = req.getParameter("id");
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("id", idr);
+		List<RessourceBean> ress = RessourceDao.getRessourcesFrom(attrs);
+		ProfileBean owner = ProfileDao.getProfileFromUser(ress.get(0).getIdu());
+		String data = "[" + owner.toJson() + ", " + ress.get(0).toJson() + "]";
+		resp.getWriter().write(data);
+		System.out.println(data);
+	}
+
+
 	public static void modifyRessource(HttpServletRequest req, HttpServletResponse resp) 
 	throws ServletException, IOException{
 		if(!Client.sessionValide(req, resp)){;

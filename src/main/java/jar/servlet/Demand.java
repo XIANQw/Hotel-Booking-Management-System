@@ -55,7 +55,7 @@ public class Demand {
 	public static void createSearchAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (!Client.sessionValide(req, resp)) {
-			Gopage.accueil(req, resp);
+			resp.getWriter().write("Session invalid, reconnect please ...");
 		}
 		int idu = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String destination = req.getParameter("destination").toLowerCase();
@@ -111,6 +111,23 @@ public class Demand {
 		req.setAttribute("info", info);
 		req.setAttribute("type", "success");
 		Gopage.mainPage(req, resp);
+	}
+	
+	public static void sendDemandAjax(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");		
+		if (!Client.sessionValide(req, resp)) {
+			resp.getWriter().write("Session invalid, reconnect please ...");
+		}
+		int idr = Integer.parseInt(req.getParameter("id"));
+		java.util.Date createTime = new java.util.Date();
+		DemandBean cmd = (DemandBean) req.getSession().getAttribute("cmd");
+		cmd.setIdr(idr);
+		cmd.setCreateTime(createTime);
+		DemandDao.saveDemand(cmd);
+		String info = "\"Your demand sended successfully\"";
+		String json = "{\"info\":" + info + ",\"type:\"" + "\"sucess\"}";
+		resp.getWriter().write(json);
 	}
 
 	public static void getSendedDemands(HttpServletRequest req, HttpServletResponse resp)
