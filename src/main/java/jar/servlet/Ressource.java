@@ -67,25 +67,6 @@ public class Ressource {
 		Gopage.ressourceList(req, resp);
 	}
 
-	public static void infoRessource(HttpServletRequest req, HttpServletResponse resp) 
-	throws ServletException, IOException{
-		if(!Client.sessionValide(req, resp)){;
-			Gopage.accueil(req, resp);
-		}
-		String info;
-		String idr = req.getParameter("id");
-		HashMap<String, String> attrs = new HashMap<>();
-		attrs.put("id", idr);
-		List<RessourceBean> ress = RessourceDao.getRessourcesFrom(attrs);
-		if(ress.isEmpty()){
-			info = "Ressource " + idr + "not exist";
-			req.setAttribute("info", info); req.setAttribute("type", "danger");
-			Ressource.getRessource(req, resp);
-		}
-		req.setAttribute("ressource", ress.get(0));
-		Gopage.infoRessource(req, resp);
-	}
-
 	public static void getResDetailsAjax(HttpServletRequest req, HttpServletResponse resp) 
 	throws ServletException, IOException{
 		resp.setCharacterEncoding("utf-8");

@@ -21,32 +21,20 @@ public class Service extends HttpServlet {
 			Ressource.createRessource(req, resp);
 		} else if ("deleteRessource".equals(method)) {
 			Ressource.deleteRessource(req, resp);
-		} else if ("infoRessource".equals(method)) {
-			Ressource.infoRessource(req, resp);
 		} else if ("getResDetailsAjax".equals(method)) {
 			Ressource.getResDetailsAjax(req, resp);
 		} else if ("modifyRessource".equals(method)) {
 			Ressource.modifyRessource(req, resp);
-		} else if ("sendDemand".equals(method)) {
-			Demand.sendDemand(req, resp);
 		} else if ("sendDemandAjax".equals(method)) {
 			Demand.sendDemandAjax(req, resp);
-		} else if ("getSendedDemands".equals(method)) {
-			Demand.getSendedDemands(req, resp);
 		} else if ("getSendedDemandsAjax".equals(method)) {
 			Demand.getSendedDemandsAjax(req, resp);
 		} else if ("deleteDemandAjax".equals(method)) {
 			Demand.deleteDemandAjax(req, resp);
-		} else if ("deleteSendedDemands".equals(method)) {
-			Demand.deleteSendedDemands(req, resp);
 		} else if ("getDemandsFromRessource".equals(method)) {
 			Demand.getDemandsFromRessource(req, resp);
-		} else if ("getRecievedDemands".equals(method)) {
-			Demand.getRecievedDemands(req, resp);
 		} else if ("getRecievedDemandsAjax".equals(method)) {
 			Demand.getRecievedDemandsAjax(req, resp);
-		} else if ("deleteRecievedDemands".equals(method)) {
-			Demand.deleteRecievedDemands(req, resp);
 		} else if ("acceptDemandAjax".equals(method)) {
 			Demand.acceptDemandAjax(req, resp);
 		} else {
