@@ -29,7 +29,10 @@ public class Client extends HttpServlet{
             Client.modifyProfile(req, resp);
         } else if ("getProfile".equals(method)) {
             Client.getProfile(req, resp);
-        } else {
+        } else if("getProfileAjax".equals(method)){
+            Client.getProfileAjax(req, resp);
+        }
+        else {
             req.setAttribute("type", "danger");
             req.setAttribute("info", "undefine " + method);
             Gopage.accueil(req, resp);
@@ -132,6 +135,25 @@ public class Client extends HttpServlet{
         }
         req.setAttribute("profile", profile);
         Gopage.profile(req, resp);
+    }
+
+    public static void getProfileAjax(HttpServletRequest req, HttpServletResponse resp)
+    throws ServletException, IOException {
+        if(!Client.sessionValide(req, resp)){
+            Gopage.accueil(req, resp);
+        }
+        int idu = Integer.parseInt(req.getParameter("id"));
+        int id = (((UserBean)req.getSession().getAttribute("user")).getId());
+        ProfileBean profile = ProfileDao.getProfileFromUser(idu);
+        if ((id == idu) && (profile == null)){
+            resp.getWriter().write("0");
+        }
+        if((id != idu) && (profile == null)) {
+            resp.getWriter().write("0");
+        }
+        resp.setCharacterEncoding("utf-8");
+        resp.getWriter().write(profile.toJson());
+        System.out.println(profile.toJson());
     }
 
     public static void modifyProfile(HttpServletRequest req, HttpServletResponse resp)

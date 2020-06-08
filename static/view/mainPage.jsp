@@ -21,65 +21,70 @@
     <fieldset>
         <nav class="navbar navbar-inverse" role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header"><a class="navbar-brand">${user.getUsername()}</a></div>
+                <div class="navbar-header"><a class="navbar-brand">${user.getUsername()}</a><a id="userId" style="display: none">${user.getId()}</a></div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li><a href="${pageContext.request.contextPath}/Gopage?page=mainPage">Home</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Client?method=getProfile&id=${user.getId()}" class="text-success">Profile</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getSendedDemands" class="text-success">Sended demands</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getRecievedDemands" class="text-success">Recieved demands</a></li>                        
-                        <li><a href="${pageContext.request.contextPath}/Service?method=getRessources" class="text-success">Your houses</a></li>
+                        <li><a id="gotoPageHome" class="text-success">Home</a></li>
+                        <li><a id="gotoPageProfile" class="text-success">Profile</a></li>
+                        <li><a id="gotoPageSendedDemands" class="text-success">Sended demands</a></li>
+                        <li><a id="gotoPageRecievedDemands" class="text-success">Recieved demands</a></li>                        
+                        <li><a id="gotoPageYourHouse" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <%-- information --%>
-        <%if(request.getAttribute("info")!=null) {%>
-            <div id="alert" class="alert alert-<%=request.getAttribute("type")%>"><%=request.getAttribute("info")%></div>
-        <%}%>
-
-        <div id="createDemande">
-            <legend>Get a house or room</legend>
-            <form id="FormSearch" method="post">
-                <div id="inputDemande">
-                    <div id="plan1">
-                        <div class="form-group">
-                            <label>Destination</label>
-                            <input name="destination" type="text" class="form-control" required
-                                   placeholder="destination"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Check in date</label>
-                            <input name="checkin" type="date" class="form-control" required
-                                   placeholder="checkin date"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Check out date</label>
-                            <input name="checkout" type="date" class="form-control" required
-                                   placeholder="checkout date"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Number of people</label>
-                            <input name="nb" type="number" class="form-control" required
-                                   placeholder="How many people ?"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Type: </label>
-                            <input name="type" id="id_room" value="room" type="radio" checked>Room
-                            <input name="type" id="id_house" value="house" type="radio"/>House
-                        </div>
-                        <div class="form-group">
-                            <label>Smoker: </label>
-                            <input name="smoker" id="id_smoker" value="y" type="radio" >Yes
-                            <input name="smoker" id="id_no_smoker" value="n" type="radio" checked/>No
-                        </div>
-                    </div>
-                </div>
-                <button id="ButtonSearch"  type="button" class="btn btn-primary float-right">Go</button>
-            </form>
+        <div id="divAlert"> 
         </div>
-        <div id="resultOfSearch">
+        <div id="mainDiv">
+            <div id="DivSearch">
+                <div id="createDemande">
+                    <legend>Get a house or room</legend>
+                    <form id="FormSearch" method="post">
+                        <div id="inputDemande">
+                            <div id="plan1">
+                                <div class="form-group">
+                                    <label>Destination</label>
+                                    <input name="destination" type="text" class="form-control" required
+                                        placeholder="destination"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Check in date</label>
+                                    <input name="checkin" type="date" class="form-control" required
+                                        placeholder="checkin date"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Check out date</label>
+                                    <input name="checkout" type="date" class="form-control" required
+                                        placeholder="checkout date"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Number of people</label>
+                                    <input name="nb" type="number" class="form-control" required
+                                        placeholder="How many people ?"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Type: </label>
+                                    <input name="type" id="id_room" value="room" type="radio" checked>Room
+                                    <input name="type" id="id_house" value="house" type="radio"/>House
+                                </div>
+                                <div class="form-group">
+                                    <label>Smoker: </label>
+                                    <input name="smoker" id="id_smoker" value="y" type="radio" >Yes
+                                    <input name="smoker" id="id_no_smoker" value="n" type="radio" checked/>No
+                                </div>
+                            </div>
+                        </div>
+                        <button id="ButtonSearch"  type="button" class="btn btn-primary float-right">Go</button>
+                    </form>
+                </div>
+                <div id="resultOfSearch">
+                </div>
+            </div>
+
+            <div id="DivProfile">
+            </div>
         </div>
 
         <%if (result!=null) {%>

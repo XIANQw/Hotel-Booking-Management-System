@@ -65,7 +65,6 @@ public class Demand {
 		String numPeople = req.getParameter("nb");
 		String type = req.getParameter("type");
 		String smoker = req.getParameter("smoker");
-		String info = "Result of command: " + checkin + " " + checkout;
 
 		DemandBean cmd = new DemandBean();
 		cmd.setCheckin(checkin);
@@ -80,7 +79,7 @@ public class Demand {
 		attrs.put("type", type);
 		attrs.put("smoker", smoker);
 
-		List<RessourceBean> tmp = RessourceDao.getRessourcesFrom(attrs), result = new ArrayList<RessourceBean>();
+		List<RessourceBean> tmp = RessourceDao.getRessourcesFrom(attrs);
 		String resJson = "[";
 		if (tmp.size() > 0) {
 			for (int i = 0; i < tmp.size() - 1; i++) {
