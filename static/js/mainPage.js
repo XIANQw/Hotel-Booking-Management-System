@@ -372,18 +372,24 @@ function modifyRes() {
     });
 }
 
+function autoRefreshWheather(){
+    getWheather();
+    setInterval(getWheather,300000);
+}
+
+
 function getWheather() {
     //alert("click ok");
     // var city = document.getElementById('city').value;
     var city = $("#city").attr("data-city");
-   // alert ("getWheather"+city);
+    alert ("getWheather"+city);
     $.ajax({
         type: "POST",
         data: {dataCity:city},
         url: "Service?method=getWheather",
         success: function (result, status) {
             var str = result;
-            alert(str);
+            //alert(str);
             var resp = JSON.parse(str);
             var html = htmlWheather(resp);
             $('#DivWheather').html(html);
@@ -414,7 +420,7 @@ function geocodeAddress(geocoder, resultsMap) {
 
     //var address = document.getElementById('adresse').value;
     var address = $("#address").attr("data-address");
-     alert(address);
+     //alert(address);
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
@@ -434,7 +440,7 @@ function getAddress(){
         url: "Service?method=getAddress",
         success: function (result, status) {
             var str = result;
-            alert(result);
+            //alert(result);
         }, error: function (res) {
             var str = res;
             alert("error:" + str);

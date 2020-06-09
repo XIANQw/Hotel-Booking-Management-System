@@ -70,7 +70,7 @@ function htmlResDetails(json) {
     var owner = json[0];
     var res = json[1];
     var address = res.number + "," + res.street + "," + res.postal + "," + res.city; 
-    alert(address);
+    //alert(address);
     var html = "";
     if (user == owner.id) {
         html += '<div class="col-sm-10">';
@@ -134,7 +134,7 @@ function htmlResDetails(json) {
 
         //--页面加载完之后调用getWheather函数------------------
         html += '<script type=”text/javascript”>\
-        $(document).ready(getWheather);\
+        $(document).ready(autoRefreshWheather);\
         </script>';
         //--------------------
 
@@ -269,9 +269,10 @@ function htmlWheather(WheatherJson) {
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Temperature</strong></span>\
                     '+ WheatherJson.current.temperature + '\
                 </li>\
+                <img src="'+WheatherJson.current.weather_icons+'"   />\
             </ul>\
         </div>';
 
-        alert("htmlWheather press");
+        
     return html;
 }
