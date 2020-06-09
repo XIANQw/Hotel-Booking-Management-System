@@ -30,7 +30,24 @@
       <artifactId>servlet</artifactId>
       <version>1.0.0</version>
     </dependency>
+    <dependency>
+    <groupId>javax.ws.rs</groupId>
+    <artifactId>javax.ws.rs-api</artifactId>
+    <version>2.1-m09</version>
+    </dependency>
+	<dependency>
+	<groupId>org.jboss.resteasy</groupId>
+	<artifactId>resteasy-client</artifactId>
+	<version>3.0.2.Final</version>
+	</dependency>
+	<dependency>
+	<groupId>org.json</groupId>
+	<artifactId>org.json</artifactId>
+	<version>chargebee-1.0</version>
+	<scope>provided</scope>
+	</dependency>
   </dependencies>
+
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

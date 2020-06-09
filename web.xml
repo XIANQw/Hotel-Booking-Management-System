@@ -54,5 +54,15 @@
     <url-pattern>/Gopage</url-pattern>
   </servlet-mapping>
 
+=
+  <servlet>
+    <servlet-name>Wheather</servlet-name>
+    <servlet-class>jar.servlet.Wheather</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Wheather</servlet-name>
+    <url-pattern>/Wheather</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>

@@ -94,8 +94,8 @@ public class CommandeDao {
     public static void deleteCommandesFrom(HashMap<String, String> attrs) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    "xian", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+
             String sql = "delete from Commande where ";
             for (String attr : attrs.keySet()) {
                 sql += attr + "=" + "'" + attrs.get(attr) + "' and ";

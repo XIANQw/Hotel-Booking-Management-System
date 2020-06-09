@@ -41,7 +41,9 @@ public class Service extends HttpServlet {
 			Commande.deleteRecievedCommandes(req, resp);
 		} else if ("acceptCommande".equals(method)){
 			Commande.acceptCommandes(req, resp);
-		}
+		}else if ("getWheather".equals(method)){
+			Wheather.sendData(req, resp);
+		} 
 		else {
 			req.setAttribute("type", "danger");
 			req.setAttribute("info", "Sorry..we're developing it");
