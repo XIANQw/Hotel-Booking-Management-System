@@ -83,7 +83,39 @@
                 </div>
             </div>
 
-            <div id="DivProfile"></div>
+            <div id="DivProfile">
+                <div id="DivProfileContent"></div>
+                <div id="DivModifyProfile" style="display:none">
+                    <form id="FormModifyProfile" method="post">
+                        <div class="form-group">
+                            <label>Family name: </label>
+                            <input type="text" id="id_modify_profile_nom" name="nom" value= "" class="form-control" placeholder="nom"
+                                required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>First name: </label>
+                            <input type="text" id="id_modify_profile_prenom" name="prenom" value= "" class="form-control" placeholder="prenom"
+                                required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" id="id_modify_profile_email" name="email" value="" class="form-control"
+                                placeholder="email"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse</label>
+                            <input type="text" id="id_modify_profile_adresse" name="adresse" value="" class="form-control"
+                                placeholder="adresse"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Telephone</label>
+                            <input type="text" id="id_modify_profile_telephone" name="tel" value="" class="form-control" placeholder="telphone"/>
+                        </div>
+                        <a type="button" id="ButtonQuitModifyProfile" class="btn btn-primary">Cancel</a>
+                        <button type="button" id="ButtonModifyProfile" class="btn btn-primary float-right">Save</button>
+                    </form>
+                </div>
+            </div>
 
             <div id="DivResDetails"></div>
 

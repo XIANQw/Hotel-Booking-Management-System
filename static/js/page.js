@@ -2,8 +2,8 @@ $(function () {
     $("#ModeLogin").click(ModeSignIn);
     $("#ModeSignUp").click(ModeSignUp);
     $('#gotoPageHome').click(gotoPageHome);
+    $('#ButtonQuitModifyProfile').click(hideFromModifyProfile);
 });
-
 
 // modify gestionnaire.html
 function ModeSignIn() {
@@ -42,38 +42,42 @@ function gotoCreationRoom() {
 }
 
 function gotoPageHome() {
-    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivSearch').css('display', 'block');
 }
 
 function gotoPageProfile() {
-    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivProfile').css('display', 'block');
 }
 
+function displayFormModifyProfile() {
+    $('#DivProfileContent').css("display", "none");
+    $('#DivModifyProfile').css("display", "block");
+}
+
+function hideFromModifyProfile() {
+    $('#DivProfileContent').css("display", "block");
+    $('#DivModifyProfile').css("display", "none");
+}
+
 function gotoPageResDetails() {
-    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivResDetails').css('display', 'block');
 }
 
 function gotoPageSendedDemands() {
-    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivSendedDemands').css('display', 'block');
 }
 
 function gotoPageRecievedDemands() {
-    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivRecievedDemands').css('display', 'block');
 }
 
 
 function gotoPageYourHouses() {
-    emptyMsg();
     $('#mainDiv').children().css('display', 'none');
     $('#DivYourHouses').css('display', 'block');
 }
@@ -84,9 +88,9 @@ function setAlert(str) {
     $('#divAlert').html(html);
 }
 
-function setWarning(str){
+function setWarning(str) {
     var html = "<div id=\"alert\" class=\"alert alert-warning\">" + str + "</div>";
-    $('#divAlert').html(html);    
+    $('#divAlert').html(html);
 }
 
 function setSucess(str) {
@@ -98,7 +102,29 @@ function emptyMsg() {
     $('#divAlert').html("");
 }
 
-function htmlProfile(profileJson) {
+
+function htmlSearchResult(data) {
+    var html = '<table class="table table-striped"><thead><tr><th scope="col">id</th><th scope="col">Type</th><th scope="col">Price</th><th scope="col">Persons</th><th scope="col">Adresse</th></tr></thead>';
+    html += "<tbody>";
+    for (var i = 0; i < data.length; i++) {
+        html += "<tr>";
+        html += "<td>" + data[i].id + "</td>";
+        html += "<td>" + data[i].type + "</td>";
+        html += "<td>" + data[i].price + "</td>";
+        html += "<td>" + data[i].person + "</td>";
+        html += "<td>" + data[i].adresse + "</td>";
+        html += "<td><a class=buttonDetails data-id=" + data[i].id + " class=\"text-success\">details</a></td>";
+        html += "<td><a class=buttonReserve data-id=" + data[i].id + " class=\"text-success\">reserve</a></td>";
+        html += "</tr>";
+    }
+    html += "</tbody></table>";
+    return html;
+}
+
+
+function htmlProfile(resp) {
+    var profileJson = resp.data;
+    if (profileJson == []) return;
     var user = $('#userId').text();
     var html =
         '<div class="container bootstrap snippet">\
@@ -106,6 +132,14 @@ function htmlProfile(profileJson) {
     if (profileJson.id == user) {
         html += '<div class="col-sm-10">\
                     <h1>Hello '+ profileJson.nom + ' ' + profileJson.prenom + '!</h1>\
+                </div>';
+        html += '<div class="col-sm-10">';
+        html += '<span>click </span>';
+        html += '<ins id="gotoModifyProfile" class="text-success">here</ins>';
+        html += '<span> Modify your information </span></div>';
+    } else {
+        html += '<div class="col-sm-10">\
+                    <h1>' + profileJson.nom + ' ' + profileJson.prenom + '</h1>\
                 </div>';
     }
     html += '<div class="col-sm-2">\
@@ -131,6 +165,14 @@ function htmlProfile(profileJson) {
     return html;
 }
 
+function fillOutFormModifyProfile(profile) {
+    if (profile == []) return;
+    $('#id_modify_profile_nom').attr({ "value": profile.nom });
+    $('#id_modify_profile_prenom').attr({ "value": profile.prenom });
+    $('#id_modify_profile_email').attr({ "value": profile.email });
+    $('#id_modify_profile_adresse').attr({ "value": profile.adresse });
+    $('#id_modify_profile_telephone').attr({ "value": profile.telephone });
+}
 
 function htmlResDetails(json) {
     var owner = json[0];

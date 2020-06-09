@@ -5,24 +5,32 @@ $(function () {
     $('#gotoPageRecievedDemands').click(getRecievedDemands);
     $('#gotoPageYourHouses').click(getYourHouses);
     $('#ButtonAddRes').click(addHouse);
+    $('#ButtonModifyProfile').click(modifyProfile);
 });
 
-function getResDetails() {
-    var idr = $(this).attr("data-id");
+function searchRessource() {
     $.ajax({
-        type: "GET",
-        url: "Service?method=getResDetailsAjax&id=" + idr,
+        type: "POST",
+        url: "Service?method=createSearchAjax",
+        data: $('#FormSearch').serialize(),
         success: function (result, status) {
             var str = result;
             var resp = JSON.parse(str);
-            var html = htmlResDetails(resp);
-            $('#DivResDetails').html(html);
-            gotoPageResDetails();
-        }, error: function (res) {
-            if (res.responseText == "0") {
-                gotoPageHome();
-                setAlert("Your amount has not yet a profile");
+            if (resp.status == 1) {
+                var html = htmlSearchResult(resp.data);
+                $("#resultOfSearch").html(html);
+                $('.buttonDetails').click(getResDetails);
+                $('.buttonReserve').click(reserveRes);
+                setSucess(resp.info);
+            } else if (resp.status == 0){
+                var html = htmlSearchResult(resp.data);
+                $("#resultOfSearch").html(html);
+                setWarning(resp.info);
+            } else {
+                setAlert(resp.info);
             }
+        }, error: function (res) {
+            alert("error=" + res.responseText);
         }
     });
 }
@@ -45,39 +53,25 @@ function reserveRes() {
     });
 }
 
-function searchRessource() {
+function getResDetails() {
+    var idr = $(this).attr("data-id");
     $.ajax({
-        type: "POST",
-        url: "Service?method=createSearchAjax",
-        data: $('#FormSearch').serialize(),
+        type: "GET",
+        url: "Service?method=getResDetailsAjax&id=" + idr,
         success: function (result, status) {
             var str = result;
-            var resp = $.parseJSON(str);
-            var html = '<table class="table table-striped"><thead><tr><th scope="col">id</th><th scope="col">Type</th><th scope="col">Price</th><th scope="col">Persons</th><th scope="col">Adresse</th></tr></thead>';
-            html += "<tbody>";
-            for (var i = 0; i < resp.length; i++) {
-                html += "<tr>";
-                html += "<td>" + resp[i].id + "</td>";
-                html += "<td>" + resp[i].type + "</td>";
-                html += "<td>" + resp[i].price + "</td>";
-                html += "<td>" + resp[i].person + "</td>";
-                html += "<td>" + resp[i].adresse + "</td>";
-                html += "<td><a id=buttonDetails" + resp[i].id + " data-id=" + resp[i].id + " class=\"text-success\">details</a></td>";
-                html += "<td><a id=buttonReserve" + resp[i].id + " data-id=" + resp[i].id + " class=\"text-success\">reserve</a></td>";
-                html += "</tr>";
-            }
-            html += "</tbody></table>";
-            $("#resultOfSearch").html(html);
-            for (var i = 0; i < resp.length; i++) {
-                $('#buttonDetails' + resp[i].id).click(getResDetails);
-                $('#buttonReserve' + resp[i].id).click(reserveRes);
-            }
+            var resp = JSON.parse(str);
+            var html = htmlResDetails(resp);
+            $('#DivResDetails').html(html);
+            gotoPageResDetails();
         }, error: function (res) {
-            alert("error=" + res.responseText);
+            if (res.responseText == "0") {
+                gotoPageHome();
+                setAlert("Your amount has not yet a profile");
+            }
         }
     });
 }
-
 
 function getProfile() {
     var id = $('#userId').text();
@@ -87,17 +81,90 @@ function getProfile() {
         success: function (result, status) {
             var str = result;
             var resp = JSON.parse(str);
-            var html = htmlProfile(resp);
-            $('#DivProfile').html(html);
             gotoPageProfile();
-        }, error: function (res) {
-            if (res.responseText == "0") {
-                gotoPageHome();
-                setAlert("Your amount has not yet a profile");
+            if (resp.status == 1) {
+                var html = htmlProfile(resp);
+                $('#DivProfileContent').html(html);
+                $('#gotoModifyProfile').click(gotoModifyProfile);
+            } else if (resp.status == 0) {
+                setWarning(resp.info);
+            } else {
+                gotoModifyProfile();
+                setAlert(resp.info);
             }
+        }, error: function (res) {
+            gotoPageHome();
+            setAlert(res.responseText);
         }
     });
 }
+
+function gotoModifyProfile() {
+    var id = $('#userId').text();
+    $.ajax({
+        type: "GET",
+        url: "Client?method=getProfileAjax&id=" + id,
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            fillOutFormModifyProfile(resp.data);
+            displayFormModifyProfile();
+        }, error: function (res) {
+            gotoPageHome();
+            setAlert(res.responseText);
+        }
+    });
+}
+
+function modifyProfile() {
+    $.ajax({
+        type: "GET",
+        url: "Client?method=modifyProfileAjax",
+        data: $('#FormModifyProfile').serialize(),
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            if (resp.status == 1) {
+                hideFromModifyProfile();
+                getProfile();
+                setSucess(resp.info);
+            } else if (resp.status == 0) {
+                setWarning(resp.info);
+            } else {
+                gotoModifyProfile();
+                setAlert(resp.info);
+            }
+        }, error: function (res) {
+            gotoPageHome();
+            setAlert(res.responseText);
+        }
+    });
+}
+
+function accesDemander() {
+    var id = $(this).attr("data-id");
+    $.ajax({
+        type: "GET",
+        url: "Client?method=getProfileAjax&id=" + id,
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            if (resp.status == 1) {
+                var html = htmlProfile(resp);
+                $('#DivProfileContent').html(html);
+                gotoPageProfile();
+            } else if (resp.status == 0) {
+                setWarning(resp.info);
+            } else {
+                setAlert(resp.info);
+            }
+        }, error: function (res) {
+            gotoPageHome();
+            setAlert(res.responseText);
+        }
+    });
+}
+
 
 function deleteDemands() {
     var idd = $(this).attr("data-id");
@@ -132,26 +199,6 @@ function getSendedDemands() {
         }, error: function (res) {
             gotoPageHome();
             setAlert(res.responseText);
-        }
-    });
-}
-
-function accesDemander() {
-    var id = $(this).attr("data-id");
-    $.ajax({
-        type: "GET",
-        url: "Client?method=getProfileAjax&id=" + id,
-        success: function (result, status) {
-            var str = result;
-            var resp = JSON.parse(str);
-            var html = htmlProfile(resp);
-            $('#DivProfile').html(html);
-            gotoPageProfile();
-        }, error: function (res) {
-            if (res.responseText == "0") {
-                gotoPageHome();
-                setAlert("This demander has not yet a profile");
-            }
         }
     });
 }
@@ -219,7 +266,7 @@ function getYourHouses() {
     });
 }
 
-function addHouse(){
+function addHouse() {
     $.ajax({
         type: "POST",
         url: "Service?method=createRessourceAjax",
@@ -227,13 +274,13 @@ function addHouse(){
         success: function (result, status) {
             var str = result;
             var resp = $.parseJSON(str);
-            if(resp.status==1){
+            if (resp.status == 1) {
                 getYourHouses();
                 quitCreationRessource();
                 setSucess(resp.info);
-            } else if(resp.status == 0){
+            } else if (resp.status == 0) {
                 setWarning(resp.info);
-            } else{
+            } else {
                 setAlert(resp.info);
             }
         }, error: function (res) {
@@ -243,7 +290,7 @@ function addHouse(){
 }
 
 
-function deleteRes(){
+function deleteRes() {
     var id = $(this).attr("data-id");
     $.ajax({
         type: "GET",
@@ -252,11 +299,11 @@ function deleteRes(){
             var str = result;
             var resp = JSON.parse(str);
             getYourHouses();
-            if(resp.status==1){
+            if (resp.status == 1) {
                 setSucess(resp.info);
-            } else if(resp.status == 0){
+            } else if (resp.status == 0) {
                 setWarning(resp.info);
-            } else{
+            } else {
                 setAlert(resp.info);
             }
         }, error: function (res) {

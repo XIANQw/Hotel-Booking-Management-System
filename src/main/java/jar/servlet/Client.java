@@ -26,10 +26,8 @@ public class Client extends HttpServlet{
 			Client.signup(req, resp);
 		} else if ("Logout".equals(method)) {
 			Client.logout(req, resp);
-        } else if ("modifyProfile".equals(method)) {
-            Client.modifyProfile(req, resp);
-        } else if ("getProfile".equals(method)) {
-            Client.getProfile(req, resp);
+        } else if ("modifyProfileAjax".equals(method)) {
+            Client.modifyProfileAjax(req, resp);
         } else if("getProfileAjax".equals(method)){
             Client.getProfileAjax(req, resp);
         }
@@ -115,29 +113,6 @@ public class Client extends HttpServlet{
         return true;
     }
 
-    public static void getProfile(HttpServletRequest req, HttpServletResponse resp)
-    throws ServletException, IOException {
-        if(!Client.sessionValide(req, resp)){
-            Gopage.accueil(req, resp);
-        }
-        String info;
-        int idu = Integer.parseInt(req.getParameter("id"));
-        int id = (((UserBean)req.getSession().getAttribute("user")).getId());
-        ProfileBean profile = ProfileDao.getProfileFromUser(idu);
-        if ((id == idu) && (profile == null)){
-            info = "You have not yet a profile, you can set your information here";
-            req.setAttribute("info", info); req.setAttribute("type", "warning");
-            Gopage.modifyAccount(req, resp);
-        }
-        if((id != idu) && (profile == null)) {
-            info = "This user has not yet a profile, you can set your information here";
-            req.setAttribute("info", info); req.setAttribute("type", "warning");
-            Gopage.mainPage(req, resp);
-        }
-        req.setAttribute("profile", profile);
-        Gopage.profile(req, resp);
-    }
-
     public static void getProfileAjax(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
@@ -147,29 +122,31 @@ public class Client extends HttpServlet{
 			return;
 		}
         int idu = Integer.parseInt(req.getParameter("id"));
-        int id = (((UserBean)req.getSession().getAttribute("user")).getId());
         ProfileBean profile = ProfileDao.getProfileFromUser(idu);
-        if ((id == idu) && (profile == null)){
-            resp.getWriter().write("0");
+        String json = "";
+        if (profile == null){
+            String info = "Your account has not yet a profile";    
+            json = ToJson.toJson("", info, -1);
+        } else {
+            json = ToJson.toJson(profile.toJson(), "", 1);
         }
-        if((id != idu) && (profile == null)) {
-            resp.getWriter().write("0");
-        }
-        resp.setCharacterEncoding("utf-8");
-        resp.getWriter().write(profile.toJson());
-        System.out.println(profile.toJson());
+        resp.getWriter().write(json);
+        System.out.println(json);
     }
 
-    public static void modifyProfile(HttpServletRequest req, HttpServletResponse resp)
+    public static void modifyProfileAjax(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
-        if(!Client.sessionValide(req, resp)){
-            Gopage.accueil(req, resp);
-        }
-        String nom = req.getParameter("nom");
-        String prenom = req.getParameter("prenom");
-        String email =req.getParameter("email");
-        String adresse = req.getParameter("adresse");
-        String telephone = req.getParameter("tel");
+		resp.setCharacterEncoding("utf-8");
+		if (!Client.sessionValide(req, resp)) {
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return;
+		}
+        String nom = req.getParameter("nom").trim();
+        String prenom = req.getParameter("prenom").trim();
+        String email =req.getParameter("email").trim();
+        String adresse = req.getParameter("adresse").trim();
+        String telephone = req.getParameter("tel").trim();
         int id = ((UserBean)req.getSession().getAttribute("user")).getId();
         
         ProfileBean profile = new ProfileBean();
@@ -180,8 +157,8 @@ public class Client extends HttpServlet{
         profile.setAdresse(adresse);
         profile.setTelephone(telephone);
         ProfileDao.saveProfile(id, profile);
-        req.setAttribute("profile", profile);
-        req.getRequestDispatcher("Client?method=getProfile&id="+id).forward(req, resp);
+        String json = ToJson.toJson("", "Your profile has been created successfully", 1);
+        resp.getWriter().write(json);
     }
 
 }

@@ -21,12 +21,12 @@ public class Ressource {
 			return ;
 		}
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
-		String type = req.getParameter("type");
-		float price = Float.parseFloat(req.getParameter("price"));
-		int number = Integer.parseInt(req.getParameter("number"));
-		String street = req.getParameter("street").toLowerCase();
-		int postal = Integer.parseInt(req.getParameter("postal"));
-		String city = req.getParameter("city").toLowerCase();
+		String type = req.getParameter("type").trim();
+		float price = Float.parseFloat(req.getParameter("price").trim());
+		int number = Integer.parseInt(req.getParameter("number").trim());
+		String street = req.getParameter("street").trim().toLowerCase();
+		int postal = Integer.parseInt(req.getParameter("postal").trim());
+		String city = req.getParameter("city").trim().toLowerCase();
 		int persons;
 		if ("room".equals(type))
 			persons = Integer.parseInt(req.getParameter("persons_room"));
@@ -59,9 +59,17 @@ public class Ressource {
 			return;
 		}
 		String idr = req.getParameter("id");
-		RessourceDao.deleteRessource(idr);
-		String info = "This resource has been deleted successfully";
-		resp.getWriter().write(ToJson.toJson("", info, 1));
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("idr", idr);
+		List<DemandBean> dmds = DemandDao.getDemandsFrom(attrs);
+		if(dmds.size() > 0) {
+			String info = "There are some demands of this resouce, you can not delete this resource";
+			resp.getWriter().write(ToJson.toJson("", info, -1));
+		} else {
+			RessourceDao.deleteRessource(idr);
+			String info = "This resource has been deleted successfully";
+			resp.getWriter().write(ToJson.toJson("", info, 1));
+		}
 	}
 
 	public static void getResListAjax(HttpServletRequest req, HttpServletResponse resp)
@@ -81,8 +89,9 @@ public class Ressource {
 			json += ressources.get(i).toJson() + ", ";
 		}
 		if (ressources.size() > 0) {
-			json += ressources.get(ressources.size() - 1).toJson() + "]";
+			json += ressources.get(ressources.size() - 1).toJson();
 		}
+		json += "]";
 		resp.getWriter().write(json);
 		System.out.println(json);
 	}

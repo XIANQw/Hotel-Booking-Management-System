@@ -45,20 +45,30 @@ public class Demand {
 		attrs.put("smoker", smoker);
 
 		List<RessourceBean> tmp = RessourceDao.getRessourcesFrom(attrs);
-		String resJson = "[";
+		String data = "[", json = "", info = "";
+		int cpt = 0;
 		if (tmp.size() > 0) {
 			for (int i = 0; i < tmp.size() - 1; i++) {
 				RessourceBean res = tmp.get(i);
-				if (res.getIdu() != idu)
-					resJson += res.toJson();
-				resJson += ",";
+				if (res.getIdu() != idu) {
+					data += res.toJson();
+					data += ",";
+					cpt += 1;
+				}
 			}
-			resJson += tmp.get(tmp.size() - 1).toJson();
+			data += tmp.get(tmp.size() - 1).toJson();
+			cpt += 1;
 		}
-		resJson += "]";
-		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().write(resJson);
-		System.out.println(resJson);
+		data += "]";
+		if (tmp.size() > 0) {
+			info = "We find " + cpt + " resource for you !";
+			json = ToJson.toJson(data, info, 1);
+		} else {
+			info = "Sorry.. we have not found any resource";
+			json = ToJson.toJson(data, info, 0);
+		}
+		resp.getWriter().write(json);
+		System.out.println(json);
 	}
 
 	public static void sendDemandAjax(HttpServletRequest req, HttpServletResponse resp)
