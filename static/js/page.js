@@ -29,15 +29,15 @@ function quitCreationRessource() {
 }
 
 function gotoCreationHouse() {
-    $('#optionRoom').css('display', 'none');
-    $('#optionHouse').css('display', 'block');
+    $('.optionRoom').css('display', 'none');
+    $('.optionHouse').css('display', 'block');
     $('#id_num_room').attr('required');
     $('#id_room_type').removeAttr('required');
 }
 
 function gotoCreationRoom() {
-    $('#optionRoom').css('display', 'block');
-    $('#optionHouse').css('display', 'none');
+    $('.optionRoom').css('display', 'block');
+    $('.optionHouse').css('display', 'none');
     $('#id_num_room').removeAttr('required');
     $('#id_room_type').attr('required');
 }

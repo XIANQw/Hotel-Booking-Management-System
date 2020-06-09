@@ -334,7 +334,7 @@ function gotoModifyRes() {
     $('#m_id_city').attr("value", city);
     if (smoke == 'Yes') $('#m_id_smoker').attr("checked", true);
     else $('#m_id_no_smoker').attr("checked", true);
-    if(type=="house"){
+    if (type == "house") {
         $('#m_id_house').attr("checked", true);
         gotoCreationHouse();
         $('#m_id_num_room').attr("value", person);
@@ -350,7 +350,7 @@ function modifyRes() {
     var id = $(this).attr("data-id");
     $.ajax({
         type: "GET",
-        url: "Service?method=modifyResAjax&id="+id,
+        url: "Service?method=modifyResAjax&id=" + id,
         data: $('#FormModifyRes').serialize(),
         success: function (result, status) {
             var str = result;
@@ -376,18 +376,16 @@ function getWheather() {
     //alert("click ok");
     // var city = document.getElementById('city').value;
     var city = $("#city").attr("data-city");
-   // alert ("getWheather"+city);
+    // alert ("getWheather"+city);
     $.ajax({
         type: "POST",
-        data: {dataCity:city},
+        data: { dataCity: city },
         url: "Service?method=getWheather",
         success: function (result, status) {
             var str = result;
-            alert(str);
             var resp = JSON.parse(str);
             var html = htmlWheather(resp);
             $('#DivWheather').html(html);
-            //alert(resp);
         }, error: function (res) {
             var str = res;
             alert("error:" + str);
@@ -396,45 +394,40 @@ function getWheather() {
     });
 }
 
-
-
-
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 15,
-      center: {lat: -34.397, lng: 150.644}
+        zoom: 15,
+        center: { lat: -34.397, lng: 150.644 }
     });
     var geocoder = new google.maps.Geocoder();
+    geocodeAddress(geocoder, map);
+}
 
-      geocodeAddress(geocoder, map);
-
-  }
 function geocodeAddress(geocoder, resultsMap) {
     //    var idd = $(this).attr("data-id");
 
     //var address = document.getElementById('adresse').value;
     var address = $("#address").attr("data-address");
     // alert(address);
-    geocoder.geocode({'address': address}, function(results, status) {
-      if (status === 'OK') {
-        resultsMap.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
 
-        });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
+            });
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
     });
-  }
-function getAddress(){
+}
+function getAddress() {
     $.ajax({
         type: "GET",
         url: "Service?method=getAddress",
         success: function (result, status) {
             var str = result;
-            alert(result);
         }, error: function (res) {
             var str = res;
             alert("error:" + str);

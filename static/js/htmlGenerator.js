@@ -270,7 +270,5 @@ function htmlWheather(WheatherJson) {
                 </li>\
             </ul>\
         </div>';
-
-        alert("htmlWheather press");
     return html;
 }

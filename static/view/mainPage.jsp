@@ -149,7 +149,7 @@
                                 <input name="smoker" id="m_id_smoker" value="Yes" type="radio" checked>Yes
                                 <input name="smoker" id="m_id_no_smoker" value="No" type="radio"/>No
                             </div>
-                            <div id="optionRoom">
+                            <div class="optionRoom">
                                 <div class="form-group">
                                     <label for="m_id_room_type">room type: </label>
                                     <select id="m_id_room_type" name="persons_room" class="form-control" placeholder="room type"
@@ -161,7 +161,7 @@
                                 </div>
                             </div>
 
-                            <div id="optionHouse" class="form-group" style="display: none">
+                            <div class="optionHouse" class="form-group" style="display: none">
                                 <label for="m_id_num_room">number of room: </label>
                                 <input type="number" name="persons_house" id="m_id_num_room" class="form-control" 
                                     placeholder="Number of your room" require="false"/>
@@ -205,10 +205,10 @@
                             </div>
                             <div class="form-group">
                                 <label>Smoker: </label>
-                                <input name="smoker" id="id_smoker" value="y" type="radio" checked>Yes
-                                <input name="smoker" id="id_no_smoker" value="n" type="radio"/>No
+                                <input name="smoker" id="id_smoker" value="Yes" type="radio" checked>Yes
+                                <input name="smoker" id="id_no_smoker" value="No" type="radio"/>No
                             </div>
-                            <div id="optionRoom">
+                            <div class="optionRoom">
                                 <div class="form-group">
                                     <label for="id_room_type">room type: </label>
                                     <select id="id_room_type" name="persons_room" class="form-control" placeholder="room type"
@@ -220,7 +220,7 @@
                                 </div>
                             </div>
 
-                            <div id="optionHouse" class="form-group" style="display: none">
+                            <div class="optionHouse" class="form-group" style="display: none">
                                 <label for="id_num_room">number of room: </label>
                                 <input type="number" name="persons_house" id="id_num_room" class="form-control" 
                                     placeholder="Number of your room" require="false"/>
