@@ -13,7 +13,8 @@ public class DemandDao {
     public static void saveDemand(DemandBean demand) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    Parameter.username, Parameter.pwd);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "insert into Demand values(0," + demand.getIdr() + "," + demand.getIdu() + ",'"
                     + demand.getCheckin().toString() + "','" + demand.getCheckout().toString() + "','"
@@ -34,7 +35,8 @@ public class DemandDao {
     public static void updateDemand(DemandBean demand) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    Parameter.username, Parameter.pwd);
 
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "update Demand set idr=" + demand.getIdr() + ",idu=" + demand.getIdu() + ",checkin='"
