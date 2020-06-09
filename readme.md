@@ -5,20 +5,20 @@ Les propriétaires peuvent inscrire leur chambres ou maisons, et les gérer par 
 
 ## Structure
 - src
- - bean : Object的实体类, 比如UserBean就只是User本身
- - dao  : 连接数据库和实体类, UserDao就封装了数据库和UserBean之间的联系
- - servlet : 业务逻辑类
-- lib : 连接servlet和mysql的包, 复制到\
+ - bean : la classe de chaque l'objet
+ - dao  : le lien entre bean et sql
+ - servlet : les fonctions sur le serveur
+- lib : package externe
 `../apache-tomcat-9.0.33/webapps/microproject/WEB-INF/lib`
 - static
   - css
   - js
-  - view : 网页文件
-- web.xml : 项目描述文件
+  - view : les fichiers page web
+- web.xml : le fichier de maven
 
 
-## 开发
-每次新建一个servlet class, 需要在web.xml里面注册. 比如我添加了帐号注册功能, 这个功能由`Signup`类实现
+## Développement
+Pour chaque nouveau servlet class, il faut enregistrer dans web.xml. Par exemple si j'ai ajouté un class Signup pour réaliser l'inscription d'une compte.
 ```
 <servlet>
   <servlet-name>Signup</servlet-name>
@@ -31,7 +31,7 @@ Les propriétaires peuvent inscrire leur chambres ou maisons, et les gérer par 
 ```
 
 ## Compilation
-根据你自己的tomcat目录改一下makefile里的路径, 不然用不了
+Modifier le chemin de tomcat dans makefile
 - Compiler les fichiers Java
 ```
 mvn compile
