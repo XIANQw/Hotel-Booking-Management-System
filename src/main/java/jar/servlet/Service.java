@@ -15,14 +15,12 @@ public class Service extends HttpServlet {
 		System.out.println("service=" + method);
 		if ("createSearchAjax".equals(method)) {
 			Demand.createSearchAjax(req, resp);
-		} else if ("getRessources".equals(method)) {
-			Ressource.getRessource(req, resp);
 		} else if ("getResListAjax".equals(method)) {
 			Ressource.getResListAjax(req, resp);
 		} else if ("createRessource".equals(method)) {
 			Ressource.createRessource(req, resp);
-		} else if ("deleteRessource".equals(method)) {
-			Ressource.deleteRessource(req, resp);
+		} else if ("deleteResAjax".equals(method)) {
+			Ressource.deleteResAjax(req, resp);
 		} else if ("getResDetailsAjax".equals(method)) {
 			Ressource.getResDetailsAjax(req, resp);
 		} else if ("modifyRessource".equals(method)) {

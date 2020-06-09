@@ -1,10 +1,6 @@
 $(function () {
     $("#ModeLogin").click(ModeSignIn);
     $("#ModeSignUp").click(ModeSignUp);
-    $('#RessourceModeCreation').click(gotoCreationRessource);
-    $('#RessourceQuitCreation').click(quitCreationRessource);
-    $('#id_room').click(gotoCreationRoom)
-    $('#id_house').click(gotoCreationHouse);
     $('#gotoPageHome').click(gotoPageHome);
 });
 
@@ -22,13 +18,13 @@ function ModeSignUp() {
 }
 
 function gotoCreationRessource() {
-    $('#createRessource').css('display', 'block');
-    $('#infoRessource').css('display', 'none');
+    $('#DivAddRes').css('display', 'block');
+    $('#DivResList').css('display', 'none');
 }
 
 function quitCreationRessource() {
-    $('#createRessource').css('display', 'none');
-    $('#infoRessource').css('display', 'block');
+    $('#DivAddRes').css('display', 'none');
+    $('#DivResList').css('display', 'block');
 }
 
 function gotoCreationHouse() {

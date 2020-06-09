@@ -42,34 +42,22 @@ public class Ressource {
 		ress.setSmoker(smoker);
 		String info = "Added a " + type;
 		RessourceDao.saveRessource(ress);
-		req.setAttribute("info", info);
-		req.setAttribute("type", "success");
-		Ressource.getRessource(req, resp);
 	}
 
-	public static void deleteRessource(HttpServletRequest req, HttpServletResponse resp)
+	public static void deleteResAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			;
-			Gopage.accueil(req, resp);
+			String json = "{\"info\": \"Session invalid, reconnect please ...\", \"status\": 0}";
+			resp.getWriter().write(json);
+			return;
 		}
 		String idr = req.getParameter("id");
 		RessourceDao.deleteRessource(idr);
-		Ressource.getRessource(req, resp);
+		String json = "{\"info\":\"This resource has been deleted successfully\"}";
+		resp.getWriter().write(json);
 	}
 
-	public static void getRessource(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		if (!Client.sessionValide(req, resp)) {
-			Gopage.accueil(req, resp);
-		}
-		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
-		HashMap<String, String> attrs = new HashMap<>();
-		attrs.put("idu", Integer.toString(owner));
-		List<RessourceBean> ressources = RessourceDao.getRessourcesFrom(attrs);
-		req.setAttribute("ressources", ressources);
-		Gopage.ressourceList(req, resp);
-	}
 
 	public static void getResListAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

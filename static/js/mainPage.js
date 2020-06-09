@@ -4,6 +4,7 @@ $(function () {
     $('#gotoPageSendedDemands').click(getSendedDemands);
     $('#gotoPageRecievedDemands').click(getRecievedDemands);
     $('#gotoPageYourHouses').click(getYourHouses);
+    $('#ButtonAddRes').click(addHouse);
 });
 
 function getResDetails() {
@@ -206,8 +207,10 @@ function getYourHouses() {
             var str = result;
             var resp = JSON.parse(str);
             var html = htmlYourHouses(resp);
-            $('#DivYourHouses').html(html);
+            $('#DivResList').html(html);
             $('.accesResDetails').click(getResDetails);
+            $('#RessourceModeCreation').click(gotoCreationRessource);
+            $('#RessourceQuitCreation').click(quitCreationRessource);
             $('.deleteRes').click(deleteRes);
             gotoPageYourHouses();
         }, error: function (res) {
@@ -215,6 +218,11 @@ function getYourHouses() {
         }
     });
 }
+
+function addHouse(){
+
+}
+
 
 function deleteRes(){
     var id = $(this).attr("data-id");
@@ -224,12 +232,8 @@ function deleteRes(){
         success: function (result, status) {
             var str = result;
             var resp = JSON.parse(str);
-            if (resp.status == 1) {
-                getRecievedDemands();
-                setSucess(resp.info);
-            } else {
-                setAlert(resp.info);
-            }
+            getYourHouses();
+            setSucess(resp.info);
         }, error: function (res) {
             setAlert(res.responseText);
         }

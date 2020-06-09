@@ -91,39 +91,62 @@
 
             <div id="DivRecievedDemands"></div>
 
-            <div id="DivYourHouses"></div>
+            <div id="DivYourHouses">
+                <div id="DivResList"></div>
+                <div id="DivAddRes" style="display:none" >
+                    <fieldset>
+                        <legend>Add a room or house</legend>
+                        <form id="FormAddRes" method="post">
+                            <div class="form-group">
+                                <label>Type: </label>
+                                <input name="type" id="id_room" onclick="gotoCreationHouse()" value="room" type="radio" checked>Room
+                                <input name="type" id="id_house" onclick="gotoCreationRoom()" value="house" type="radio"/>House
+                            </div>
+                            <div class="form-group">
+                                <label for="id_price">Price: </label>
+                                <input type="number" name="price" id="id_price" class="form-control" placeholder="price" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_number">Adresse: </label>
+                                <input type="number" name="number" id="id_number" class="form-control"
+                                        placeholder="Street number" required/>
+                                <input type="text" name="street" id="id_street" class="form-control"
+                                        placeholder="Street" required/>
+                                <input type="number" name="postal" id="id_postal" class="form-control"
+                                        placeholder="Postal number" required/>
+                                <input type="text" name="city" id="id_city" class="form-control"
+                                        placeholder="City" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Smoker: </label>
+                                <input name="smoker" id="id_smoker" value="y" type="radio" checked>Yes
+                                <input name="smoker" id="id_no_smoker" value="n" type="radio"/>No
+                            </div>
+                            <div id="optionRoom">
+                                <div class="form-group">
+                                    <label for="id_room_type">room type: </label>
+                                    <select id="id_room_type" name="persons_room" class="form-control" placeholder="room type"
+                                            required>
+                                        <option value="1">Simple</option>
+                                        <option value="2">Double</option>
+                                        <option value="3">Family</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="optionHouse" class="form-group" style="display: none">
+                                <label for="id_num_room">number of room: </label>
+                                <input type="number" name="persons_house" id="id_num_room" class="form-control" 
+                                    placeholder="Number of your room" require="false"/>
+                            </div>
+                            <button id="RessourceQuitCreation" class="btn btn-primary">Cancel</button>
+                            <button id="ButtonAddRes" type="button" class="btn btn-primary float-right">Create</button>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
         </div>
 
-        <%if (result!=null) {%>
-        <div>
-        <legend>Search result</legend>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-            <th scope="col">id</th>
-            <th scope="col">Type</th>
-            <th scope="col">Price</th>
-            <th scope="col">Persons</th>
-            <th scope="col">Adresse</th>                  
-            </tr>
-            </thead>
-            <tbody>
-            <%for (RessourceBean res : result) {%>
-                <tr>
-                <td><%=res.getId()%></td>
-                <td><%=res.getType()%></td>
-                <td><%=res.getPrice()%></td>
-                <td><%=res.getPersons()%></td>
-                <td><%=res.getAdresse()%></td>
-                <td><a href="${pageContext.request.contextPath}/Service?method=infoRessource&id=<%=res.getId()%>" class="text-success">details</a></td>
-                <td><a href="${pageContext.request.contextPath}/Service?method=sendDemand&id=<%=res.getId()%>" class="text-success">reserve</a></td>
-                </tr>
-            <%}%>
-            </tbody>
-        </table>
-        </div>
-
-        <%}%>
     </fieldset>
 </div>
 </body>
