@@ -3,6 +3,7 @@ $(function () {
     $('#gotoPageProfile').click(getProfile);
     $('#gotoPageSendedDemands').click(getSendedDemands);
     $('#gotoPageRecievedDemands').click(getRecievedDemands);
+    $('#gotoPageYourHouses').click(getYourHouses);
 });
 
 function getResDetails() {
@@ -105,7 +106,7 @@ function deleteDemands() {
         url: "Service?method=deleteDemandAjax&id=" + idd,
         success: function (result, status) {
             var resp = JSON.parse(result);
-            if(sended=='1') getSendedDemands();
+            if (sended == '1') getSendedDemands();
             else getRecievedDemands();
             setSucess(resp.info);
         }, error: function (res) {
@@ -175,7 +176,7 @@ function getRecievedDemands() {
     });
 }
 
-function acceptDemander(){
+function acceptDemander() {
     var id = $(this).attr("data-id");
     $.ajax({
         type: "GET",
@@ -183,7 +184,7 @@ function acceptDemander(){
         success: function (result, status) {
             var str = result;
             var resp = JSON.parse(str);
-            if(resp.status==1){
+            if (resp.status == 1) {
                 getRecievedDemands();
                 setSucess(resp.info);
             } else {
@@ -196,5 +197,42 @@ function acceptDemander(){
 }
 
 
+function getYourHouses() {
+    var id = $('#userId').text();
+    $.ajax({
+        type: "GET",
+        url: "Service?method=getResListAjax&id=" + id,
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            var html = htmlYourHouses(resp);
+            $('#DivYourHouses').html(html);
+            $('.accesResDetails').click(getResDetails);
+            $('.deleteRes').click(deleteRes);
+            gotoPageYourHouses();
+        }, error: function (res) {
+            setAlert(res.responseText);
+        }
+    });
+}
 
+function deleteRes(){
+    var id = $(this).attr("data-id");
+    $.ajax({
+        type: "GET",
+        url: "Service?method=deleteResAjax&id=" + id,
+        success: function (result, status) {
+            var str = result;
+            var resp = JSON.parse(str);
+            if (resp.status == 1) {
+                getRecievedDemands();
+                setSucess(resp.info);
+            } else {
+                setAlert(resp.info);
+            }
+        }, error: function (res) {
+            setAlert(res.responseText);
+        }
+    });
+}
 

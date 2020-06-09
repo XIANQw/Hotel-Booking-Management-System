@@ -10,13 +10,14 @@ import jar.dao.*;
 import jar.bean.*;
 
 public class Ressource {
-    
-    public static void createRessource(HttpServletRequest req,
-	HttpServletResponse resp) throws ServletException, IOException{
-		if(!Client.sessionValide(req, resp)){;
+
+	public static void createRessource(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (!Client.sessionValide(req, resp)) {
+			;
 			Gopage.accueil(req, resp);
 		}
-		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
+		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type");
 		float price = Float.parseFloat(req.getParameter("price"));
 		int number = Integer.parseInt(req.getParameter("number"));
@@ -24,8 +25,10 @@ public class Ressource {
 		int postal = Integer.parseInt(req.getParameter("postal"));
 		String city = req.getParameter("city").toLowerCase();
 		int persons;
-		if("room".equals(type)) persons = Integer.parseInt(req.getParameter("persons_room"));
-		else persons = Integer.parseInt(req.getParameter("persons_house"));
+		if ("room".equals(type))
+			persons = Integer.parseInt(req.getParameter("persons_room"));
+		else
+			persons = Integer.parseInt(req.getParameter("persons_house"));
 		String smoker = req.getParameter("smoker");
 		RessourceBean ress = new RessourceBean();
 		ress.setIdu(owner);
@@ -44,9 +47,10 @@ public class Ressource {
 		Ressource.getRessource(req, resp);
 	}
 
-	public static void deleteRessource(HttpServletRequest req,
-	HttpServletResponse resp) throws ServletException, IOException{
-		if(!Client.sessionValide(req, resp)){;
+	public static void deleteRessource(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (!Client.sessionValide(req, resp)) {
+			;
 			Gopage.accueil(req, resp);
 		}
 		String idr = req.getParameter("id");
@@ -54,12 +58,12 @@ public class Ressource {
 		Ressource.getRessource(req, resp);
 	}
 
-    public static void getRessource(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
-		if(!Client.sessionValide(req, resp)){;
+	public static void getRessource(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (!Client.sessionValide(req, resp)) {
 			Gopage.accueil(req, resp);
 		}
-		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
+		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		HashMap<String, String> attrs = new HashMap<>();
 		attrs.put("idu", Integer.toString(owner));
 		List<RessourceBean> ressources = RessourceDao.getRessourcesFrom(attrs);
@@ -67,12 +71,35 @@ public class Ressource {
 		Gopage.ressourceList(req, resp);
 	}
 
-	public static void getResDetailsAjax(HttpServletRequest req, HttpServletResponse resp) 
-	throws ServletException, IOException{
+	public static void getResListAjax(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
-		if(!Client.sessionValide(req, resp)){;
+		if (!Client.sessionValide(req, resp)) {
 			resp.getWriter().write("Session invalid, reconnect please ...");
-			return ;
+			return;
+		}
+		int owner = Integer.parseInt(req.getParameter("id"));
+		HashMap<String, String> attrs = new HashMap<>();
+		attrs.put("idu", Integer.toString(owner));
+		List<RessourceBean> ressources = RessourceDao.getRessourcesFrom(attrs);
+		String json = "[";
+		for (int i = 0; i < ressources.size() - 1; i++) {
+			json += ressources.get(i).toJson() + ", ";
+		}
+		if (ressources.size() > 0) {
+			json += ressources.get(ressources.size() - 1).toJson() + "]";
+		}
+		resp.getWriter().write(json);
+		System.out.println(json);
+	}
+
+	public static void getResDetailsAjax(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
+		if (!Client.sessionValide(req, resp)) {
+			;
+			resp.getWriter().write("Session invalid, reconnect please ...");
+			return;
 		}
 		String idr = req.getParameter("id");
 		HashMap<String, String> attrs = new HashMap<>();
@@ -84,14 +111,14 @@ public class Ressource {
 		System.out.println(data);
 	}
 
-
-	public static void modifyRessource(HttpServletRequest req, HttpServletResponse resp) 
-	throws ServletException, IOException{
-		if(!Client.sessionValide(req, resp)){;
+	public static void modifyRessource(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (!Client.sessionValide(req, resp)) {
+			;
 			Gopage.accueil(req, resp);
 		}
 		int id = Integer.parseInt(req.getParameter("id"));
-		int owner = ((UserBean)req.getSession().getAttribute("user")).getId();
+		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type");
 		float price = Float.parseFloat(req.getParameter("price"));
 		int number = Integer.parseInt(req.getParameter("number"));
@@ -99,8 +126,10 @@ public class Ressource {
 		int postal = Integer.parseInt(req.getParameter("postal"));
 		String city = req.getParameter("city").toLowerCase();
 		int persons;
-		if("room".equals(type)) persons = Integer.parseInt(req.getParameter("persons_room"));
-		else persons = Integer.parseInt(req.getParameter("persons_house"));
+		if ("room".equals(type))
+			persons = Integer.parseInt(req.getParameter("persons_room"));
+		else
+			persons = Integer.parseInt(req.getParameter("persons_house"));
 		String smoker = req.getParameter("smoker");
 		RessourceBean ress = new RessourceBean();
 		ress.setId(id);

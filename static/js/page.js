@@ -76,6 +76,13 @@ function gotoPageRecievedDemands() {
 }
 
 
+function gotoPageYourHouses() {
+    emptyMsg();
+    $('#mainDiv').children().css('display', 'none');
+    $('#DivYourHouses').css('display', 'block');
+}
+
+
 function setAlert(str) {
     var html = "<div id=\"alert\" class=\"alert alert-danger\">" + str + "</div>";
     $('#divAlert').html(html);
@@ -232,5 +239,40 @@ function htmlRecievedDemands(resp) {
         html += "<tr>";
     }
     html += '</tbody></table></div>';
+    return html;
+}
+
+function htmlYourHouses(resp) {
+    var html =
+        '<div id="infoRessource">\
+            <fieldset>\
+                <legend>Les informations des ressources</legend>\
+                <table class="table table-striped">\
+                    <thead>\
+                    <tr>\
+                        <th scope="col">id</th>\
+                        <th scope="col">Type</th>\
+                        <th scope="col">Price</th>\
+                        <th scope="col">Persons</th>\
+                        <th scope="col">Adresse</th>\
+                        <th scope="col">Smoker</th>\
+                    </tr>\
+                    </thead>\
+                    <tbody>';
+    for (var i = 0; i < resp.length; i++) {
+        html += '<tr>';
+        html += '<td>' + resp[i].id + '</td>';
+        html += '<td>' + resp[i].type + '</td>';
+        html += '<td>' + resp[i].price + '</td>';
+        html += '<td>' + resp[i].person + '</td>';
+        html += '<td>' + resp[i].adresse + '</td>';
+        html += '<td>' + resp[i].smoke + '</td>';
+        html += '<td><a class=accesResDetails class="text-success" data-id=' + resp[i].id + '>details</a></td>';
+        html += '<td><a class=deleteRes class="text-success" data-id=' + resp[i].id + '>delete</a></td>';
+        html += '</tr>';
+
+    }
+    html += '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a id="RessourceModeCreation" class="text-success">Add a house</a></td></tr>';
+    html += '</tbody></table></fieldset></div></div>';
     return html;
 }

@@ -28,7 +28,7 @@
                         <li><a id="gotoPageProfile" class="text-success">Profile</a></li>
                         <li><a id="gotoPageSendedDemands" class="text-success">Sended demands</a></li>
                         <li><a id="gotoPageRecievedDemands" class="text-success">Recieved demands</a></li>                        
-                        <li><a id="gotoPageYourHouse" class="text-success">Your houses</a></li>
+                        <li><a id="gotoPageYourHouses" class="text-success">Your houses</a></li>
                         <li><a href="${pageContext.request.contextPath}/Client?method=Logout" class="text-success">Disconnect</a></li>
                     </ul>
                 </div>
@@ -83,17 +83,15 @@
                 </div>
             </div>
 
-            <div id="DivProfile">
-            </div>
+            <div id="DivProfile"></div>
 
-            <div id="DivResDetails">
-            </div>
+            <div id="DivResDetails"></div>
 
-            <div id="DivSendedDemands">
-            </div>
+            <div id="DivSendedDemands"></div>
 
-            <div id="DivRecievedDemands">
-            </div>
+            <div id="DivRecievedDemands"></div>
+
+            <div id="DivYourHouses"></div>
         </div>
 
         <%if (result!=null) {%>
