@@ -23,8 +23,8 @@ public class Service extends HttpServlet {
 			Ressource.deleteResAjax(req, resp);
 		} else if ("getResDetailsAjax".equals(method)) {
 			Ressource.getResDetailsAjax(req, resp);
-		} else if ("modifyRessource".equals(method)) {
-			Ressource.modifyRessource(req, resp);
+		} else if ("modifyResAjax".equals(method)) {
+			Ressource.modifyResAjax(req, resp);
 		} else if ("sendDemandAjax".equals(method)) {
 			Demand.sendDemandAjax(req, resp);
 		} else if ("getSendedDemandsAjax".equals(method)) {

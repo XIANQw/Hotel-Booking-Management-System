@@ -104,8 +104,9 @@ public class RessourceBean {
     }
 
     public String toJson() {
-        String str = "{\"id\":" + id + ",\"idu\":" + idu + ",\"type\":\"" + type + "\",\"price\":" + price + ",\"adresse\":\"" + number + " "
-                + street + " " + postal + " " + city + "\",\"person\":" + persons + ",\"smoke\":\"" + smoker + "\"}";
+        String str = "{\"id\":" + id + ",\"idu\":" + idu + ",\"type\":\"" + type + "\",\"price\":" + price
+                + ",\"number\":" + number + ",\"street\":\"" + street + "\",\"postal\":\"" + postal + "\", \"city\":\""
+                + city + "\",\"person\":" + persons + ",\"smoke\":\"" + smoker + "\"}";
         return str;
     }
 

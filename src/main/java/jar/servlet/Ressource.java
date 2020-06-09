@@ -18,7 +18,7 @@ public class Ressource {
 		if (!Client.sessionValide(req, resp)) {
 			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
 			resp.getWriter().write(json);
-			return ;
+			return;
 		}
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type").trim();
@@ -62,7 +62,7 @@ public class Ressource {
 		HashMap<String, String> attrs = new HashMap<>();
 		attrs.put("idr", idr);
 		List<DemandBean> dmds = DemandDao.getDemandsFrom(attrs);
-		if(dmds.size() > 0) {
+		if (dmds.size() > 0) {
 			String info = "There are some demands of this resouce, you can not delete this resource";
 			resp.getWriter().write(ToJson.toJson("", info, -1));
 		} else {
@@ -114,11 +114,13 @@ public class Ressource {
 		System.out.println(data);
 	}
 
-	public static void modifyRessource(HttpServletRequest req, HttpServletResponse resp)
+	public static void modifyResAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			;
-			Gopage.accueil(req, resp);
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return;
 		}
 		int id = Integer.parseInt(req.getParameter("id"));
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
@@ -147,6 +149,8 @@ public class Ressource {
 		ress.setSmoker(smoker);
 		RessourceDao.modifyRessource(ress);
 		req.setAttribute("ressource", ress);
-		Gopage.infoRessource(req, resp);
+		String json = ToJson.toJson("", "Resource has been modified successfully", 1);
+		resp.getWriter().write(json);
+		System.out.println(json);
 	}
 }

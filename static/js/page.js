@@ -2,7 +2,8 @@ $(function () {
     $("#ModeLogin").click(ModeSignIn);
     $("#ModeSignUp").click(ModeSignUp);
     $('#gotoPageHome').click(gotoPageHome);
-    $('#ButtonQuitModifyProfile').click(hideFromModifyProfile);
+    $('#ButtonQuitModifyProfile').click(hiddeFromModifyProfile);
+    $('#ButtonQuitModifyRes').click(hiddeFormModifyRes);
 });
 
 // modify gestionnaire.html
@@ -56,7 +57,7 @@ function displayFormModifyProfile() {
     $('#DivModifyProfile').css("display", "block");
 }
 
-function hideFromModifyProfile() {
+function hiddeFromModifyProfile() {
     $('#DivProfileContent').css("display", "block");
     $('#DivModifyProfile').css("display", "none");
 }
@@ -64,6 +65,16 @@ function hideFromModifyProfile() {
 function gotoPageResDetails() {
     $('#mainDiv').children().css('display', 'none');
     $('#DivResDetails').css('display', 'block');
+}
+
+function displayFormModifyRes(){
+    $('#DivResContent').css('display', 'none');
+    $('#DivModifyRes').css('display', 'block');
+}
+
+function hiddeFormModifyRes(){
+    $('#DivResContent').css('display', 'block');
+    $('#DivModifyRes').css('display', 'none');
 }
 
 function gotoPageSendedDemands() {
@@ -112,5 +123,3 @@ function fillOutFormModifyProfile(profile) {
     $('#id_modify_profile_adresse').attr({ "value": profile.adresse });
     $('#id_modify_profile_telephone').attr({ "value": profile.telephone });
 }
-
-

@@ -12,7 +12,7 @@ function htmlSearchResult(data) {
         html += "<td>" + data[i].type + "</td>";
         html += "<td>" + data[i].price + "</td>";
         html += "<td>" + data[i].person + "</td>";
-        html += "<td>" + data[i].adresse + "</td>";
+        html += "<td><span>" + data[i].number + ' </span><span>' + data[i].street + ' </span><span>' + data[i].postal + ' </span><span>' + data[i].city + "</span></td>";
         html += "<td><a class=buttonDetails data-id=" + data[i].id + " class=\"text-success\">details</a></td>";
         html += "<td><a class=buttonReserve data-id=" + data[i].id + " class=\"text-success\">reserve</a></td>";
         html += "</tr>";
@@ -36,7 +36,7 @@ function htmlProfile(resp) {
         html += '<div class="col-sm-10">';
         html += '<span>click </span>';
         html += '<ins id="gotoModifyProfile" class="text-success">here</ins>';
-        html += '<span> Modify your information </span></div>';
+        html += '<span> to modify your information </span></div>';
     } else {
         html += '<div class="col-sm-10">\
                     <h1>' + profileJson.nom + ' ' + profileJson.prenom + '</h1>\
@@ -66,25 +66,39 @@ function htmlProfile(resp) {
 }
 
 function htmlResDetails(json) {
+    var user = $('#userId').text();
     var owner = json[0];
     var res = json[1];
-    var html =
-        '<div class=row-fluid>\
+    var html = "";
+    if (user == owner.id) {
+        html += '<div class="col-sm-10">';
+        html += '<span>click </span>';
+        html += '<a id="gotoModifyRessource" data-id=' + res.id + ' class="text-success">here</a>';
+        html += '<span> to modify this resource</span></div>';
+    }
+    html += '<div class=row-fluid>\
             <div class="col-md-4 ">\
             <div id="ressourceInfo">\
                 <ul class="list-group">\
                     <li class="list-group-item text-muted">Ressource</li>\
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Numero</strong></span>'
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Numero</strong></span><span>'
         + res.id +
-        '</li>\
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Type</strong></span>'
+        '</span></li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Type</strong></span><span id="span_type">'
         + res.type +
-        '</li>\
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Price</strong></span>'
+        '</span></li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Price</strong></span><span id="span_price">'
         + res.price +
-        '</li>\
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Adresse</strong></span>'
-        + res.adresse +
+        '</span></li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Person</strong></span><span id="span_person">'
+        + res.person +
+        '</span></li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Smoker</strong></span><span id="span_smoke">'
+        + res.smoke +
+        '</span></li>\
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Adresse</strong></span><span id="span_num">'
+        + res.number + ' </span><span id=span_street>' + res.street + ' </span><span id="span_postal">' + res.postal + 
+        ' </span><span id="span_city">' + res.city + '</span>' +
         '</li>\
                 </ul>\
             </div>\
@@ -199,7 +213,8 @@ function htmlYourHouses(resp) {
         html += '<td>' + resp[i].type + '</td>';
         html += '<td>' + resp[i].price + '</td>';
         html += '<td>' + resp[i].person + '</td>';
-        html += '<td>' + resp[i].adresse + '</td>';
+        html += '<td><span>'
+            + resp[i].number + ' </span><span>' + resp[i].street + ' </span><span>' + resp[i].postal + ' </span><span>' + resp[i].city + '</span></td>';
         html += '<td>' + resp[i].smoke + '</td>';
         html += '<td><a class=accesResDetails class="text-success" data-id=' + resp[i].id + '>details</a></td>';
         html += '<td><a class=deleteRes class="text-success" data-id=' + resp[i].id + '>delete</a></td>';

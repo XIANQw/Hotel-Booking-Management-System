@@ -72,8 +72,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Smoker: </label>
-                                    <input name="smoker" id="id_smoker" value="y" type="radio" >Yes
-                                    <input name="smoker" id="id_no_smoker" value="n" type="radio" checked/>No
+                                    <input name="smoker" id="id_smoker" value="Yes" type="radio" >Yes
+                                    <input name="smoker" id="id_no_smoker" value="No" type="radio" checked/>No
                                 </div>
                             </div>
                         </div>
@@ -117,8 +117,61 @@
                     </form>
                 </div>
             </div>
+            
+            <div id="DivResDetails">
+                <div id="DivResContent"></div>
+                <div id="DivModifyRes" style="display:none">
+                    <fieldset>
+                        <legend>Modify resource's information</legend>
+                        <form id="FormModifyRes" method="post">
+                            <div class="form-group">
+                                <label>Type: </label>
+                                <input name="type" id="m_id_room" onclick="gotoCreationRoom()" value="room" type="radio" checked>Room
+                                <input name="type" id="m_id_house" onclick="gotoCreationHouse()" value="house" type="radio"/>House
+                            </div>
+                            <div class="form-group">
+                                <label for="id_price">Price: </label>
+                                <input type="number" name="price" id="m_id_price" class="form-control" placeholder="price" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_number">Adresse: </label>
+                                <input type="number" name="number" id="m_id_number" class="form-control"
+                                        placeholder="Street number" required/>
+                                <input type="text" name="street" id="m_id_street" class="form-control"
+                                        placeholder="Street" required/>
+                                <input type="number" name="postal" id="m_id_postal" class="form-control"
+                                        placeholder="Postal number" required/>
+                                <input type="text" name="city" id="m_id_city" class="form-control"
+                                        placeholder="City" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Smoker: </label>
+                                <input name="smoker" id="m_id_smoker" value="Yes" type="radio" checked>Yes
+                                <input name="smoker" id="m_id_no_smoker" value="No" type="radio"/>No
+                            </div>
+                            <div id="optionRoom">
+                                <div class="form-group">
+                                    <label for="m_id_room_type">room type: </label>
+                                    <select id="m_id_room_type" name="persons_room" class="form-control" placeholder="room type"
+                                            required>
+                                        <option value="1">Simple</option>
+                                        <option value="2">Double</option>
+                                        <option value="3">Family</option>
+                                    </select>
+                                </div>
+                            </div>
 
-            <div id="DivResDetails"></div>
+                            <div id="optionHouse" class="form-group" style="display: none">
+                                <label for="m_id_num_room">number of room: </label>
+                                <input type="number" name="persons_house" id="m_id_num_room" class="form-control" 
+                                    placeholder="Number of your room" require="false"/>
+                            </div>
+                            <button id="ButtonQuitModifyRes" type="button" class="btn btn-primary">Cancel</button>
+                            <button id="ButtonModifyRes" type="button" data-id="" class="btn btn-primary float-right">Modify</button>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
 
             <div id="DivSendedDemands"></div>
 
