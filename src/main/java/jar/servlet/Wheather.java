@@ -3,31 +3,25 @@ package jar.servlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import javax.servlet.*;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 import java.net.URL;
 import java.net.URLEncoder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.io.InputStream;
-import java.net.URL;
+
 import java.net.URLConnection;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
+
 import java.nio.charset.StandardCharsets;
 public class Wheather {
  
-    static String res = "";
-
     public Wheather() {
     }
   
     public static void sendData(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String res = "";
 
-        System.out.println("call sendData ok----------------------------------------------------------------");
+        System.out.println("server recevoir Data ok----------------------------------------------------------------");
 
         String GET_WHEATHER_URL = "http://api.weatherstack.com/current?access_key=1cf9c55f6d6b3b05c262f5d475490c8b&query=";
         String city = req.getParameter("dataCity");
@@ -55,7 +49,7 @@ public class Wheather {
             }
             br.close();
 
-            System.out.println("Done");
+            System.out.println("url connection succ");
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -69,6 +63,6 @@ public class Wheather {
 
          resp.getWriter().write(res);
 
-        System.out.println("ok");
+        System.out.println("server send to client succ");
     }
 }

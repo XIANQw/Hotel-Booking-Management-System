@@ -68,7 +68,8 @@ function htmlProfile(resp) {
 function htmlResDetails(json) {
     var owner = json[0];
     var res = json[1];
-    var city = (res.adresse).split(" ")[4];
+    var arr = (res.adresse).split(" ");
+    var city = arr[arr.length-1];
     // alert("html"+city);
     var address = (res.adresse).replace(/\s+/g, ",");
     // alert(address);
@@ -258,5 +259,7 @@ function htmlWheather(WheatherJson) {
                 </li>\
             </ul>\
         </div>';
+
+        alert("htmlWheather press");
     return html;
 }

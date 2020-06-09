@@ -326,6 +326,7 @@ function getWheather() {
         url: "Service?method=getWheather",
         success: function (result, status) {
             var str = result;
+            alert(str);
             var resp = JSON.parse(str);
             var html = htmlWheather(resp);
             $('#DivWheather').html(html);
