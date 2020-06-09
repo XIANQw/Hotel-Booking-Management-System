@@ -20,7 +20,7 @@ public class Ressource {
 			resp.getWriter().write(json);
 			return;
 		}
-		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
+		int owner = ((UserBean) req.getSession().getAttribute("user").trim()).getId();
 		String type = req.getParameter("type").trim();
 		float price = Float.parseFloat(req.getParameter("price").trim());
 		int number = Integer.parseInt(req.getParameter("number").trim());
@@ -122,14 +122,14 @@ public class Ressource {
 			resp.getWriter().write(json);
 			return;
 		}
-		int id = Integer.parseInt(req.getParameter("id"));
+		int id = Integer.parseInt(req.getParameter("id").trim());
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type");
-		float price = Float.parseFloat(req.getParameter("price"));
-		int number = Integer.parseInt(req.getParameter("number"));
-		String street = req.getParameter("street").toLowerCase();
-		int postal = Integer.parseInt(req.getParameter("postal"));
-		String city = req.getParameter("city").toLowerCase();
+		float price = Float.parseFloat(req.getParameter("price").trim());
+		int number = Integer.parseInt(req.getParameter("number").trim());
+		String street = req.getParameter("street").trim().toLowerCase();
+		int postal = Integer.parseInt(req.getParameter("postal").trim());
+		String city = req.getParameter("city").trim().toLowerCase();
 		int persons;
 		if ("room".equals(type))
 			persons = Integer.parseInt(req.getParameter("persons_room"));

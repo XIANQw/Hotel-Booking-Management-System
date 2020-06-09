@@ -31,12 +31,12 @@ public class Service extends HttpServlet {
 			Demand.getSendedDemandsAjax(req, resp);
 		} else if ("deleteDemandAjax".equals(method)) {
 			Demand.deleteDemandAjax(req, resp);
-		} else if ("getDemandsFromRessource".equals(method)) {
-			Demand.getDemandsFromRessource(req, resp);
 		} else if ("getRecievedDemandsAjax".equals(method)) {
 			Demand.getRecievedDemandsAjax(req, resp);
 		} else if ("acceptDemandAjax".equals(method)) {
 			Demand.acceptDemandAjax(req, resp);
+		} else if ("getWheather".equals(method)) {
+			Wheather.sendData(req, resp);
 		} else {
 			req.setAttribute("type", "danger");
 			req.setAttribute("info", "Sorry..we're developing it");

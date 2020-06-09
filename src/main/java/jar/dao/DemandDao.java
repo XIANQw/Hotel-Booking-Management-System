@@ -37,6 +37,7 @@ public class DemandDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
                     Parameter.username, Parameter.pwd);
+
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String sql = "update Demand set idr=" + demand.getIdr() + ",idu=" + demand.getIdu() + ",checkin='"
                     + demand.getCheckin().toString() + "',checkout='" + demand.getCheckout().toString()

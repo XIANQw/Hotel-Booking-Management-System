@@ -9,18 +9,16 @@ public class ProfileDao {
 
     public static void saveProfile(int idu, ProfileBean profile) {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // sql配置
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
                     Parameter.username, Parameter.pwd);
             String sql;
             ProfileBean oldProfile = getProfileFromUser(idu);
             if (oldProfile == null) {
-                // 如果没有profile就先insert fail没关系
                 sql = "insert into Profile values(" + idu + ",'" + profile.getNom() + "','" + profile.getPrenom()
                         + "','" + profile.getEmail() + "','" + profile.getAdresse() + "','" + profile.getTelephone()
                         + "');";
             } else {
-                // 有就update
                 sql = "update Profile set nom ='" + profile.getNom() + "',prenom ='" + profile.getPrenom()
                         + "',email ='" + profile.getEmail() + "',adresse='" + profile.getAdresse() + "',telephone ='"
                         + profile.getTelephone() + "' where id = " + idu;

@@ -134,19 +134,6 @@ public class Demand {
 		resp.getWriter().write("{\"info\": \"Your demande has been deleted successfully\"}");
 	}
 
-	public static void getDemandsFromRessource(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		if (!Client.sessionValide(req, resp)) {
-			Gopage.accueil(req, resp);
-		}
-		String idr = req.getParameter("id");
-		HashMap<String, String> attrs = new HashMap<>();
-		attrs.put("idr", idr);
-		List<DemandBean> cmds = DemandDao.getDemandsFrom(attrs);
-		req.setAttribute("cmds", cmds);
-		Gopage.recievedDemandList(req, resp);
-	}
-
 	public static void getRecievedDemandsAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");

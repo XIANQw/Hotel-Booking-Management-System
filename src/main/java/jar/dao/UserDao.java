@@ -1,4 +1,5 @@
 package jar.dao;
+
 import jar.util.*;
 
 import java.sql.*;
@@ -9,33 +10,35 @@ import jar.util.Parameter;
 
 public class UserDao {
 
-    public static void saveUser(UserBean user){
-        try{
+    public static void saveUser(UserBean user) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", Parameter.username, Parameter.pwd);
-            String sql = "insert into User values(0,'" + user.getUsername() + "','"+ user.getPassword() + "');";
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    Parameter.username, Parameter.pwd);
+            String sql = "insert into User values(0,'" + user.getUsername() + "','" + user.getPassword() + "');";
             Statement stmt = con.createStatement();
             System.out.println("sql= " + sql);
             int res = stmt.executeUpdate(sql);
-            if(res != 1){
+            if (res != 1) {
                 throw new RuntimeException("error signup....");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static HashMap<String, UserBean> getUsers(){
+    public static HashMap<String, UserBean> getUsers() {
         HashMap<String, UserBean> users = new HashMap<String, UserBean>();
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", Parameter.username, Parameter.pwd);
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    Parameter.username, Parameter.pwd);
             String sql = "select * from User;";
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
-            while(res.next()){
+            while (res.next()) {
                 String username = res.getString(2);
                 String password = res.getString(3);
                 UserBean tmp = new UserBean();
@@ -45,9 +48,9 @@ public class UserDao {
                 users.put(username, tmp);
             }
             return users;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return users;
@@ -55,19 +58,20 @@ public class UserDao {
 
     public static String getUsername(int id) {
         String username = null;
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", Parameter.username, Parameter.pwd);
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
+                    Parameter.username, Parameter.pwd);
             String sql = "select * from User where id=" + id + ";";
             Statement stmt = con.createStatement();
             ResultSet res = stmt.executeQuery(sql);
-            while(res.next()){
+            while (res.next()) {
                 username = res.getString("username");
             }
             return username;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return username;
