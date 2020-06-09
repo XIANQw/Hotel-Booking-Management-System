@@ -118,20 +118,20 @@ function htmlResDetails(json) {
                 </ul>\
             </div>\
         </div>';
-        html +='<a  id="city" data-city='+ res.city+ '></a>';//赋值city
-        html += '<a  id="address" data-address=' + address + '></a>';//赋值address
+        html +='<a  id="city" data-city='+ res.city+ '></a>';//stock city in data-city node
+        html += '<a  id="address" data-address=\"' + address + '\"></a>';//stock address in data-address
 
         html += '<div id="map" style="width:500px;height:380px;" class="col-md-8"></div>'//定义div google map显示区域
 
         html += '<script async defer\
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpVUVmmjb1fQP25RB5TCYR20_3WkKlCok&callback=initMap">\
-        </script>';//回调google map
+        </script>';//callback google map
 
-        //Wheather 显示区域
+        //Wheather area
         html +='<div id="DivWheather"></div>';
 
 
-        //--页面加载完之后调用getWheather函数------------------
+        //--call getWheather after charge web page------------------
         html += '<script type=”text/javascript”>\
         $(document).ready(getWheather);\
         </script>';

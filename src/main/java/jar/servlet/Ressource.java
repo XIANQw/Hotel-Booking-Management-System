@@ -20,7 +20,7 @@ public class Ressource {
 			resp.getWriter().write(json);
 			return;
 		}
-		int owner = ((UserBean) req.getSession().getAttribute("user").trim()).getId();
+		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type").trim();
 		float price = Float.parseFloat(req.getParameter("price").trim());
 		int number = Integer.parseInt(req.getParameter("number").trim());
