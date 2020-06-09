@@ -414,7 +414,7 @@ function geocodeAddress(geocoder, resultsMap) {
 
     //var address = document.getElementById('adresse').value;
     var address = $("#address").attr("data-address");
-    // alert(address);
+     alert(address);
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);

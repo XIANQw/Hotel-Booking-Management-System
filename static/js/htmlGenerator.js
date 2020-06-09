@@ -70,6 +70,7 @@ function htmlResDetails(json) {
     var owner = json[0];
     var res = json[1];
     var address = res.number + "," + res.street + "," + res.postal + "," + res.city; 
+    alert(address);
     var html = "";
     if (user == owner.id) {
         html += '<div class="col-sm-10">';
@@ -119,7 +120,7 @@ function htmlResDetails(json) {
             </div>\
         </div>';
         html +='<a  id="city" data-city='+ res.city+ '></a>';//赋值city
-        html += '<a  id="address" data-address=' + address + '></a>';//赋值address
+        html += '<a  id="address" data-address="' + address + '"></a>';//赋值address
 
         html += '<div id="map" style="width:500px;height:380px;" class="col-md-8"></div>'//定义div google map显示区域
 
