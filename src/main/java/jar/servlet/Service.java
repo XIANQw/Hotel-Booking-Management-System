@@ -37,7 +37,10 @@ public class Service extends HttpServlet {
 			Demand.getRecievedDemandsAjax(req, resp);
 		} else if ("acceptDemandAjax".equals(method)) {
 			Demand.acceptDemandAjax(req, resp);
-		} else {
+		} else if ("getWheather".equals(method)){
+			Wheather.sendData(req, resp);
+		} 
+		else {
 			req.setAttribute("type", "danger");
 			req.setAttribute("info", "Sorry..we're developing it");
 			Gopage.mainPage(req, resp);

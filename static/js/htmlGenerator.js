@@ -68,6 +68,10 @@ function htmlProfile(resp) {
 function htmlResDetails(json) {
     var owner = json[0];
     var res = json[1];
+    var city = (res.adresse).split(" ")[4];
+    // alert("html"+city);
+    var address = (res.adresse).replace(/\s+/g, ",");
+    // alert(address);
     var html =
         '<div class=row-fluid>\
             <div class="col-md-4 ">\
@@ -103,6 +107,27 @@ function htmlResDetails(json) {
                 </ul>\
             </div>\
         </div>';
+        html +='<a  id="city" data-city='+ city+ '></a>';//赋值city
+        html += '<a  id="address" data-address=' + address + '></a>';//赋值address
+
+        html += '<div id="map" style="width:500px;height:380px;" class="col-md-8"></div>'//定义div google map显示区域 
+
+        html += '<script async defer\
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpVUVmmjb1fQP25RB5TCYR20_3WkKlCok&callback=initMap">\
+        </script>';//回调google map
+         
+        //Wheather 显示区域
+        html +='<div id="DivWheather"></div>';
+
+
+        //--页面加载完之后调用getWheather函数------------------
+        html += '<script type=”text/javascript”>\
+        $(document).ready(getWheather);\
+        </script>';
+        //--------------------
+
+
+        
     return html;
 }
 
@@ -208,5 +233,30 @@ function htmlYourHouses(resp) {
     }
     html += '<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a id="RessourceModeCreation" class="text-success">Add a house</a></td></tr>';
     html += '</tbody></table></fieldset></div></div>';
+    return html;
+}
+
+function htmlWheather(WheatherJson) {
+    var html =
+        '<div class="container bootstrap snippet">\
+            <div class="row">\
+                <div class="col-sm-10">\
+                </div>\
+            </div>\
+        </div>\
+        <div class="col-sm-5">\
+            <ul class="list-group">\
+                <li class="list-group-item text-muted">Real time Wheather</li>\
+                <li class="list-group-item text-right"><span class="pull-left"><strong>City</strong></span>\
+                    '+ WheatherJson.request.query + '\
+                </li>\
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Time</strong></span>\
+                    '+ WheatherJson.location.localtime + '\
+                </li>\
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Temperature</strong></span>\
+                    '+ WheatherJson.current.temperature + '\
+                </li>\
+            </ul>\
+        </div>';
     return html;
 }

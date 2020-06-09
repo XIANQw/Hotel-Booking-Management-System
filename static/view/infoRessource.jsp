@@ -124,6 +124,17 @@
         </script>
 
         <!--end google map api----------------------------------------------------->
+
+                <!----getWheather---------------------------------------->
+
+                <button id="getWheather"  type="button" class="btn btn-primary float-right">getWheather
+                </button>
+                <input type="hidden" id="city"  value="<%=res.getCity()%>">
+        
+                <div id="DivWheather">
+                </div>
+          
+                <!----getWheather end---------------------------------------->
     </div>
 </div>
 </body>

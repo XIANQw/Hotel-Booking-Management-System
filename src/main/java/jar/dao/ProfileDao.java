@@ -10,8 +10,7 @@ public class ProfileDao {
     public static void saveProfile(int idu, ProfileBean profile) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // sql配置
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    Parameter.username, Parameter.pwd);
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql;
             ProfileBean oldProfile = getProfileFromUser(idu);
             if (oldProfile == null) {
@@ -43,8 +42,7 @@ public class ProfileDao {
         ProfileBean profile = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false",
-                    Parameter.username, Parameter.pwd);
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/pc3r?serverTimezone=UTC&useSSL=false", "root", "");
             String sql = "select * from Profile where id='" + idu + "';";
             System.out.println("sql=" + sql);
             Statement stmt = con.createStatement();
