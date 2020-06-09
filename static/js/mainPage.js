@@ -220,7 +220,26 @@ function getYourHouses() {
 }
 
 function addHouse(){
-
+    $.ajax({
+        type: "POST",
+        url: "Service?method=createRessourceAjax",
+        data: $('#FormAddRes').serialize(),
+        success: function (result, status) {
+            var str = result;
+            var resp = $.parseJSON(str);
+            if(resp.status==1){
+                getYourHouses();
+                quitCreationRessource();
+                setSucess(resp.info);
+            } else if(resp.status == 0){
+                setWarning(resp.info);
+            } else{
+                setAlert(resp.info);
+            }
+        }, error: function (res) {
+            alert("error=" + res.responseText);
+        }
+    });
 }
 
 
@@ -233,7 +252,13 @@ function deleteRes(){
             var str = result;
             var resp = JSON.parse(str);
             getYourHouses();
-            setSucess(resp.info);
+            if(resp.status==1){
+                setSucess(resp.info);
+            } else if(resp.status == 0){
+                setWarning(resp.info);
+            } else{
+                setAlert(resp.info);
+            }
         }, error: function (res) {
             setAlert(res.responseText);
         }

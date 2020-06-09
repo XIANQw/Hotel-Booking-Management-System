@@ -17,8 +17,8 @@ public class Service extends HttpServlet {
 			Demand.createSearchAjax(req, resp);
 		} else if ("getResListAjax".equals(method)) {
 			Ressource.getResListAjax(req, resp);
-		} else if ("createRessource".equals(method)) {
-			Ressource.createRessource(req, resp);
+		} else if ("createRessourceAjax".equals(method)) {
+			Ressource.createRessourceAjax(req, resp);
 		} else if ("deleteResAjax".equals(method)) {
 			Ressource.deleteResAjax(req, resp);
 		} else if ("getResDetailsAjax".equals(method)) {

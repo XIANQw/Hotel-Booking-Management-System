@@ -2,13 +2,13 @@ package jar.servlet;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import jar.bean.*;
 import jar.dao.*;
+import jar.util.ToJson;
 
 import java.util.*;
 
@@ -16,8 +16,11 @@ public class Demand {
 
 	public static void createSearchAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return;
 		}
 		int idu = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String destination = req.getParameter("destination").toLowerCase();
@@ -62,7 +65,9 @@ public class Demand {
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return;
 		}
 		int idr = Integer.parseInt(req.getParameter("id"));
 		java.util.Date createTime = new java.util.Date();
@@ -78,7 +83,9 @@ public class Demand {
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return;
 		}
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		HashMap<String, String> attrs = new HashMap<>();
@@ -106,7 +113,9 @@ public class Demand {
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return;
 		}
 		String id = req.getParameter("id");
 		HashMap<String, String> attrs = new HashMap<>();
@@ -132,7 +141,8 @@ public class Demand {
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
 			return;
 		}
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
@@ -174,7 +184,8 @@ public class Demand {
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
 			return;
 		}
 		String idc = req.getParameter("id");

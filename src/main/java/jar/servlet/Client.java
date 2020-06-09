@@ -4,6 +4,7 @@ import javax.servlet.http.*;
 
 import jar.bean.*;
 import jar.dao.*;
+import jar.util.ToJson;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -139,9 +140,12 @@ public class Client extends HttpServlet{
 
     public static void getProfileAjax(HttpServletRequest req, HttpServletResponse resp)
     throws ServletException, IOException {
-        if(!Client.sessionValide(req, resp)){
-            Gopage.accueil(req, resp);
-        }
+		resp.setCharacterEncoding("utf-8");
+		if (!Client.sessionValide(req, resp)) {
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return;
+		}
         int idu = Integer.parseInt(req.getParameter("id"));
         int id = (((UserBean)req.getSession().getAttribute("user")).getId());
         ProfileBean profile = ProfileDao.getProfileFromUser(idu);

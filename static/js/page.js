@@ -84,6 +84,11 @@ function setAlert(str) {
     $('#divAlert').html(html);
 }
 
+function setWarning(str){
+    var html = "<div id=\"alert\" class=\"alert alert-warning\">" + str + "</div>";
+    $('#divAlert').html(html);    
+}
+
 function setSucess(str) {
     var html = "<div id=\"alert\" class=\"alert alert-success\">" + str + "</div>";
     $('#divAlert').html(html);

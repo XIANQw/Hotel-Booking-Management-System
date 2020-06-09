@@ -7,15 +7,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import jar.dao.*;
+import jar.util.ToJson;
 import jar.bean.*;
 
 public class Ressource {
 
-	public static void createRessource(HttpServletRequest req, HttpServletResponse resp)
+	public static void createRessourceAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			;
-			Gopage.accueil(req, resp);
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
+			return ;
 		}
 		int owner = ((UserBean) req.getSession().getAttribute("user")).getId();
 		String type = req.getParameter("type");
@@ -42,28 +45,31 @@ public class Ressource {
 		ress.setSmoker(smoker);
 		String info = "Added a " + type;
 		RessourceDao.saveRessource(ress);
+		String json = ToJson.toJson("", info, 1);
+		resp.getWriter().write(json);
+		System.out.println(json);
 	}
 
 	public static void deleteResAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			String json = "{\"info\": \"Session invalid, reconnect please ...\", \"status\": 0}";
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
 			resp.getWriter().write(json);
 			return;
 		}
 		String idr = req.getParameter("id");
 		RessourceDao.deleteRessource(idr);
-		String json = "{\"info\":\"This resource has been deleted successfully\"}";
-		resp.getWriter().write(json);
+		String info = "This resource has been deleted successfully";
+		resp.getWriter().write(ToJson.toJson("", info, 1));
 	}
-
 
 	public static void getResListAjax(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
 			return;
 		}
 		int owner = Integer.parseInt(req.getParameter("id"));
@@ -85,8 +91,8 @@ public class Ressource {
 			throws ServletException, IOException {
 		resp.setCharacterEncoding("utf-8");
 		if (!Client.sessionValide(req, resp)) {
-			;
-			resp.getWriter().write("Session invalid, reconnect please ...");
+			String json = ToJson.toJson("", "Session invalid, reconnect please ...", 0);
+			resp.getWriter().write(json);
 			return;
 		}
 		String idr = req.getParameter("id");

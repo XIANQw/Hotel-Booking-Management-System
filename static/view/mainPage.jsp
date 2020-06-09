@@ -99,8 +99,8 @@
                         <form id="FormAddRes" method="post">
                             <div class="form-group">
                                 <label>Type: </label>
-                                <input name="type" id="id_room" onclick="gotoCreationHouse()" value="room" type="radio" checked>Room
-                                <input name="type" id="id_house" onclick="gotoCreationRoom()" value="house" type="radio"/>House
+                                <input name="type" id="id_room" onclick="gotoCreationRoom()" value="room" type="radio" checked>Room
+                                <input name="type" id="id_house" onclick="gotoCreationHouse()" value="house" type="radio"/>House
                             </div>
                             <div class="form-group">
                                 <label for="id_price">Price: </label>
