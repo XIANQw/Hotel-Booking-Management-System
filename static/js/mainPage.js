@@ -372,11 +372,14 @@ function modifyRes() {
     });
 }
 
+function autoRefreshWheather(){
+    getWheather();
+    setInterval(getWheather,300000);
+}
+
+
 function getWheather() {
-    //alert("click ok");
-    // var city = document.getElementById('city').value;
     var city = $("#city").attr("data-city");
-    // alert ("getWheather"+city);
     $.ajax({
         type: "POST",
         data: { dataCity: city },
@@ -408,14 +411,13 @@ function geocodeAddress(geocoder, resultsMap) {
 
     //var address = document.getElementById('adresse').value;
     var address = $("#address").attr("data-address");
-    // alert(address);
-    geocoder.geocode({ 'address': address }, function (results, status) {
-        if (status === 'OK') {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-                map: resultsMap,
-                position: results[0].geometry.location
-
+     //alert(address);
+    geocoder.geocode({'address': address}, function(results, status) {
+      if (status === 'OK') {
+        resultsMap.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
             });
         } else {
             alert('Geocode was not successful for the following reason: ' + status);

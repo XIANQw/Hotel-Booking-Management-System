@@ -69,7 +69,8 @@ function htmlResDetails(json) {
     var user = $('#userId').text();
     var owner = json[0];
     var res = json[1];
-    var address = res.number + "," + res.street + "," + res.postal + "," + res.city; 
+    var address = res.number + "," + res.street + "," + res.postal + "," + res.city;
+    //alert(address);
     var html = "";
     if (user == owner.id) {
         html += '<div class="col-sm-10">';
@@ -118,8 +119,8 @@ function htmlResDetails(json) {
                 </ul>\
             </div>\
         </div>';
-        html +='<a  id="city" data-city='+ res.city+ '></a>';//stock city in data-city node
-        html += '<a  id="address" data-address=\"' + address + '\"></a>';//stock address in data-address
+        html +='<a  id="city" data-city='+ res.city+ '></a>';//赋值city
+        html += '<a  id="address" data-address="' + address + '"></a>';//赋值address
 
         html += '<div id="map" style="width:500px;height:380px;" class="col-md-8"></div>'//定义div google map显示区域
 
@@ -133,7 +134,7 @@ function htmlResDetails(json) {
 
         //--call getWheather after charge web page------------------
         html += '<script type=”text/javascript”>\
-        $(document).ready(getWheather);\
+        $(document).ready(autoRefreshWheather);\
         </script>';
         //--------------------
 
@@ -268,6 +269,7 @@ function htmlWheather(WheatherJson) {
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Temperature</strong></span>\
                     '+ WheatherJson.current.temperature + '\
                 </li>\
+                <img src="'+WheatherJson.current.weather_icons+'"   />\
             </ul>\
         </div>';
     return html;
