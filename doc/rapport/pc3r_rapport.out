@@ -1,13 +1,19 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{API\040Web\040choisie}{}% 2
-\BOOKMARK [1][-]{section.3}{Fonctionnalités}{}% 3
-\BOOKMARK [1][-]{section.4}{Cas\040d'utilisations}{}% 4
-\BOOKMARK [2][-]{subsection.4.1}{Inscription}{section.4}% 5
-\BOOKMARK [2][-]{subsection.4.2}{Connection}{section.4}% 6
-\BOOKMARK [2][-]{subsection.4.3}{Consulter\040l'espace\040du\040client}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.4}{Créer l'espace du client}{section.4}% 8
-\BOOKMARK [1][-]{section.5}{Stockage des données}{}% 9
-\BOOKMARK [1][-]{section.6}{Structure\040du\040serveur}{}% 10
-\BOOKMARK [1][-]{section.7}{Structure\040du\040client}{}% 11
-\BOOKMARK [1][-]{section.8}{Requêtes et réponse}{}% 12
-\BOOKMARK [1][-]{section.9}{Conclusion}{}% 13
+\BOOKMARK [1][-]{section.3}{Mettre à jour les données}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Mettre à jour Weatherstack}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Mettre à jour Google Map}{section.3}% 5
+\BOOKMARK [1][-]{section.4}{Fonctionnalités}{}% 6
+\BOOKMARK [1][-]{section.5}{Cas\040d'utilisations}{}% 7
+\BOOKMARK [2][-]{subsection.5.1}{Inscription}{section.5}% 8
+\BOOKMARK [2][-]{subsection.5.2}{Authentification}{section.5}% 9
+\BOOKMARK [2][-]{subsection.5.3}{Consulter\040l'espace\040du\040client}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.4}{Créer l'espace du client}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.5}{Modifier\040l'espace\040du\040client}{section.5}% 12
+\BOOKMARK [1][-]{section.6}{Stockage des données}{}% 13
+\BOOKMARK [1][-]{section.7}{Structure\040du\040serveur}{}% 14
+\BOOKMARK [1][-]{section.8}{Structure\040du\040client}{}% 15
+\BOOKMARK [1][-]{section.9}{Requêtes et réponse}{}% 16
+\BOOKMARK [1][-]{section.10}{Conclusion}{}% 17
+\BOOKMARK [1][-]{section.11}{Annexe}{}% 18
+\BOOKMARK [1][-]{section.12}{Référence}{}% 19
