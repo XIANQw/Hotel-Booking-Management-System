@@ -75,7 +75,7 @@ En utilisant l'Api Google Maps, on peut intégrer Google Maps sur notre site. Il
 Observons d'abord à quoi ressemblent les données json renvoyées de Weatherstack, comme montré dans Annexe d'image "cf.Données Json".\\
 Lorsque l'utilisateur entre dans une page de détail de la propriété immobilière:notre fonction js ajoutera en texture html une fonction \textbf{autoRefreshWheather} pour appeler régulièrement la fonction \textbf{getWheather}\\
 
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -83,11 +83,11 @@ Lorsque l'utilisateur entre dans une page de détail de la propriété immobili�
 				\caption cf.Données Json
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.\\
 
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -95,11 +95,11 @@ La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather
 				\caption cf.reFresh
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 La fonction \textbf{getWheather} envoie les informations correspondant à la ville du client au serveur et attend que le serveur renvoie les données json, puis affiche les données json sur html en appelant htmlWheather.
 
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -107,11 +107,11 @@ La fonction \textbf{getWheather} envoie les informations correspondant à la vil
 				\caption cf.getWheather
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 Après réception de la demande, le serveur établit une connexion avec le serveur Weatherstack. Le serveur Weatherstack jugera s'il faut accepter la demande en fonction de la clé d'accès et retournera les données json en fonction de la valeur de la requête après avoir accepté la demande. Le serveur renvoie ensuite les données json au client via la méthode resp.getWriter().Write.\\
 
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -119,11 +119,11 @@ Après réception de la demande, le serveur établit une connexion avec le serve
 				\caption cf.setupConnection
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 Enfin, nous afficherons les résultats des données json sur html.
 
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -131,14 +131,14 @@ Enfin, nous afficherons les résultats des données json sur html.
 				\caption cf.htmlWheather
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 \subsection{Mettre à jour Google Map}
 Chaque fois ,l'utilisateur entre dans une page de détail de la propriété immobilière,	nous appellerons Google Maps pour localiser
 la propriété immobilière.Le lien ci-dessous \textbf{googleapis} appellera en façon callback la méthode de js :\textbf{initMap}.
 Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asynchrone, ce qui signifie que ce lien sera appelé après le chargement du HTML
 
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -146,11 +146,11 @@ Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asyn
 				\caption cf.htmlWheather
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialiser en fonction du lieu donné.
 
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -158,7 +158,7 @@ Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialis
 				\caption cf.initMaps
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 
 \section{Fonctionnalités}
@@ -347,7 +347,7 @@ Cas particulier:
 
 \section{Stockage des données}
 Les données sont stockées dans la base de données SQL, avec 4 quatre tables, la structure de ces 4 tables est comme indiqué ci-dessous.\\
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -355,8 +355,8 @@ Les données sont stockées dans la base de données SQL, avec 4 quatre tables, 
 				\caption cf.tableUser
 			\end{minipage}%
 		}%
-\end{figure}
-\begin{figure}
+\end{figure1}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -364,8 +364,8 @@ Les données sont stockées dans la base de données SQL, avec 4 quatre tables, 
 				\caption cf.tableProfile
 			\end{minipage}%
 		}%
-\end{figure}
-\begin{figure}
+\end{figure1}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -373,8 +373,8 @@ Les données sont stockées dans la base de données SQL, avec 4 quatre tables, 
 				\caption cf.tableRessource
 			\end{minipage}%
 		}%
-\end{figure}
-\begin{figure}
+\end{figure1}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -382,7 +382,7 @@ Les données sont stockées dans la base de données SQL, avec 4 quatre tables, 
 				\caption cf.tableCommande
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
 
 
 
@@ -392,7 +392,7 @@ Les données sont stockées dans la base de données SQL, avec 4 quatre tables, 
 La serveur se compose de quatres packages, \textbf{Bean}, \textbf{DAO}, \textbf{servlet} et \textbf{util}.
 
 \subsection{Package Servlet}
-Ce package possède les classes qui contient les \textbf{bisiness logic functions}. 
+Ce package possède les classes qui contient les \textbf{bisiness logic functions}.
 Lors que l'utilisateur produit un événement comme appuie sur le bouton. Le client demande asynchronement au serveur par un URL. La classe \textbf{Service} sert à vérifier la demande et appeler la fonction correspondante.\\
 Les fonctions pour gérer les informations du compte et s'authentification, ainsi que l'inscription sont réalisées dans \textbf{Client}\\
 \textbf{Ressource} ont les méthodes servent à gérer les informations des logements.\\
@@ -402,16 +402,15 @@ Les fonctions pour gérer les informations du compte et s'authentification, ains
 
 \subsection{Package Bean et DAO}
 Dans la partie serveur, on utilise le pattern \textbf{DAO} afin d'encapsuler la manipulation de la base de donnée. \\
-Le pattern \textbf{DAO} est l'abréviation de \textbf{Data Access Object}, pour chaque l'objet, on doit réaliser deux classes, \textbf{objetBean} et \textbf{objetDAO}. 
+Le pattern \textbf{DAO} est l'abréviation de \textbf{Data Access Object}, pour chaque l'objet, on doit réaliser deux classes, \textbf{objetBean} et \textbf{objetDAO}.
 \begin{enumerate}
 	\item[-] Pour l'objetBean, il n'y a que les méthodes \textbf{get} et \textbf{set} et toutes les attributes sont privées, chaque attribute corresponde à chaque colonne de la table de base de donnée.
 	\item[-] Pour l'objetDAO, il encapsule les manipulations, par exemple le stockage, la modification, la consultation et la suppression des données dans la base de données.
 \end{enumerate}
-Par conséquence on n'a pas besoin de répéter les instructions SQL, il ne suffit d'appeler les interfaces proposées par l'objetDAO. Ce parttern facilite de manipuler la base de donnnée et évite beaucoup d'erreur. 
+Par conséquence on n'a pas besoin de répéter les instructions SQL, il ne suffit d'appeler les interfaces proposées par l'objetDAO. Ce parttern facilite de manipuler la base de donnnée et évite beaucoup d'erreur.
 
 \subsection{Util}
 Ce package a seulement deux classes, \textbf{Parameter} stocke des variables globales, par exemple l'identifiant et le mot de passe de base de données. \textbf{ToJson} est un objet pour créer une chaine de caractères en format de JSON.
-
 
 \section{Structure du client}
 \subsection{Le page jsp}
@@ -435,7 +434,7 @@ On utilise mainPage.js pour attacher les fonctions sur les boutons. Lors que les
 
 
 \section{Annexe}
-\begin{figure}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -443,7 +442,17 @@ On utilise mainPage.js pour attacher les fonctions sur les boutons. Lors que les
 				\caption cf.Données Json
 			\end{minipage}%
 		}%
-\end{figure}
+\end{figure1}
+
+\begin{figure1}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.8\textwidth]{schemaGlobal.jpg}\\
+				\caption cf.Schéma global du système
+			\end{minipage}%
+		}%
+\end{figure1}
 \section{Référence}
 [1]Weatherstack,[Online].Available:https://weatherstack.com/\\
 
