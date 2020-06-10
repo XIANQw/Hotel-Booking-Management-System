@@ -74,7 +74,7 @@ En utilisant l'Api Google Maps, on peut intégrer Google Maps sur notre site. Il
 Observons d'abord à quoi ressemblent les données json renvoyées de Weatherstack, comme montré dans Annexe d'image "cf.Données Json".\\
 Lorsque l'utilisateur entre dans une page de détail de la propriété immobilière:notre fonction js ajoutera en texture html une fonction \textbf{autoRefreshWheather} pour appeler régulièrement la fonction \textbf{getWheather}\\
 
-\begin{figure1}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -82,11 +82,11 @@ Lorsque l'utilisateur entre dans une page de détail de la propriété immobili�
 				\caption cf.Données Json
 			\end{minipage}%
 		}%
-\end{figure1}
+\end{figure}
 
 La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.\\
 
-\begin{figure2}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -94,11 +94,11 @@ La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather
 				\caption cf.reFresh
 			\end{minipage}%
 		}%
-\end{figure2}
+\end{figure}
 
 La fonction \textbf{getWheather} envoie les informations correspondant à la ville du client au serveur et attend que le serveur renvoie les données json, puis affiche les données json sur html en appelant htmlWheather.
 
-\begin{figure3}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -106,11 +106,11 @@ La fonction \textbf{getWheather} envoie les informations correspondant à la vil
 				\caption cf.getWheather
 			\end{minipage}%
 		}%
-\end{figure3}
+\end{figure}
 
 Après réception de la demande, le serveur établit une connexion avec le serveur Weatherstack. Le serveur Weatherstack jugera s'il faut accepter la demande en fonction de la clé d'accès et retournera les données json en fonction de la valeur de la requête après avoir accepté la demande. Le serveur renvoie ensuite les données json au client via la méthode resp.getWriter().Write.\\
 
-\begin{figure4}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -118,11 +118,11 @@ Après réception de la demande, le serveur établit une connexion avec le serve
 				\caption cf.setupConnection
 			\end{minipage}%
 		}%
-\end{figure4}
+\end{figure}
 
 Enfin, nous afficherons les résultats des données json sur html.
 
-\begin{figure4}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -130,14 +130,14 @@ Enfin, nous afficherons les résultats des données json sur html.
 				\caption cf.htmlWheather
 			\end{minipage}%
 		}%
-\end{figure4}
+\end{figure}
 
 \subsection{Mettre à jour Google Map}
 Chaque fois ,l'utilisateur entre dans une page de détail de la propriété immobilière,	nous appellerons Google Maps pour localiser
 la propriété immobilière.Le lien ci-dessous \textbf{googleapis} appellera en façon callback la méthode de js :\textbf{initMap}.
 Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asynchrone, ce qui signifie que ce lien sera appelé après le chargement du HTML
 
-\begin{figure5}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -145,11 +145,11 @@ Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asyn
 				\caption cf.htmlWheather
 			\end{minipage}%
 		}%
-\end{figure5}
+\end{figure}
 
 Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialiser en fonction du lieu donné.
 
-\begin{figure5}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -157,7 +157,7 @@ Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialis
 				\caption cf.initMaps
 			\end{minipage}%
 		}%
-\end{figure5}
+\end{figure}
 
 
 \section{Fonctionnalités}
@@ -230,7 +230,7 @@ Scénario principal:
 
 \section{Stockage des données}
 Les données sont stockées dans la base de données SQL,avec 4 quatre tables, la structure de ces 4 tables est comme indiqué ci-dessous.\\
-\begin{figure6}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -238,8 +238,8 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableUser
 			\end{minipage}%
 		}%
-\end{figure6}
-\begin{figure6}
+\end{figure}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -247,8 +247,8 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableProfile
 			\end{minipage}%
 		}%
-\end{figure6}
-\begin{figure6}
+\end{figure}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -256,8 +256,8 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableRessource
 			\end{minipage}%
 		}%
-\end{figure6}
-\begin{figure6}
+\end{figure}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -265,7 +265,7 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableCommande
 			\end{minipage}%
 		}%
-\end{figure6}
+\end{figure}
 
 
 
@@ -280,7 +280,7 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 \section{Conclusion}
 
 \section{Annexe}
-\begin{figure1}
+\begin{figure}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -288,7 +288,7 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.Données Json
 			\end{minipage}%
 		}%
-\end{figure1}
+\end{figure}
 \section{Référence}
 [1]Weatherstack,[Online].Available:https://weatherstack.com/\\
 
