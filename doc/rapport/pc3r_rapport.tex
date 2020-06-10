@@ -64,11 +64,11 @@ L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord a
 Nous utilisons cette API pour aider les utilisateurs à savoir la météo la ville qu'il souhaite réserver.\\
 L'API Weatherstack[1] est développée par une société britannique qui excelle en SaaS avec des sociétés comme Ipstack, Currencylayer, Invoicely et Eversign. Destiné principalement aux sites Web et aux applications mobiles qui cherchent à inclure un widget météo en direct à un coût minime, offre la météo en temps réel, la météo historique, la météo internationale, etc.\\
 Intégration et format de l'application: l'API REST renvoie des réponses au format JSON et prend en charge les rappels JSONP. HTTPS est activé pour les abonnements payants.\\
-Nous enverrons régulièrement les informations contenant la ville qu'utilisateur veut réserver au serveur wheather via l'Api.Puis,l'API REST renvoie des réponses au format JSON à notre serveur Notre serveur reçoit les informations au format JSON et affiche les informations météo sur la page.
+Nous enverrons régulièrement les informations contenant la ville qu'utilisateur veut réserver au serveur wheather via l'Api. Puis,l'API REST renvoie des réponses au format JSON à notre serveur Notre serveur reçoit les informations au format JSON et affiche les informations météo sur la page.
 \subparagraph{Google Map}
 Pour aider les utilisateurs à savoir où se trouvent ces propriétés immobilières,nous utilisons Google Maps pour localiser ces propriétés immobilières.
 Google Maps[2] est un service de cartographie en ligne. C'est un service disponible sur PC, sur tablette et sur smartphone qui permet, à partir de l'échelle mondiale, de zoomer jusqu'à l'échelle d'une habitation.\\
-En utilisant l'Api Google Maps, on peut intégrer Google Maps sur notre site.Il nous propose une carte sur une interface graphique. Nous enverrons l'adresse de la propriété immobilière au serveur de Google via l'Api google maps. La interface graphique du Google maps sur le site sera localisées en fonction de cette adresse et affichera cette adresse.
+En utilisant l'Api Google Maps, on peut intégrer Google Maps sur notre site. Il nous propose une carte sur une interface graphique. Nous enverrons l'adresse de la propriété immobilière au serveur de Google via l'Api google maps. La interface graphique du Google maps sur le site sera localisées en fonction de cette adresse et affichera cette adresse.
 \section{Mettre à jour les données}
 \subsection{Mettre à jour Weatherstack}
 Observons d'abord à quoi ressemblent les données json renvoyées de Weatherstack, comme montré dans Annexe d'image "cf.Données Json".\\
@@ -84,7 +84,7 @@ Lorsque l'utilisateur entre dans une page de détail de la propriété immobili�
 		}%
 \end{figure1}
 
-La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.
+La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.\\
 
 \begin{figure2}
 		\subfigure{
@@ -96,7 +96,68 @@ La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather
 		}%
 \end{figure2}
 
+La fonction \textbf{getWheather} envoie les informations correspondant à la ville du client au serveur et attend que le serveur renvoie les données json, puis affiche les données json sur html en appelant htmlWheather.
+
+\begin{figure3}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.8\textwidth]{getWheather.png}\\
+				\caption cf.getWheather
+			\end{minipage}%
+		}%
+\end{figure3}
+
+Après réception de la demande, le serveur établit une connexion avec le serveur Weatherstack. Le serveur Weatherstack jugera s'il faut accepter la demande en fonction de la clé d'accès et retournera les données json en fonction de la valeur de la requête après avoir accepté la demande. Le serveur renvoie ensuite les données json au client via la méthode resp.getWriter().Write.\\
+
+\begin{figure4}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{setupConnection.png}\\
+				\caption cf.setupConnection
+			\end{minipage}%
+		}%
+\end{figure4}
+
+Enfin, nous afficherons les résultats des données json sur html.
+
+\begin{figure4}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{htmlWheather.png}\\
+				\caption cf.htmlWheather
+			\end{minipage}%
+		}%
+\end{figure4}
+
 \subsection{Mettre à jour Google Map}
+Chaque fois ,l'utilisateur entre dans une page de détail de la propriété immobilière,	nous appellerons Google Maps pour localiser
+la propriété immobilière.Le lien ci-dessous \textbf{googleapis} appellera en façon callback la méthode de js :\textbf{initMap}.
+Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asynchrone, ce qui signifie que ce lien sera appelé après le chargement du HTML
+
+\begin{figure5}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{htmlGoogleMaps.png}\\
+				\caption cf.htmlWheather
+			\end{minipage}%
+		}%
+\end{figure5}
+
+Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialiser en fonction du lieu donné.
+
+\begin{figure5}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{initMaps.png}\\
+				\caption cf.initMaps
+			\end{minipage}%
+		}%
+\end{figure5}
 
 
 \section{Fonctionnalités}
@@ -189,5 +250,6 @@ Scénario principal:
 \end{figure1}
 \section{Référence}
 [1]Weatherstack,[Online].Available:https://weatherstack.com/\\
+
 [2]Google Maps,[Onlone].Available:https://cloud.google.com/maps-platform/\\
 \end{document}
