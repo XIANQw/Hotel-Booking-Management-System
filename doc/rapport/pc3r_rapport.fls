@@ -223,6 +223,10 @@ INPUT setupConnection.png
 INPUT htmlWheather.png
 INPUT htmlGoogleMaps.png
 INPUT initMaps.png
+INPUT tableUser.png
+INPUT tableProfile.png
+INPUT tableRessource.png
+INPUT tableCommande.png
 INPUT json.png
 INPUT pc3r_rapport.aux
 INPUT ./pc3r_rapport.out
