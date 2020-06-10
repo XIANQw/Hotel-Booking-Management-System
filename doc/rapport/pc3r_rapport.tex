@@ -57,7 +57,8 @@ Système de gestion de location est une plateforme communautaire de location et 
 Chaque l'utilisateur doit inscrire sur le système afin d'obtenir un compte, il bénéficie de la service du système en utilisant ce compte. Il peut créer une espace de client et enregistrer les informations publiques, chaque utilisateur peut consulter les informations des autres utilisateurs.
 
 Il peut tourver des logements qui satisfait à ses beosins, par exemple sous la condition de période de location, la ville, le nombre des locataires, ainsi que le droit de fumer.
-L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord ajoute ses logements à louer dans le compte et met les contraintes pour les locataires, par exemple le nombre des locataires ou l'interdiction de fumer, etc.  En plus il peut les modifier ou supprimer comme il veut. Lors que l'utilisateur reçoit les demandes envoyées par les autres utilisateurs. Il a droit de la refuser ou accepter, mais si la demande a risque de causer un conflit, le système va le faire remarquer au propriétaire.
+L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord ajoute ses logements à louer dans le compte et met les contraintes pour les locataires, par exemple le nombre des locataires ou l'interdiction de fumer, etc. En plus il peut les modifier ou supprimer comme il veut. Lors que l'utilisateur reçoit les demandes envoyées par les autres utilisateurs. Il a droit de la refuser ou accepter, mais si la demande a risque de causer un conflit, le système va le faire remarquer au propriétaire.
+
 
 \section{API Web choisie}
 \subparagraph{Weatherstack}
@@ -86,7 +87,7 @@ Lorsque l'utilisateur entre dans une page de détail de la propriété immobili�
 
 La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.\\
 
-\begin{figure2}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -94,11 +95,11 @@ La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather
 				\caption cf.reFresh
 			\end{minipage}%
 		}%
-\end{figure2}
+\end{figure1}
 
 La fonction \textbf{getWheather} envoie les informations correspondant à la ville du client au serveur et attend que le serveur renvoie les données json, puis affiche les données json sur html en appelant htmlWheather.
 
-\begin{figure3}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -106,11 +107,11 @@ La fonction \textbf{getWheather} envoie les informations correspondant à la vil
 				\caption cf.getWheather
 			\end{minipage}%
 		}%
-\end{figure3}
+\end{figure1}
 
 Après réception de la demande, le serveur établit une connexion avec le serveur Weatherstack. Le serveur Weatherstack jugera s'il faut accepter la demande en fonction de la clé d'accès et retournera les données json en fonction de la valeur de la requête après avoir accepté la demande. Le serveur renvoie ensuite les données json au client via la méthode resp.getWriter().Write.\\
 
-\begin{figure4}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -118,11 +119,11 @@ Après réception de la demande, le serveur établit une connexion avec le serve
 				\caption cf.setupConnection
 			\end{minipage}%
 		}%
-\end{figure4}
+\end{figure1}
 
 Enfin, nous afficherons les résultats des données json sur html.
 
-\begin{figure4}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -130,14 +131,14 @@ Enfin, nous afficherons les résultats des données json sur html.
 				\caption cf.htmlWheather
 			\end{minipage}%
 		}%
-\end{figure4}
+\end{figure1}
 
 \subsection{Mettre à jour Google Map}
 Chaque fois ,l'utilisateur entre dans une page de détail de la propriété immobilière,	nous appellerons Google Maps pour localiser
 la propriété immobilière.Le lien ci-dessous \textbf{googleapis} appellera en façon callback la méthode de js :\textbf{initMap}.
 Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asynchrone, ce qui signifie que ce lien sera appelé après le chargement du HTML
 
-\begin{figure5}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -145,11 +146,11 @@ Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asyn
 				\caption cf.htmlWheather
 			\end{minipage}%
 		}%
-\end{figure5}
+\end{figure1}
 
 Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialiser en fonction du lieu donné.
 
-\begin{figure5}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -157,7 +158,7 @@ Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialis
 				\caption cf.initMaps
 			\end{minipage}%
 		}%
-\end{figure5}
+\end{figure1}
 
 
 \section{Fonctionnalités}
@@ -198,14 +199,14 @@ Cas particulier: \\
 
 \subsubsection{Consulter l'espace du client}
 Acteur: L'utilisateur\\
-Contexte: L'utilisateur connecté veut consulter son espace du client.
+Contexte: L'utilisateur connecté veut consulter son espace du client.\\
 Scénario principal:
 \begin{enumerate}
 	\item L'utilisateur clique le button Profile dans mainPage.
-	\item Le serveur génère dynamiquement l'espace personnelle de l'utilisateur.
+	\item Le système génère dynamiquement l'espace personnelle de l'utilisateur.
 \end{enumerate}
 cas particulier:\\
-2a. L'utilisateur n'a pas encore son espace du client, le serveur génère le page de creation d'espace, permet à l'utilisateur de créer son espace.
+2a. L'utilisateur n'a pas encore son espace du client, le système génère le page de creation d'espace, permet à l'utilisateur de créer son espace.
 
 
 \subsubsection{Créer l'espace du client}
@@ -345,8 +346,8 @@ Cas particulier:
 
 
 \section{Stockage des données}
-Les données sont stockées dans la base de données SQL,avec 4 quatre tables, la structure de ces 4 tables est comme indiqué ci-dessous.\\
-\begin{figure6}
+Les données sont stockées dans la base de données SQL, avec 4 quatre tables, la structure de ces 4 tables est comme indiqué ci-dessous.\\
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -354,8 +355,8 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableUser
 			\end{minipage}%
 		}%
-\end{figure6}
-\begin{figure6}
+\end{figure1}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -363,8 +364,8 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableProfile
 			\end{minipage}%
 		}%
-\end{figure6}
-\begin{figure6}
+\end{figure1}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -372,8 +373,8 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableRessource
 			\end{minipage}%
 		}%
-\end{figure6}
-\begin{figure6}
+\end{figure1}
+\begin{figure1}
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
@@ -381,7 +382,7 @@ Les données sont stockées dans la base de données SQL,avec 4 quatre tables, l
 				\caption cf.tableCommande
 			\end{minipage}%
 		}%
-\end{figure6}
+\end{figure1}
 
 
 
@@ -414,6 +415,7 @@ Ce package a seulement deux classes, \textbf{Parameter} stocke des variables glo
 \section{Structure du client}
 \subsection{Le page jsp}
 Cette application possède deux pages jsp, une est la page d'accueil. Après l'authentification de l'utilisation, l'utilisateur est redirect à la mainPage.jsp. Tous les contenus sont affichés sur cette page.
+\subsection{JavaScript}
 
 
 
@@ -421,6 +423,7 @@ Cette application possède deux pages jsp, une est la page d'accueil. Après l'a
 \section{Requêtes et réponse}
 
 \section{Conclusion}
+
 
 \section{Annexe}
 \begin{figure1}
@@ -437,7 +440,7 @@ Cette application possède deux pages jsp, une est la page d'accueil. Après l'a
 		\subfigure{
 			\begin{minipage}[t]{\linewidth}
 				\centering
-				\includegraphics[width=0.8\textwidth]{schemaGlobal.png}\\
+				\includegraphics[width=0.8\textwidth]{schemaGlobal.jpg}\\
 				\caption cf.Schéma global du système
 			\end{minipage}%
 		}%
@@ -446,4 +449,7 @@ Cette application possède deux pages jsp, une est la page d'accueil. Après l'a
 [1]Weatherstack,[Online].Available:https://weatherstack.com/\\
 
 [2]Google Maps,[Onlone].Available:https://cloud.google.com/maps-platform/\\
+
+
+
 \end{document}

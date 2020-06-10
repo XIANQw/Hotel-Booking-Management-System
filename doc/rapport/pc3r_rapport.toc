@@ -33,6 +33,7 @@
 \contentsline {subsection}{\numberline {7.3}Util}{13}{subsection.7.3}% 
 \contentsline {section}{\numberline {8}Structure du client}{14}{section.8}% 
 \contentsline {subsection}{\numberline {8.1}Le page jsp}{14}{subsection.8.1}% 
+\contentsline {subsection}{\numberline {8.2}JavaScript}{14}{subsection.8.2}% 
 \contentsline {section}{\numberline {9}Requêtes et réponse}{14}{section.9}% 
 \contentsline {section}{\numberline {10}Conclusion}{14}{section.10}% 
 \contentsline {section}{\numberline {11}Annexe}{14}{section.11}% 
