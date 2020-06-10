@@ -62,20 +62,14 @@ L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord a
 
 \section{API Web choisie}
 \subparagraph{Weatherstack}
-Nous utilisons cette API pour aider les utilisateurs à savoir la météo la ville qu'il souhaite réserver.
-
-L'API Weatherstack[1] est développée par une société britannique qui excelle en SaaS avec des sociétés comme Ipstack, Currencylayer, Invoicely et Eversign. Destiné principalement aux sites Web et aux applications mobiles qui cherchent à inclure un widget météo en direct à un coût minime, offre la météo en temps réel, la météo historique, la météo internationale, etc.
-
-Intégration et format de l'application: l'API REST renvoie des réponses au format JSON et prend en charge les rappels JSONP. HTTPS est activé pour les abonnements payants.
-
+Nous utilisons cette API pour aider les utilisateurs à savoir la météo la ville qu'il souhaite réserver.\\
+L'API Weatherstack[1] est développée par une société britannique qui excelle en SaaS avec des sociétés comme Ipstack, Currencylayer, Invoicely et Eversign. Destiné principalement aux sites Web et aux applications mobiles qui cherchent à inclure un widget météo en direct à un coût minime, offre la météo en temps réel, la météo historique, la météo internationale, etc.\\
+Intégration et format de l'application: l'API REST renvoie des réponses au format JSON et prend en charge les rappels JSONP. HTTPS est activé pour les abonnements payants.\\
 Nous enverrons régulièrement les informations contenant la ville qu'utilisateur veut réserver au serveur wheather via l'Api. Puis,l'API REST renvoie des réponses au format JSON à notre serveur Notre serveur reçoit les informations au format JSON et affiche les informations météo sur la page.
-
 \subparagraph{Google Map}
 Pour aider les utilisateurs à savoir où se trouvent ces propriétés immobilières,nous utilisons Google Maps pour localiser ces propriétés immobilières.
 Google Maps[2] est un service de cartographie en ligne. C'est un service disponible sur PC, sur tablette et sur smartphone qui permet, à partir de l'échelle mondiale, de zoomer jusqu'à l'échelle d'une habitation.\\
 En utilisant l'Api Google Maps, on peut intégrer Google Maps sur notre site. Il nous propose une carte sur une interface graphique. Nous enverrons l'adresse de la propriété immobilière au serveur de Google via l'Api google maps. La interface graphique du Google maps sur le site sera localisées en fonction de cette adresse et affichera cette adresse.
-
-
 \section{Mettre à jour les données}
 \subsection{Mettre à jour Weatherstack}
 Observons d'abord à quoi ressemblent les données json renvoyées de Weatherstack, comme montré dans Annexe d'image "cf.Données Json".\\
@@ -91,7 +85,7 @@ Lorsque l'utilisateur entre dans une page de détail de la propriété immobili�
 		}%
 \end{figure}
 
-La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.
+La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.\\
 
 \begin{figure}
 		\subfigure{
@@ -103,13 +97,74 @@ La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather
 		}%
 \end{figure}
 
+La fonction \textbf{getWheather} envoie les informations correspondant à la ville du client au serveur et attend que le serveur renvoie les données json, puis affiche les données json sur html en appelant htmlWheather.
+
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.8\textwidth]{getWheather.png}\\
+				\caption cf.getWheather
+			\end{minipage}%
+		}%
+\end{figure}
+
+Après réception de la demande, le serveur établit une connexion avec le serveur Weatherstack. Le serveur Weatherstack jugera s'il faut accepter la demande en fonction de la clé d'accès et retournera les données json en fonction de la valeur de la requête après avoir accepté la demande. Le serveur renvoie ensuite les données json au client via la méthode resp.getWriter().Write.\\
+
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{setupConnection.png}\\
+				\caption cf.setupConnection
+			\end{minipage}%
+		}%
+\end{figure}
+
+Enfin, nous afficherons les résultats des données json sur html.
+
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{htmlWheather.png}\\
+				\caption cf.htmlWheather
+			\end{minipage}%
+		}%
+\end{figure}
+
 \subsection{Mettre à jour Google Map}
+Chaque fois ,l'utilisateur entre dans une page de détail de la propriété immobilière,	nous appellerons Google Maps pour localiser
+la propriété immobilière.Le lien ci-dessous \textbf{googleapis} appellera en façon callback la méthode de js :\textbf{initMap}.
+Il est à noter que le mot-clé \textbf{asyns} peut réaliser un chargement asynchrone, ce qui signifie que ce lien sera appelé après le chargement du HTML
+
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{htmlGoogleMaps.png}\\
+				\caption cf.htmlWheather
+			\end{minipage}%
+		}%
+\end{figure}
+
+Les fonctions initMap et geocodeAddress permettent à Google Maps de s'initialiser en fonction du lieu donné.
+
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=1\textwidth]{initMaps.png}\\
+				\caption cf.initMaps
+			\end{minipage}%
+		}%
+\end{figure}
 
 
 \section{Fonctionnalités}
 Le système est séparer en trois modules, \textbf{Account}, \textbf{Demand}, \textbf{Resource}. \\
 Le module \textbf{Account} sert à gérer les données de l'authentification et l'espace de l'utilisateur. Le module \textbf{Resource} permet de gérer les données des logements. Et le module \textbf{Demand} sert à gérer les données des demands.\\
-Cela permet de faciliter le développement parallèle et la maintenance de l'application. On a réaliser les fonctionnalités de l'ajoute, de la suppression et de la consultation, ainsi que la modification de ces trois modules. 
+Cela permet de faciliter le développement parallèle et la maintenance de l'application. On a réaliser les fonctionnalités de l'ajoute, de la suppression et de la consultation, ainsi que la modification de ces trois modules.
 
 
 \section{Cas d'utilisations}
@@ -186,7 +241,7 @@ Contexte: L'utilisateur s'authentifié se trouve à mainPage, il veut savoir le 
 Scénario principal:
 \begin{enumerate}
 	\item L'utilisateur clique le button \textbf{Your houses}.
-	\item Le serveur cherche dans la base de donnée et génère dynamiquement le page sert à afficher les informations du logement, du propriétaire. 
+	\item Le serveur cherche dans la base de donnée et génère dynamiquement le page sert à afficher les informations du logement, du propriétaire.
 \end{enumerate}
 
 \subsubsection{Ajouter la ressource}
@@ -222,7 +277,7 @@ Scénario principal:
 	\item L'utilisateur clique le button \textbf{Your houses}.
 	\item Le système cherche toutes les propriétés de l'utilisateur et les affiche sur une page générée automatiquement.
 	\item L'utilisateur clique le button \textbf{delete} qui est à la même ligne avec le logement qu'il veut supprimer.
-	\item Le système supprime le logement dans la base de donnée et affiche le message de la réussite sur l'écran. 
+	\item Le système supprime le logement dans la base de donnée et affiche le message de la réussite sur l'écran.
 \end{enumerate}
 Cas particulier:
 4a. Le logement est attaché par les demandes acceptées, le système ne peut pas le supprimer et affiche le message d'erreur sur l'écran.
@@ -238,7 +293,7 @@ Scénario principal:
 	\item Le système cherche tous les logements qui peut satisfaire les besoins.
 	\item Le système filtre les logements dont le propriétaire est l'utilisateur lui-même.
 	\item Le système affiche les restes logements sur l'écran.
-	\item L'utilisateur clique le button \textbf{reserve} qui est sur la même ligne avec le logement que l'utilisateur veut réserver.	
+	\item L'utilisateur clique le button \textbf{reserve} qui est sur la même ligne avec le logement que l'utilisateur veut réserver.
 \end{enumerate}
 
 \subsubsection{Consulter des demandes envoyées}
@@ -291,10 +346,79 @@ Cas particulier:
 
 
 \section{Stockage des données}
+Les données sont stockées dans la base de données SQL, avec 4 quatre tables, la structure de ces 4 tables est comme indiqué ci-dessous.\\
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.5\textwidth]{tableUser.png}\\
+				\caption cf.tableUser
+			\end{minipage}%
+		}%
+\end{figure}
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.5\textwidth]{tableProfile.png}\\
+				\caption cf.tableProfile
+			\end{minipage}%
+		}%
+\end{figure}
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.5\textwidth]{tableRessource.png}\\
+				\caption cf.tableRessource
+			\end{minipage}%
+		}%
+\end{figure}
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.5\textwidth]{tableCommande.png}\\
+				\caption cf.tableCommande
+			\end{minipage}%
+		}%
+\end{figure}
+
+
+
+
 
 \section{Structure du serveur}
+La serveur se compose de quatres packages, \textbf{Bean}, \textbf{DAO}, \textbf{servlet} et \textbf{util}.
+
+\subsection{Package Servlet}
+Ce package possède les classes qui contient les \textbf{bisiness logic functions}. 
+Lors que l'utilisateur produit un événement comme appuie sur le bouton. Le client demande asynchronement au serveur par un URL. La classe \textbf{Service} sert à vérifier la demande et appeler la fonction correspondante.\\
+Les fonctions pour gérer les informations du compte et s'authentification, ainsi que l'inscription sont réalisées dans \textbf{Client}\\
+\textbf{Ressource} ont les méthodes servent à gérer les informations des logements.\\
+\textbf{Gopage} permet de redirect à une autre page web.\\
+\textbf{Demande} sert à gérer les information des demandes.\\
+\textbf{Wheather} peut appeler API externe afin de rendre les informations du météo.
+
+\subsection{Package Bean et DAO}
+Dans la partie serveur, on utilise le pattern \textbf{DAO} afin d'encapsuler la manipulation de la base de donnée. \\
+Le pattern \textbf{DAO} est l'abréviation de \textbf{Data Access Object}, pour chaque l'objet, on doit réaliser deux classes, \textbf{objetBean} et \textbf{objetDAO}. 
+\begin{enumerate}
+	\item[-] Pour l'objetBean, il n'y a que les méthodes \textbf{get} et \textbf{set} et toutes les attributes sont privées, chaque attribute corresponde à chaque colonne de la table de base de donnée.
+	\item[-] Pour l'objetDAO, il encapsule les manipulations, par exemple le stockage, la modification, la consultation et la suppression des données dans la base de données.
+\end{enumerate}
+Par conséquence on n'a pas besoin de répéter les instructions SQL, il ne suffit d'appeler les interfaces proposées par l'objetDAO. Ce parttern facilite de manipuler la base de donnnée et évite beaucoup d'erreur. 
+
+\subsection{Util}
+Ce package a seulement deux classes, \textbf{Parameter} stocke des variables globales, par exemple l'identifiant et le mot de passe de base de données. \textbf{ToJson} est un objet pour créer une chaine de caractères en format de JSON.
+
 
 \section{Structure du client}
+\subsection{Le page jsp}
+Cette application possède deux pages jsp, une est la page d'accueil. Après l'authentification de l'utilisation, l'utilisateur est redirect à la mainPage.jsp. Tous les contenus sont affichés sur cette page.
+
+
+
 
 \section{Requêtes et réponse}
 
@@ -311,7 +435,6 @@ Cas particulier:
 			\end{minipage}%
 		}%
 \end{figure}
-
 \section{Référence}
 [1]Weatherstack,[Online].Available:https://weatherstack.com/\\
 

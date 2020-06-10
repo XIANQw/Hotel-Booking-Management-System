@@ -25,8 +25,11 @@
 \BOOKMARK [3][-]{subsubsection.5.3.6}{Accepter\040la\040demande}{subsection.5.3}% 25
 \BOOKMARK [1][-]{section.6}{Stockage des données}{}% 26
 \BOOKMARK [1][-]{section.7}{Structure\040du\040serveur}{}% 27
-\BOOKMARK [1][-]{section.8}{Structure\040du\040client}{}% 28
-\BOOKMARK [1][-]{section.9}{Requêtes et réponse}{}% 29
-\BOOKMARK [1][-]{section.10}{Conclusion}{}% 30
-\BOOKMARK [1][-]{section.11}{Annexe}{}% 31
-\BOOKMARK [1][-]{section.12}{Référence}{}% 32
+\BOOKMARK [2][-]{subsection.7.1}{Package\040Servlet}{section.7}% 28
+\BOOKMARK [2][-]{subsection.7.2}{Package\040Bean\040et\040DAO}{section.7}% 29
+\BOOKMARK [2][-]{subsection.7.3}{Util}{section.7}% 30
+\BOOKMARK [1][-]{section.8}{Structure\040du\040client}{}% 31
+\BOOKMARK [1][-]{section.9}{Requêtes et réponse}{}% 32
+\BOOKMARK [1][-]{section.10}{Conclusion}{}% 33
+\BOOKMARK [1][-]{section.11}{Annexe}{}% 34
+\BOOKMARK [1][-]{section.12}{Référence}{}% 35
