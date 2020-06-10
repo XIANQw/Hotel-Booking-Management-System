@@ -27,7 +27,7 @@
 		\textsc{\Large Rapport de PC3R}\\[0.5cm]
 		% Title
 		{ \huge \bfseries Système de Gestion de Location}\\[0.4cm]
-		% Author and supervisor		
+		% Author and supervisor
 		\begin{minipage}{0.4\textwidth}
 			\begin{flushleft} \large
 				\emph{Author:}\\
@@ -35,7 +35,7 @@
 				Ruiwen \textsc{WANG}\\
 			\end{flushleft}
 		\end{minipage}
-		\begin{minipage}{0.4\textwidth}	
+		\begin{minipage}{0.4\textwidth}
 				\begin{flushright} \large
 				\emph{Professeur:} \\
 				Prof.\textsc{Romain Demangeon}
@@ -54,44 +54,89 @@
 \section{Introduction}
 Système de gestion de location est une plateforme communautaire de location et de réservation de logements personnels. Les fonctionnalités du système est ressemble à Airbnb. Il permet aux utilisateurs de louer leur propriétés immobilières et de réserver un logement de l'autre utilisateur.
 
-Chaque l'utilisateur doit inscrire sur le système afin d'obtenir un compte, il bénéficie de la service du système en utilisant ce compte. Il peut créer une espace de client et enregistrer les informations publiques, chaque utilisateur peut consulter les informations 
-des autres utilisateurs.
+Chaque l'utilisateur doit inscrire sur le système afin d'obtenir un compte, il bénéficie de la service du système en utilisant ce compte. Il peut créer une espace de client et enregistrer les informations publiques, chaque utilisateur peut consulter les informations des autres utilisateurs.
 
 Il peut tourver des logements qui satisfait à ses beosins, par exemple sous la condition de période de location, la ville, le nombre des locataires, ainsi que le droit de fumer.
-L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord ajoute ses logements à louer dans le compte et met les contraintes pour les locataires, par exemple le nombre des locataires ou l'interdiction de fumer, etc.  En plus il peut les modifier ou supprimer comme il veut. Lors que l'utilisateur reçoit les demandes envoyées par les autres utilisateurs. Il a droit de la refuser ou accepter, mais si la demande a risque de causer un conflit, le système va le faire remarquer au propriétaire.
- 
+L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord ajoute ses logements à louer dans le compte et met les contraintes pour les locataires, par exemple le nombre des locataires ou l'interdiction de fumer, etc. En plus il peut les modifier ou supprimer comme il veut. Lors que l'utilisateur reçoit les demandes envoyées par les autres utilisateurs. Il a droit de la refuser ou accepter, mais si la demande a risque de causer un conflit, le système va le faire remarquer au propriétaire.
+
+
 \section{API Web choisie}
+\subparagraph{Weatherstack}
+Nous utilisons cette API pour aider les utilisateurs à savoir la météo la ville qu'il souhaite réserver.
+
+L'API Weatherstack[1] est développée par une société britannique qui excelle en SaaS avec des sociétés comme Ipstack, Currencylayer, Invoicely et Eversign. Destiné principalement aux sites Web et aux applications mobiles qui cherchent à inclure un widget météo en direct à un coût minime, offre la météo en temps réel, la météo historique, la météo internationale, etc.
+
+Intégration et format de l'application: l'API REST renvoie des réponses au format JSON et prend en charge les rappels JSONP. HTTPS est activé pour les abonnements payants.
+
+Nous enverrons régulièrement les informations contenant la ville qu'utilisateur veut réserver au serveur wheather via l'Api. Puis,l'API REST renvoie des réponses au format JSON à notre serveur Notre serveur reçoit les informations au format JSON et affiche les informations météo sur la page.
+
+\subparagraph{Google Map}
+Pour aider les utilisateurs à savoir où se trouvent ces propriétés immobilières,nous utilisons Google Maps pour localiser ces propriétés immobilières.
+Google Maps[2] est un service de cartographie en ligne. C'est un service disponible sur PC, sur tablette et sur smartphone qui permet, à partir de l'échelle mondiale, de zoomer jusqu'à l'échelle d'une habitation.\\
+En utilisant l'Api Google Maps, on peut intégrer Google Maps sur notre site. Il nous propose une carte sur une interface graphique. Nous enverrons l'adresse de la propriété immobilière au serveur de Google via l'Api google maps. La interface graphique du Google maps sur le site sera localisées en fonction de cette adresse et affichera cette adresse.
+
+
+\section{Mettre à jour les données}
+\subsection{Mettre à jour Weatherstack}
+Observons d'abord à quoi ressemblent les données json renvoyées de Weatherstack, comme montré dans Annexe d'image "cf.Données Json".\\
+Lorsque l'utilisateur entre dans une page de détail de la propriété immobilière:notre fonction js ajoutera en texture html une fonction \textbf{autoRefreshWheather} pour appeler régulièrement la fonction \textbf{getWheather}\\
+
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.8\textwidth]{callAutoRefresh.png}\\
+				\caption cf.Données Json
+			\end{minipage}%
+		}%
+\end{figure}
+
+La fonction \textbf{autoRefreshWheather} appelle la fonction \textbf{getWheather} toutes les 5 minutes.
+
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.8\textwidth]{reFresh.png}\\
+				\caption cf.reFresh
+			\end{minipage}%
+		}%
+\end{figure}
+
+\subsection{Mettre à jour Google Map}
+
 
 \section{Fonctionnalités}
 Le système est séparer en trois modules, \textbf{Account}, \textbf{Demand}, \textbf{Resource}. \\
-Le module \textbf{Account} sert à gérer les données de l'authentification et l'espace de l'utilisateur. Le module \textbf{Resource} permet de gérer les données de propriété. Et le module \textbf{Demand} sert à gérer les données des demands.\\
+Le module \textbf{Account} sert à gérer les données de l'authentification et l'espace de l'utilisateur. Le module \textbf{Resource} permet de gérer les données des logements. Et le module \textbf{Demand} sert à gérer les données des demands.\\
 Cela permet de faciliter le développement parallèle et la maintenance de l'application. On a réaliser les fonctionnalités de l'ajoute, de la suppression et de la consultation, ainsi que la modification de ces trois modules. 
 
+
 \section{Cas d'utilisations}
-\subsection{Les fonctionnalités du module Compte}
+\subsection{Module Compte}
 \subsubsection{Inscription}
 Acteur : L'utilisateur\\
 Contexte : L'utilisateur crée un compte.\\
-Scénario principal: 
+Scénario principal:
 \begin{enumerate}
 	\item L'utilisateur entre dans le page d'inscription.
 	\item L'utilisateur saisit l'identifiant et le mot de passe.
 	\item L'utilisateur clique Signup pour soumettre les information au serveur.
-	\item Le système répond le message de success et afficher sur l'écran.	
+	\item Le système répond le message de success et afficher sur l'écran.
 \end{enumerate}
 Cas particulier:\\
 4a. L'identifiant est déjà utilisé dans le système, le système affiche le message d'erreur.
 
 \subsubsection{Authentification}
 Acteur: L'utilisateur\\
-Contexte: L'utilisateur s'authentifie dans le système par son compte.
+Contexte: L'utilisateur s'authentifie dans le système par son compte.\\
 Scénario principal:
 \begin{enumerate}
 	\item L'utilisateur entre dans le page de l'authentification.
 	\item L'utilisateur saisit l'identifiant et le mot de passe.
-	\item L'utilisateur clique le button Login pour soumettre les informations au serveur.
-	\item Le serveur vérifie l'identifiant et le mot de passe.
-	\item Le serveur rend le page web de \textbf{mainPage.jsp}, l'identifiant est stocké dans la session.
+	\item L'utilisateur clique le button \textbf{Login}.
+	\item Le système vérifie l'identifiant et le mot de passe.
+	\item Le système rend le page web de \textbf{mainPage.jsp}, l'identifiant est stocké dans la session.
 \end{enumerate}
 Cas particulier: \\
 4a. L'identifiant n'est pas reconnu, le système affiche le message d'erreur.\\
@@ -99,14 +144,14 @@ Cas particulier: \\
 
 \subsubsection{Consulter l'espace du client}
 Acteur: L'utilisateur\\
-Contexte: L'utilisateur connecté veut consulter son espace du client.
+Contexte: L'utilisateur connecté veut consulter son espace du client.\\
 Scénario principal:
 \begin{enumerate}
 	\item L'utilisateur clique le button Profile dans mainPage.
-	\item Le serveur génère dynamiquement l'espace personnelle de l'utilisateur.   
+	\item Le système génère dynamiquement l'espace personnelle de l'utilisateur.
 \end{enumerate}
 cas particulier:\\
-2a. L'utilisateur n'a pas encore son espace du client, le serveur génère le page de creation d'espace, permet à l'utilisateur de créer son espace.
+2a. L'utilisateur n'a pas encore son espace du client, le système génère le page de creation d'espace, permet à l'utilisateur de créer son espace.
 
 
 \subsubsection{Créer l'espace du client}
@@ -115,44 +160,134 @@ Contexte: L'utilisateur consulte sont espace première fois
 Scénario principal:
 \begin{enumerate}
 	\item L'utilisateur clique le button Profile première fois dans le mainPage.
-	\item Le serveur repond un message et génère dynamiquement le formulaire pour créer l'espace du client.
+	\item Le système repond un message et génère dynamiquement le formulaire pour créer l'espace du client.
 	\item L'utilisateur saisit les informations publiques.
-	\item L'utilisateur clique le button Créer afin de soumettre les information.
-	\item Le serveur crée l'espace du client et le stocke dans la base de données, ainsi que génère le page web de l'espace du client.
+	\item L'utilisateur clique le button \textbf{Créer}.
+	\item Le système crée l'espace du client et le stocke dans la base de données, ainsi que génère le page web de l'espace du client.
 \end{enumerate}
 
 \subsubsection{Modifier l'espace du client}
-Acteur: L'utilisateur
-Contexte: L'utilisateur connecté se trouve dans son espace du client.
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans son espace du client.\\
 Scénario principal:
 \begin{enumerate}
-	\item L'utilisateur clique le button \textbf{here} afin de modifier son 
-	\item Le serveur génère le page permet au client de modifier son espace.
+	\item L'utilisateur clique le button \textbf{here}.
+	\item Le système génère un formulaire permet au client de modifier son espace.
+	\item Le système remplit le formulaire selon les informations actuelles de l'utilisateur.
+	\item L'utilisateur modifie ce qu'il veut changer.
+	\item L'utilisateur clique le button \textbf{Modify}.
+	\item Le système met à jour les informations de l'utilisateur.
 \end{enumerate}
 
-\subsection{Les fonctionnalités du module Ressource}
+\subsection{Module Ressource}
 \subsubsection{Consulter les ressources}
 Acteur: L'utilisateur\\
-Contexte: L'utilisateur s'authentifié se trouve à mainPage.
+Contexte: L'utilisateur s'authentifié se trouve à mainPage, il veut savoir le détail du logement.
 Scénario principal:
 \begin{enumerate}
-	\item L'utilisateur clique le button \textbf{Your house}.
-	\item Le serveur cherche dans la base de donnée et génère dynamiquement le page sert à afficher les informations de propriétés.
+	\item L'utilisateur clique le button \textbf{Your houses}.
+	\item Le serveur cherche dans la base de donnée et génère dynamiquement le page sert à afficher les informations du logement, du propriétaire. 
 \end{enumerate}
 
 \subsubsection{Ajouter la ressource}
 Acteur: L'utilisateur\\
-Contexte: L'utilisateur connecté se trouve dans le page \textbf{Your House}.
+Contexte: L'utilisateur connecté se trouve dans le page \textbf{Your House}.\\
 Scénario principal:
 \begin{enumerate}
 	\item L'utilisateur clique le button \textbf{Add House}.
-	\item La page est générée dynamiquement par js permet à l'utilisateur de saisir les informations de la ressource.
-	\item L'utilisateur clique le button \textbf{Créer} pour soumettre.
-	\item Le serveur vérifie que le status de l'authentification de l'utilisateur est connecté.
-	\item Le serveur stocke les informations de la ressource.
-	\item Le serveur affiche un message de success sur l'écran.
+	\item La page est générée dynamiquement par js permet à l'utilisateur de saisir les informations du logement.
+	\item L'utilisateur clique le button \textbf{Créer}.
+	\item Le système vérifie que le status de l'authentification de l'utilisateur est connecté.
+	\item Le système stocke les informations du logement et affiche un message de la réussite sur l'écran.
 \end{enumerate}
 
+\subsubsection{Modifier la ressource}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans la page du logement, il veut modifier les informations du logement.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{here}.
+	\item Le système génère le formulaire de modification du logement.
+	\item Le système remplit automatiquement le formulaire par les informations actuelles du logement.
+	\item L'utilisateur modifie où il veut changer.
+	\item L'utilisateur clique le button \textbf{Modify}.
+	\item Le système met à jours les informations du logement et Le système affiche un message de la réussite sur l'écran.
+\end{enumerate}
+
+\subsubsection{Supprimer la ressource}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans mainPage, il veut supprimer quelque logement.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{Your houses}.
+	\item Le système cherche toutes les propriétés de l'utilisateur et les affiche sur une page générée automatiquement.
+	\item L'utilisateur clique le button \textbf{delete} qui est à la même ligne avec le logement qu'il veut supprimer.
+	\item Le système supprime le logement dans la base de donnée et affiche le message de la réussite sur l'écran. 
+\end{enumerate}
+Cas particulier:
+4a. Le logement est attaché par les demandes acceptées, le système ne peut pas le supprimer et affiche le message d'erreur sur l'écran.
+
+\subsection{Module Demande}
+\subsubsection{Réserver des logements}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans mainPage, il veut réserver un ou plusieurs logements.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur saisit la ville où il veut faire un séjour, le type du logement, la période du séjour, le droit de fumer et le nombre des voyageurs.
+	\item L'utilisateur clique le button \textbf{Go}.
+	\item Le système cherche tous les logements qui peut satisfaire les besoins.
+	\item Le système filtre les logements dont le propriétaire est l'utilisateur lui-même.
+	\item Le système affiche les restes logements sur l'écran.
+	\item L'utilisateur clique le button \textbf{reserve} qui est sur la même ligne avec le logement que l'utilisateur veut réserver.	
+\end{enumerate}
+
+\subsubsection{Consulter des demandes envoyées}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans mainPage, il veut consulter les demandes envoyées.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{Sended demands}.
+	\item Le système cherche les demandes envoyées par l'utilisateur dans la base de donnée et affiche sur une page générée automatiquement.
+\end{enumerate}
+
+\subsubsection{Consulter des demandes reçues}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans mainPage, il veut consulter les demandes reçues.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{Recieved demands}.
+	\item Le système cherche les demandes dont le logement est à l'utilisateur, et les affiche sur une page générée automatiquement.
+\end{enumerate}
+
+\subsubsection{Supprime des demandes envoyées}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans la page \textbf{Sended demands}, il veut supprimer quelque demande.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{delete} qui est sur la même ligne avec la demande envoyée qu'il veut supprimer.
+	\item Le système supprime la demande dans la base de donnée et affiche le message de la réussite sur l'écran.
+\end{enumerate}
+
+\subsubsection{Supprime des demandes reçues}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans la page \textbf{Recieved demands}, il veut supprimer quelque demande.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{delete} qui est sur la même ligne avec la demande reçue qu'il veut supprimer.
+	\item Le système supprime la demande dans la base de donnée et affiche le message de la réussite sur l'écran.
+\end{enumerate}
+
+\subsubsection{Accepter la demande}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans la page \textbf{Recieved demands}, il veut accepter quelque demande.\\
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{accept} qui est sur la même ligne avec la demande reçue qu'il veut accepter.
+	\item Le système change l'état de demande de \textbf{Pending} à \textbf{Accepted}.
+	\item Le système actualise les demandes et affiche un message de la réussite sur l'écran.
+\end{enumerate}
+Cas particulier:
+2a. La demande cause un conflit avec une autre demande, le système refuse de modifier la base de donnée et affiche un message d'erreur sur l'écran.
 
 
 \section{Stockage des données}
@@ -165,5 +300,23 @@ Scénario principal:
 
 \section{Conclusion}
 
-	
+
+\section{Annexe}
+\begin{figure}
+		\subfigure{
+			\begin{minipage}[t]{\linewidth}
+				\centering
+				\includegraphics[width=0.8\textwidth]{json.png}\\
+				\caption cf.Données Json
+			\end{minipage}%
+		}%
+\end{figure}
+
+\section{Référence}
+[1]Weatherstack,[Online].Available:https://weatherstack.com/\\
+
+[2]Google Maps,[Onlone].Available:https://cloud.google.com/maps-platform/\\
+
+
+
 \end{document}
