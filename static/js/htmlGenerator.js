@@ -3,6 +3,7 @@
 */
 
 
+/* Transformer un json aux éléments html afin d'afficher le résultat de recherche */
 function htmlSearchResult(data) {
     var html = '<table class="table table-striped"><thead><tr><th scope="col">id</th><th scope="col">Type</th><th scope="col">Price</th><th scope="col">Persons</th><th scope="col">Adresse</th></tr></thead>';
     html += "<tbody>";
@@ -21,7 +22,7 @@ function htmlSearchResult(data) {
     return html;
 }
 
-
+/* Construire les noeuds html en fonction d'un json de Profile, il sert à montrer l'information de l'utilisateur */
 function htmlProfile(resp) {
     var profileJson = resp.data;
     if (profileJson == []) return;
@@ -65,12 +66,16 @@ function htmlProfile(resp) {
     return html;
 }
 
+/*
+    Générer le contenu d'une ressource en utilisant un json de Ressource et le Profile de propriétaire,
+    ainsi que l'appel de API du Google Map pour géolocaliser la position de la maison et l'appel de API du
+    météo sert à afficher le temps de la ville de la maison.
+*/
 function htmlResDetails(json) {
     var user = $('#userId').text();
     var owner = json[0];
     var res = json[1];
     var address = res.number + "," + res.street + "," + res.postal + "," + res.city;
-    //alert(address);
     var html = "";
     if (user == owner.id) {
         html += '<div class="col-sm-10">';
@@ -138,11 +143,12 @@ function htmlResDetails(json) {
         </script>';
         //--------------------
 
-
-
     return html;
 }
 
+/* 
+    Générer les contenu de page web afin de visualiser les demandes qui sont envoyées par l'utilisateurs,
+*/
 function htmlSendedDemands(resp) {
     var html =
         '<div id="demandList">\
@@ -176,6 +182,7 @@ function htmlSendedDemands(resp) {
     return html;
 }
 
+/* Générer les contenu de page web pour afficher les demandes que l'utilisateur recoit. */
 function htmlRecievedDemands(resp) {
     var html =
         '<div id="demandList">\
@@ -213,6 +220,7 @@ function htmlRecievedDemands(resp) {
     return html;
 }
 
+/* Construire le page web pour afficher les propriétés de l'utilisateur */
 function htmlYourHouses(resp) {
     var html =
         '<div id="infoRessource">\
@@ -249,6 +257,7 @@ function htmlYourHouses(resp) {
     return html;
 }
 
+/* Afficher les informations du météo en utilisant un json */
 function htmlWheather(WheatherJson) {
     var html =
         '<div class="container bootstrap snippet">\

@@ -1,7 +1,5 @@
 package jar.dao;
 
-import jar.util.*;
-
 import java.sql.*;
 import java.util.HashMap;
 

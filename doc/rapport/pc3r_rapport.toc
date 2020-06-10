@@ -1,0 +1,14 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}API Web choisie}{2}{section.2}
+\contentsline {section}{\numberline {3}Fonctionnalités}{2}{section.3}
+\contentsline {section}{\numberline {4}Cas d'utilisations}{2}{section.4}
+\contentsline {subsection}{\numberline {4.1}Inscription}{2}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Connection}{2}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Consulter l'espace du client}{3}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Créer l'espace du client}{3}{subsection.4.4}
+\contentsline {section}{\numberline {5}Stockage des données}{3}{section.5}
+\contentsline {section}{\numberline {6}Structure du serveur}{3}{section.6}
+\contentsline {section}{\numberline {7}Structure du client}{3}{section.7}
+\contentsline {section}{\numberline {8}Requêtes et réponse}{3}{section.8}
+\contentsline {section}{\numberline {9}Conclusion}{3}{section.9}

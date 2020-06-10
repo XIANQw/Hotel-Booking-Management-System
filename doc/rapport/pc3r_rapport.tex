@@ -1,0 +1,144 @@
+\documentclass[14px]{article}
+\usepackage{xeCJK}
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage[ruled,longend]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+% Image
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{enumerate}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\begin{titlepage}
+	\begin{center}
+		% Upper part of the page
+		\includegraphics[width=0.35\textwidth]{logo.png}\\[1cm]
+		\textsc{\Large Rapport de PC3R}\\[0.5cm]
+		% Title
+		{ \huge \bfseries Système de Gestion de Location}\\[0.4cm]
+		% Author and supervisor		
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushleft} \large
+				\emph{Author:}\\
+				Qiwei \textsc{XIAN}\\
+				Ruiwen \textsc{WANG}\\
+			\end{flushleft}
+		\end{minipage}
+		\begin{minipage}{0.4\textwidth}	
+				\begin{flushright} \large
+				\emph{Professeur:} \\
+				Prof.\textsc{Romain Demangeon}
+			\end{flushright}
+		\end{minipage}
+		\vfill
+		% Bottom of the page
+		{\large \today}
+	\end{center}
+\end{titlepage}
+\clearpage
+
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+\section{Introduction}
+Système de gestion de location est une plateforme communautaire de location et de réservation de logements personnels. Les fonctionnalités du système est ressemble à Airbnb. Il permet aux utilisateurs de louer leur propriétés immobilières et de réserver un logement de l'autre utilisateur.
+
+Chaque l'utilisateur doit inscrire sur le système afin d'obtenir un compte, il bénéficie de la service du système en utilisant ce compte. Il peut créer une espace de client et enregistrer les informations publiques, chaque utilisateur peut consulter les informations 
+des autres utilisateurs.
+
+Il peut tourver des logements qui satisfait à ses beosins, par exemple sous la condition de période de location, la ville, le nombre des locataires, ainsi que le droit de fumer.
+L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord ajoute ses logements à louer dans le compte et met les contraintes pour les locataires, par exemple le nombre des locataires ou l'interdiction de fumer, etc.  En plus il peut les modifier ou supprimer comme il veut. Lors que l'utilisateur reçoit les demandes envoyées par les autres utilisateurs. Il a droit de la refuser ou accepter, mais si la demande a risque de causer un conflit, le système va le faire remarquer au propriétaire.
+ 
+\section{API Web choisie}
+
+\section{Fonctionnalités}
+Le système est séparer en trois modules, \textbf{compte}, \textbf{demande}, \textbf{propriété}. Cela permet de faciliter le développement et la maintenance de l'application. On a réaliser les fonctionnalités de l'ajoute, de la suppression et de la consultation, ainsi que la modification de ces trois modules. 
+
+\section{Cas d'utilisations}
+\subsection{Inscription}
+Acteur : L'utilisateur\\
+Contexte : L'utilisateur crée un compte.\\
+Scénario principal: 
+\begin{enumerate}
+	\item L'utilisateur entre dans le page d'inscription.
+	\item L'utilisateur saisit l'identifiant et le mot de passe.
+	\item L'utilisateur clique Signup pour soumettre les information au serveur.
+	\item Le système répond le message de success et afficher sur l'écran.	
+\end{enumerate}
+Cas particulier:\\
+4a. L'identifiant est déjà utilisé dans le système, le système affiche le message d'erreur.
+
+\subsection{Authentification}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur s'authentifie dans le système par son compte.
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur entre dans le page de l'authentification.
+	\item L'utilisateur saisit l'identifiant et le mot de passe.
+	\item L'utilisateur clique le button Login pour soumettre les informations au serveur.
+	\item Le serveur vérifie l'identifiant et le mot de passe.
+	\item Le serveur rend le page web de \textbf{mainPage.jsp}, l'identifiant est stocké dans la session.
+\end{enumerate}
+Cas particulier: \\
+4a. L'identifiant n'est pas reconnu, le système affiche le message d'erreur.\\
+4b. Le mot de passe n'est pas correspondant à l'identifiant, le système affiche le message d'erreur.
+
+\subsection{Consulter l'espace du client}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté veut consulter son espace du client.
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button Profile dans mainPage.
+	\item Le serveur génère dynamiquement l'espace personnelle de l'utilisateur.   
+\end{enumerate}
+cas particulier:\\
+2a. L'utilisateur n'a pas encore son espace du client, le serveur génère le page de creation d'espace, permet à l'utilisateur de créer son espace.
+
+
+\subsection{Créer l'espace du client}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur consulte sont espace première fois
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button Profile première fois dans le mainPage.
+	\item Le serveur repond un message et génère dynamiquement le formulaire pour créer l'espace du client.
+	\item L'utilisateur saisit les informations publiques.
+	\item L'utilisateur clique le button Créer afin de soumettre les information.
+	\item Le serveur crée l'espace du client et le stocke dans la base de données, ainsi que génère le page web de l'espace du client.
+\end{enumerate}
+
+\subsection{Modifier l'espace du client}
+Acteur: L'utilisateur
+Contexte: L'utilisateur connecté se trouve dans le mainPage.
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button Profile
+	\item Le serveur 
+\end{enumerate}
+
+
+
+
+\section{Stockage des données}
+
+\section{Structure du serveur}
+
+\section{Structure du client}
+
+\section{Requêtes et réponse}
+
+\section{Conclusion}
+
+	
+\end{document}

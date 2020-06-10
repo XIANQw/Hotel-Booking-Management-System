@@ -95,14 +95,6 @@ public class RessourceBean {
         this.city = city;
     }
 
-    public String getAdresse() {
-        return this.number + " " + this.street + " " + this.city + " " + this.postal;
-    }
-
-    public String getAdresseForMap() {
-        return this.number + "," + this.street + "," + this.city + "," + this.postal;
-    }
-
     public String toJson() {
         String str = "{\"id\":" + id + ",\"idu\":" + idu + ",\"type\":\"" + type + "\",\"price\":" + price
                 + ",\"number\":" + number + ",\"street\":\"" + street + "\",\"postal\":\"" + postal + "\", \"city\":\""
