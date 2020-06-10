@@ -63,10 +63,13 @@ L'utilisateur peut aussi gérer leur propriétés par ce systèmes, il d'abord a
 \section{API Web choisie}
 
 \section{Fonctionnalités}
-Le système est séparer en trois modules, \textbf{compte}, \textbf{demande}, \textbf{propriété}. Cela permet de faciliter le développement et la maintenance de l'application. On a réaliser les fonctionnalités de l'ajoute, de la suppression et de la consultation, ainsi que la modification de ces trois modules. 
+Le système est séparer en trois modules, \textbf{Account}, \textbf{Demand}, \textbf{Resource}. \\
+Le module \textbf{Account} sert à gérer les données de l'authentification et l'espace de l'utilisateur. Le module \textbf{Resource} permet de gérer les données de propriété. Et le module \textbf{Demand} sert à gérer les données des demands.\\
+Cela permet de faciliter le développement parallèle et la maintenance de l'application. On a réaliser les fonctionnalités de l'ajoute, de la suppression et de la consultation, ainsi que la modification de ces trois modules. 
 
 \section{Cas d'utilisations}
-\subsection{Inscription}
+\subsection{Les fonctionnalités du module Compte}
+\subsubsection{Inscription}
 Acteur : L'utilisateur\\
 Contexte : L'utilisateur crée un compte.\\
 Scénario principal: 
@@ -79,7 +82,7 @@ Scénario principal:
 Cas particulier:\\
 4a. L'identifiant est déjà utilisé dans le système, le système affiche le message d'erreur.
 
-\subsection{Authentification}
+\subsubsection{Authentification}
 Acteur: L'utilisateur\\
 Contexte: L'utilisateur s'authentifie dans le système par son compte.
 Scénario principal:
@@ -94,7 +97,7 @@ Cas particulier: \\
 4a. L'identifiant n'est pas reconnu, le système affiche le message d'erreur.\\
 4b. Le mot de passe n'est pas correspondant à l'identifiant, le système affiche le message d'erreur.
 
-\subsection{Consulter l'espace du client}
+\subsubsection{Consulter l'espace du client}
 Acteur: L'utilisateur\\
 Contexte: L'utilisateur connecté veut consulter son espace du client.
 Scénario principal:
@@ -106,7 +109,7 @@ cas particulier:\\
 2a. L'utilisateur n'a pas encore son espace du client, le serveur génère le page de creation d'espace, permet à l'utilisateur de créer son espace.
 
 
-\subsection{Créer l'espace du client}
+\subsubsection{Créer l'espace du client}
 Acteur: L'utilisateur\\
 Contexte: L'utilisateur consulte sont espace première fois
 Scénario principal:
@@ -118,15 +121,37 @@ Scénario principal:
 	\item Le serveur crée l'espace du client et le stocke dans la base de données, ainsi que génère le page web de l'espace du client.
 \end{enumerate}
 
-\subsection{Modifier l'espace du client}
+\subsubsection{Modifier l'espace du client}
 Acteur: L'utilisateur
-Contexte: L'utilisateur connecté se trouve dans le mainPage.
+Contexte: L'utilisateur connecté se trouve dans son espace du client.
 Scénario principal:
 \begin{enumerate}
-	\item L'utilisateur clique le button Profile
-	\item Le serveur 
+	\item L'utilisateur clique le button \textbf{here} afin de modifier son 
+	\item Le serveur génère le page permet au client de modifier son espace.
 \end{enumerate}
 
+\subsection{Les fonctionnalités du module Ressource}
+\subsubsection{Consulter les ressources}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur s'authentifié se trouve à mainPage.
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{Your house}.
+	\item Le serveur cherche dans la base de donnée et génère dynamiquement le page sert à afficher les informations de propriétés.
+\end{enumerate}
+
+\subsubsection{Ajouter la ressource}
+Acteur: L'utilisateur\\
+Contexte: L'utilisateur connecté se trouve dans le page \textbf{Your House}.
+Scénario principal:
+\begin{enumerate}
+	\item L'utilisateur clique le button \textbf{Add House}.
+	\item La page est générée dynamiquement par js permet à l'utilisateur de saisir les informations de la ressource.
+	\item L'utilisateur clique le button \textbf{Créer} pour soumettre.
+	\item Le serveur vérifie que le status de l'authentification de l'utilisateur est connecté.
+	\item Le serveur stocke les informations de la ressource.
+	\item Le serveur affiche un message de success sur l'écran.
+\end{enumerate}
 
 
 
