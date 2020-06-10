@@ -417,13 +417,21 @@ Ce package a seulement deux classes, \textbf{Parameter} stocke des variables glo
 \subsection{Le page jsp}
 Cette application possède deux pages jsp, une est la page d'accueil. Après l'authentification de l'utilisation, l'utilisateur est redirect à la mainPage.jsp. Tous les contenus sont affichés sur cette page.
 \subsection{JavaScript}
-
+Nous avons séparer 7 fichiers \textbf{js} dans le projet.  
+\begin{enumerate}
+	\item \textbf{apiExterne.js} sert à l'appeler les APIs externes, GoogleMap et wheatherStack.
+	\item \textbf{client.js} gère les événements du module \textbf{Account}. Par exemple, envoyer la requête au serveur pour créer et modifier l'espace de l'utilisateur.
+	\item \textbf{demande.js} contient les fonctions concernant du module \textbf{Demande}. Par exemple, réserver un logement, accepter et supprimer la demande.
+	\item \textbf{Ressource.js} sert à envoyer la requête concernant du module \textbf{Resource}, comme la consulation, la modification et la creation d'un logement.
+	\item \textbf{htmlGenerator.js} permet de générer dynamiquement les contenus par un Json.
+	\item \textbf{page.js} contrôle les effets de visualisation de page.
+	\item \textbf{mainPage.js} attache tous les fonctions aux boutons.
+\end{enumerate}
 
 
 
 \section{Requêtes et réponse}
-
-\section{Conclusion}
+On utilise mainPage.js pour attacher les fonctions sur les boutons. Lors que les boutons sont appuyés, la fonction correspondante envoie asynchronement une requête aux client, la requête est un URL "Service?methode=xxxx\&parametre". Lors que le serveur reçoit ce URL, la classe \textbf{Service} peut savoir quelle fonction le client veut appeler. En plus, après l'exécution de la fonction correspondante, le serveur rend un json au client. Dès que le client reçoit le json, il va générer dynamiquement le contenu par la fonction de \textbf{htmlGenerator.js}.
 
 
 \section{Annexe}
