@@ -9,6 +9,12 @@
     <script src="/microproject/static/js/popper.js"></script>
     <script src="/microproject/static/js/bootstrap.min.js"></script>
     <script src='/microproject/static/js/page.js'></script>
+    <script src='/microproject/static/js/resource.js'></script>
+    <script src='/microproject/static/js/client.js'></script>
+    <script src='/microproject/static/js/demand.js'></script>
+    <script src='/microproject/static/js/apiExterne.js'></script>
+    <script src='/microproject/static/js/mainPage.js'></script>
+</head>
 </head>
 <body>
 <div class="container">
